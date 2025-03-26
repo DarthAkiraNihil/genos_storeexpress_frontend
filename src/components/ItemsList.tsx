@@ -1,15 +1,16 @@
 // Импортируем необходимые хуки из React
 import { useState, useEffect } from 'react';
+import ItemsApiService from "../services/ItemsApiService";
 
 // Определяем интерфейс для типа Project, который описывает структуру данных проекта
-interface Item {
-    id: number;
-    name: string;
-    model: string;
-    description: string;
-    price: number;
-    itemType : string;
-}
+// interface Item {
+//     id: number;
+//     name: string;
+//     model: string;
+//     description: string;
+//     price: number;
+//     itemType : string;
+// }
 
 
 // Создаем функциональный компонент ProjectList
@@ -30,6 +31,9 @@ const ItemsList = () => {
 
     // Функция для загрузки данных с API
     const getData = () => {
+        try {
+
+        } catch (Error )
         // Выполняем запрос к API
         fetch("/api/items/computer_case")
             // Преобразуем ответ в JSON
