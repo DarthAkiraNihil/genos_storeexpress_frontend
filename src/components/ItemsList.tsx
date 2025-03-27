@@ -1,16 +1,8 @@
 // Импортируем необходимые хуки из React
 import { useState, useEffect } from 'react';
-import ItemsApiService from "../services/ItemsApiService";
-
-// Определяем интерфейс для типа Project, который описывает структуру данных проекта
-// interface Item {
-//     id: number;
-//     name: string;
-//     model: string;
-//     description: string;
-//     price: number;
-//     itemType : string;
-// }
+import { Item } from '../models/items/Item';
+import ItemsApi from "../services/api/ItemsApiService";
+import { ItemType } from '../models/items/ItemType';
 
 
 // Создаем функциональный компонент ProjectList
@@ -31,29 +23,18 @@ const ItemsList = () => {
 
     // Функция для загрузки данных с API
     const getData = () => {
-        try {
 
-        } catch (Error )
-        // Выполняем запрос к API
-        fetch("/api/items/computer_case")
-            // Преобразуем ответ в JSON
-            .then((response) => {
-                var j = response.json();
-                console.log(j);
-                return j;}
-            )
-            // Обрабатываем успешный ответ
-            .then((data: Item[]) => {
-                console.log(data)
-                setItems(data); // Сохраняем полученные данные в состояние projects
-                setLoading(false); // Устанавливаем состояние загрузки в false
-            })
-            // Обрабатываем ошибку, если она возникла
-            .catch((error) => {
-                console.log(error.message)
-                setError(error.message); // Сохраняем сообщение об ошибке в состояние error
-                setLoading(false); // Устанавливаем состояние загрузки в false
-            });
+        ItemsApi.getList(ItemType.ComputerCase)
+        .then((data: Item[]) => {
+            setItems(data);
+        })
+        .catch((error) => {
+            setError(error);
+        })
+        .then(() => {
+            setLoading(false);
+        })
+
     }
 
 
@@ -73,6 +54,7 @@ const ItemsList = () => {
     return (
         <div>
             <h1>Списко товаров</h1>
+            <img src={ItemsApi.getImageUrl(1)} alt="Amomogus"></img>
             <ul>
                 {/* Проходим по массиву projects и отображаем каждый проект */}
                 {items.map((project) => (
@@ -81,7 +63,7 @@ const ItemsList = () => {
                         <p>{project.model}</p> {/* Отображаем описание проекта */}
                         <p>{project.description}</p> {/* Отображаем описание проекта */}
                         <p>{project.price}</p> {/* Отображаем описание проекта */}
-                        <p>{project.itemType}</p> {/* Отображаем описание проекта */}
+                        <p>{project.item_type}</p> {/* Отображаем описание проекта */}
                     </li>
                 ))}
             </ul>
