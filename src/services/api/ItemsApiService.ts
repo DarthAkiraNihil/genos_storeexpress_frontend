@@ -20,6 +20,14 @@ class ItemsApiSerivce extends AbstractApiService {
     public createItem(itemData: DetailedItem): Promise<DetailedItem> {
         return this.post('', itemData);
     }
+
+    public updateItem(id: number, updatedItemData: DetailedItem): Promise<any> {
+        return this.put(`${id}`, updatedItemData);
+    }
+
+    public deleteItem(itemType: ItemType, id: number): Promise<any> {
+        return this.delete(`/${itemType}/${id}`);
+    }
     
 }
 

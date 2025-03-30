@@ -10,6 +10,8 @@ interface ItemContextProps {
     getImageUrl(id: number): string;
 
     createItem(itemData: DetailedItem): void;
+    updateItem(id: number, itemData: DetailedItem): void;
+    deleteItem(id: number, itemType: ItemType): void;
 }
 
 
@@ -50,7 +52,26 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         })
     }
 
+    const updateItem = async (id: number, itemData: DetailedItem) => {
+        ItemsApi.updateItem(id, itemData).then(
+            (response) => {
+                setItems((previous) => previous.map(
+                    (item) => (item.id === id ? { ...item, ...response }: item)
+                ))
+            }
+        )
+
+    }
+
+    const deleteItem = async (id: number, itemType: ItemType) => {
+        ItemsApi.deleteItem(itemType, id).then(
+            () => {
+                setItems(items.filter((item) => item.id !== id));
+            }
+        )
+    }
+
     return (
-        <ItemContext.Provider value={{ items, getDetailedItem, getImageUrl, createItem }}>{children}</ItemContext.Provider>
+        <ItemContext.Provider value={{ items, getDetailedItem, getImageUrl, createItem, updateItem, deleteItem }}>{children}</ItemContext.Provider>
     );
 }
