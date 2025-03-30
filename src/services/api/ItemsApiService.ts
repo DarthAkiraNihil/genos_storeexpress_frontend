@@ -9,12 +9,16 @@ class ItemsApiSerivce extends AbstractApiService {
         return this.get(`/${itemType}/`);
     }
 
-    public getDetails(itemType: ItemType, id: number): Promise<DetailedItem> {
+    public async getDetails(itemType: ItemType, id: number): Promise<DetailedItem> {
         return this.get(`/${itemType}/${id}`);
     }
 
     public getImageUrl(id: number): string {
         return `${window.location.origin}${this.baseUrl}/${id}/image`;
+    }
+
+    public createItem(itemData: DetailedItem): Promise<DetailedItem> {
+        return this.post('', itemData);
     }
     
 }

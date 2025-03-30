@@ -11,5 +11,6 @@ export enum ItemType {
     NVMeSSD = "nvme_ssd",
     PowerSupply = "power_supply",
     RAM = "ram",
-    SataSSD = "sata_ssd"
+    SataSSD = "sata_ssd",
+    PreparedAssembly = "prepared_assembly",
 }

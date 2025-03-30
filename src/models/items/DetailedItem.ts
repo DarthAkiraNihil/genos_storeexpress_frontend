@@ -1,6 +1,6 @@
 import { Item } from "./Item"
 
-interface Characteristics {
+export interface Characteristics {
     [key: string]: any;
 }
 

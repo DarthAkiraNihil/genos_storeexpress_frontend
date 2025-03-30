@@ -1,72 +1,35 @@
-// Импортируем необходимые хуки из React
-import { useState, useEffect } from 'react';
-import { Item } from '../models/items/Item';
-import ItemsApi from "../services/api/ItemsApiService";
-import { ItemType } from '../models/items/ItemType';
+
+import React, { useContext } from 'react';
+import { ItemContext } from '../context/ItemContext';
+import { Link, useNavigate} from "react-router-dom";
 
 
-// Создаем функциональный компонент ProjectList
-const ItemsList = () => {
-    // Используем хук useState для хранения списка проектов
-    const [items, setItems] = useState<Item[]>([]);
-    // Используем хук useState для отслеживания состояния загрузки
-    const [loading, setLoading] = useState<boolean>(true);
-    // Используем хук useState для хранения ошибки, если она возникнет
-    const [error, setError] = useState<string | null>(null);
 
+const ItemsList: React.FC = () => {
 
-    // Используем хук useEffect для выполнения side-эффектов (загрузка данных при монтировании компонента)
-    useEffect(() => {
-        getData(); // Вызываем функцию getData для загрузки данных
-    }, []); // Пустой массив зависимостей означает, что эффект выполнится только один раз при монтировании
+    const context = useContext(ItemContext);
+    const navigate = useNavigate();
 
-
-    // Функция для загрузки данных с API
-    const getData = () => {
-
-        ItemsApi.getList(ItemType.ComputerCase)
-        .then((data: Item[]) => {
-            setItems(data);
-        })
-        .catch((error) => {
-            setError(error);
-        })
-        .then(() => {
-            setLoading(false);
-        })
-
+    if (!context) {
+        return <div>No context is available!</div>
     }
-
-
-    // Если данные загружаются, отображаем сообщение о загрузке
-    if (loading) {
-        return <div>Загрузка...</div>;
-    }
-
-
-    // Если произошла ошибка, отображаем сообщение об ошибке
-    if (error) {
-        return <div>Ошибка: {error}</div>;
-    }
-
-
-    // Если данные успешно загружены, отображаем список проектов
+    
     return (
         <div>
-            <h1>Списко товаров</h1>
-            <img src={ItemsApi.getImageUrl(1)} alt="Amomogus"></img>
-            <ul>
-                {/* Проходим по массиву projects и отображаем каждый проект */}
-                {items.map((project) => (
-                    <li key={project.id}> {/* Указываем ключ для каждого элемента списка */}
-                        <h2>{project.name}</h2> {/* Отображаем название проекта */}
-                        <p>{project.model}</p> {/* Отображаем описание проекта */}
-                        <p>{project.description}</p> {/* Отображаем описание проекта */}
-                        <p>{project.price}</p> {/* Отображаем описание проекта */}
-                        <p>{project.item_type}</p> {/* Отображаем описание проекта */}
-                    </li>
-                ))}
-            </ul>
+            <h1>Список товаров</h1>
+            <button onClick={() => navigate("items/add")}>Add a new item</button>
+
+            {
+                context.items.map((item) => (
+                    <div key={item.id}>
+                        <h3>{item.name}</h3>
+                        <img src={context.getImageUrl(item.id)} width={300} height={300} alt={item.name}/>
+                        <h2>{item.model}</h2>
+                        <p>{item.price} руб.</p>
+                        <Link to={`items/${item.id}`}>Подробнее</Link>
+                    </div>
+                ))
+            }
         </div>
     );
 };
