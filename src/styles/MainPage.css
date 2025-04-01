@@ -1,3 +1,11 @@
-.mainPage {
-    background: url("//img/main_page_bg.jpg");
+.mainPageRoot {
+    background-image: url("../assets/img/main_page_bg.jpg");
+}
+
+.mainPageContent {
+    color: gray;
+}
+
+a.mainPageContent {
+    color: white;
 }

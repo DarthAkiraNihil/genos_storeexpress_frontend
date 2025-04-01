@@ -1,18 +1,18 @@
-
 import React from 'react';
-import { Link, useNavigate} from "react-router-dom";
+import { Link } from "react-router-dom";
 import '../styles/MainPage.css'
 
 
 const MainPage: React.FC = () => {
 
-    const navigate = useNavigate();
-
     return (
-        <div className="mainPage">
-            <h1>
-                Main Dis is da main page!
-            </h1>
+        <div className="mainPageRoot">
+            <div>
+                <h1 className="mainPageContent">
+                    This is the main page so far! (а пока только такая goofy ahh страница)
+                </h1>
+                <Link to={`items/`}>К каталогу товаров</Link>
+            </div>
         </div>
     );
 };

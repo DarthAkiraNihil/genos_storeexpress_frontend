@@ -26,7 +26,7 @@ const ItemsList: React.FC = () => {
     return (
         <div>
             <h1>Список товаров</h1>
-            <button onClick={() => navigate("items/add")}>Add a new item</button>
+            <button onClick={() => navigate("/items/add")}>Add a new item</button>
 
             {
                 context.items.map((item) => (
@@ -34,7 +34,7 @@ const ItemsList: React.FC = () => {
                         <h3>{item.name}</h3>
                         <h2>{item.model}</h2>
                         <p>{item.price} руб.</p>
-                        <Link to={`items/${item.id}`}>Подробнее</Link>
+                        <Link to={`/items/${item.id}`}>Подробнее</Link>
                         <button onClick={() => handleDelete(item.item_type, item.id)}>Удалить</button> {/* Удаление проекта */}
                     </div>
                 ))
