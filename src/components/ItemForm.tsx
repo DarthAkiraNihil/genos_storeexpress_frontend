@@ -59,7 +59,7 @@ const ItemForm: React.FC = () => {
                 characteristics: "",
             })
 
-            navigate("/")
+            navigate("/items")
         }
     }
 
@@ -120,7 +120,7 @@ const ItemForm: React.FC = () => {
                 />
             </div>
             <button type="submit">Добавить товар</button>
-            <button type="button" onClick={() => navigate("/")}>
+            <button type="button" onClick={() => navigate("/items")}>
                 На главную
             </button>
         </form>

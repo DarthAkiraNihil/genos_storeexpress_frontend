@@ -102,7 +102,7 @@ const ItemDetails: React.FC = () => {
                                 )
                             )
                         }
-                        <button onClick={() => navigate("/")}>Back</button>
+                        <button onClick={() => navigate("/items")}>Back</button>
                     </>
                     <button onClick={() => setEditMode(true)}>Редактировать</button>{" "}
                 </div>
