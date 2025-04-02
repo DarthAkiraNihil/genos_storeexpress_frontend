@@ -1,8 +1,7 @@
 import React, { createContext, useState, useEffect, ReactNode } from "react";
-import { DetailedItem } from "../models/items/DetailedItem";
-import ItemsApi from "../services/api/ItemsApiService";
-import { ItemType } from "../models/items/ItemType";
-import { Item } from "../models/items/Item";
+import { DetailedItem, ItemType, Item } from "models/items";
+import ItemsApi from "services/api";
+
 
 interface ItemContextProps {
     items: Item[];

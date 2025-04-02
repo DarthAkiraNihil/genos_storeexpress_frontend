@@ -14,7 +14,6 @@ const App: React.FC = () => {
     return (
         <ItemProvider>
             <Router>
-                <h1>GenosStorExpress - магазин компьютерной техники</h1>
                 <Routes>
                     <Route path="/" element={<MainPage />} />
                     <Route path="/items/add" element={<ItemForm/>} />
