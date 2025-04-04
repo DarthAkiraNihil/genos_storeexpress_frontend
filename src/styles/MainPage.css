@@ -10,8 +10,27 @@
     height: 100vh;
 }
 
-.mainPageContent {
+.welcome {
+    height: 100%
+}
+
+.mainPageWelcomeMessage {
     color: white;
+}
+
+.whyUsHeader {
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    text-align: center;
+}
+
+.whyUs {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.mainPageContent {
+
 }
 
 a {
