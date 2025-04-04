@@ -14,6 +14,10 @@
     color: white;
 }
 
-a.mainPageContent {
+a {
     color: white;
+}
+
+button {
+    font-family: "JetBrains Mono", "Lucida Console", monospace;
 }

@@ -15,9 +15,12 @@ const MainPage: React.FC = () => {
                 <h1>
                     This is the main page so far! (а пока только такая goofy ahh страница)
                 </h1>
-                <Button variant="contained">
-                    <Link to={`items/`}>К каталогу товаров</Link>
-                </Button>
+                <Link to="/items">
+                    <Button variant="contained">
+                        К каталогу товаров
+                    </Button>
+                </Link>
+
             </div>
         </div>
     );
