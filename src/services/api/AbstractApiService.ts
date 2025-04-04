@@ -6,8 +6,8 @@ export abstract class AbstractApiService {
         this.baseUrl = baseUrl
     }
 
-    private handleError(promise: Promise<any>): Promise<any> {
-        return promise.then(
+    private async handleError(promise: Promise<any>): Promise<any> {
+        return await promise.then(
             (response) => {
 
                 if (response.status === 204) {
@@ -34,15 +34,15 @@ export abstract class AbstractApiService {
         );
     }
 
-    protected get(path: string): Promise<any> {
+    protected async get(path: string): Promise<any> {
 
-        return this.handleError(
+        return await this.handleError(
             fetch(`${this.baseUrl}/${path}`)
         )
     }
 
-    protected post(path: string, data: any): Promise<any> {
-        return this.handleError(
+    protected async post(path: string, data: any): Promise<any> {
+        return await this.handleError(
             fetch(`${this.baseUrl}/${path}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -51,8 +51,8 @@ export abstract class AbstractApiService {
         )
     }
 
-    protected put(path: string, data: any): Promise<any> {
-        return this.handleError(
+    protected async put(path: string, data: any): Promise<any> {
+        return await this.handleError(
             fetch(`${this.baseUrl}/${path}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
@@ -61,8 +61,8 @@ export abstract class AbstractApiService {
         )
     }
 
-    protected delete(path: string): Promise<any> {
-        return this.handleError(
+    protected async delete(path: string): Promise<any> {
+        return await this.handleError(
             fetch(`${this.baseUrl}/${path}`, {
                 method: "DELETE",
             })

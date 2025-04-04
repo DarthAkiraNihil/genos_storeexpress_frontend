@@ -8,11 +8,12 @@ interface ItemContextProps {
 
     getList(type: ItemType): Promise<Item[]>;
     getDetailedItem(id: number, type: ItemType): Promise<DetailedItem>;
-    getImageUrl(id: number): string;
+    getImageUrl(id: number): Promise<string>;
 
-    createItem(itemData: DetailedItem): void;
+    createItem(itemData: DetailedItem): Promise<any>;
     updateItem(id: number, itemData: DetailedItem): void;
     deleteItem(id: number, itemType: ItemType): void;
+
 }
 
 
@@ -26,20 +27,20 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         console.log("Loaded provider");
     }, []);
 
-    const getList =  async (type: ItemType) => {
+    const getList =  async (type: ItemType): Promise<Item[]> => {
         console.log("loading list");
         return await ItemsApi.getList(type);
     }
 
-    const getDetailedItem = async (id: number, type: ItemType) => {
+    const getDetailedItem = async (id: number, type: ItemType): Promise<DetailedItem> => {
         return await ItemsApi.getDetails(type, id);
     }
 
-    const getImageUrl = (id: number) => {
+    const getImageUrl = async (id: number): Promise<string> => {
         return ItemsApi.getImageUrl(id);
     }
 
-    const createItem = async (itemData: DetailedItem) => {
+    const createItem = async (itemData: DetailedItem): Promise<any> => {
         ItemsApi.createItem(itemData).then(
             (item) => {
                 setItems([...items, item])
@@ -50,7 +51,7 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         })
     }
 
-    const updateItem = async (id: number, itemData: DetailedItem) => {
+    const updateItem = async (id: number, itemData: DetailedItem): Promise<any> => {
         ItemsApi.updateItem(id, itemData).then(
             (response) => {
                 setItems((previous) => previous.map(
@@ -61,7 +62,7 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     }
 
-    const deleteItem = async (id: number, itemType: ItemType) => {
+    const deleteItem = async (id: number, itemType: ItemType): Promise<any> => {
         ItemsApi.deleteItem(itemType, id).then(
             () => {
                 setItems(items.filter((item) => item.id !== id));
@@ -70,6 +71,16 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
 
     return (
-        <ItemContext.Provider value={{ items, getList, getDetailedItem, getImageUrl, createItem, updateItem, deleteItem }}>{children}</ItemContext.Provider>
+        <ItemContext.Provider value={
+            {
+                items,
+                getList,
+                getDetailedItem,
+                getImageUrl,
+                createItem,
+                updateItem,
+                deleteItem
+            }
+        }>{children}</ItemContext.Provider>
     );
 }

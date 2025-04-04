@@ -1,11 +1,11 @@
-import { Item } from "../../models/items/Item";
-import { ItemType } from "../../models/items/ItemType";
-import { DetailedItem } from "../../models/items/DetailedItem";
+import { Item } from "models/items/Item";
+import { ItemType } from "models/items/ItemType";
+import { DetailedItem } from "models/items/DetailedItem";
 import { AbstractApiService } from "./AbstractApiService";
 
-class ItemsApiSerivce extends AbstractApiService {
+class ItemsApiService extends AbstractApiService {
 
-    public getList(itemType: ItemType): Promise<Item[]> {
+    public async getList(itemType: ItemType): Promise<Item[]> {
         return this.get(`/${itemType}/`);
     }
 
@@ -13,24 +13,24 @@ class ItemsApiSerivce extends AbstractApiService {
         return this.get(`/${itemType}/${id}`);
     }
 
-    public getImageUrl(id: number): string {
+    public async getImageUrl(id: number): Promise<string> {
         return `${window.location.origin}${this.baseUrl}/${id}/image`;
     }
 
-    public createItem(itemData: DetailedItem): Promise<DetailedItem> {
+    public async createItem(itemData: DetailedItem): Promise<DetailedItem> {
         return this.post('', itemData);
     }
 
-    public updateItem(id: number, updatedItemData: DetailedItem): Promise<any> {
+    public async updateItem(id: number, updatedItemData: DetailedItem): Promise<any> {
         return this.put(`${id}`, updatedItemData);
     }
 
-    public deleteItem(itemType: ItemType, id: number): Promise<any> {
+    public async deleteItem(itemType: ItemType, id: number): Promise<any> {
         return this.delete(`/${itemType}/${id}`);
     }
     
 }
 
-const ItemsApi = new ItemsApiSerivce("/api/items");
+const ItemsApi = new ItemsApiService("/api/items");
 
 export default ItemsApi;
