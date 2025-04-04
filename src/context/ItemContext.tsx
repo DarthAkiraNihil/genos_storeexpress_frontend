@@ -1,10 +1,12 @@
-import React, { createContext, useState, useEffect, ReactNode } from "react";
-import { DetailedItem, ItemType, Item } from "models/items";
+import React, {createContext, ReactNode, useEffect, useState} from "react";
+import {DetailedItem, Item, ItemType} from "models/items";
 import ItemsApi from "services/api";
 
 
 interface ItemContextProps {
     items: Item[];
+
+    getList(type: ItemType): Promise<Item[]>;
     getDetailedItem(id: number, type: ItemType): Promise<DetailedItem>;
     getImageUrl(id: number): string;
 
@@ -20,20 +22,17 @@ export const ItemContext = createContext<ItemContextProps | undefined>(undefined
 export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [items, setItems] = useState<Item[]>([]);
 
-
     useEffect(() => {
-        fetchProjects();
-    }, [])
+        console.log("Loaded provider");
+    }, []);
 
-
-    const fetchProjects = async () => {
-        const data = await ItemsApi.getList(ItemType.ComputerCase);
-        setItems(data || []);
+    const getList =  async (type: ItemType) => {
+        console.log("loading list");
+        return await ItemsApi.getList(type);
     }
 
-    const getDetailedItem = async (id: number, type: ItemType) => {   
-        const details = await ItemsApi.getDetails(type, id);
-        return details;
+    const getDetailedItem = async (id: number, type: ItemType) => {
+        return await ItemsApi.getDetails(type, id);
     }
 
     const getImageUrl = (id: number) => {
@@ -71,6 +70,6 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
 
     return (
-        <ItemContext.Provider value={{ items, getDetailedItem, getImageUrl, createItem, updateItem, deleteItem }}>{children}</ItemContext.Provider>
+        <ItemContext.Provider value={{ items, getList, getDetailedItem, getImageUrl, createItem, updateItem, deleteItem }}>{children}</ItemContext.Provider>
     );
 }
