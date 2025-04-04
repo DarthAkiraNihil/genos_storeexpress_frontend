@@ -1,4 +1,4 @@
-import ResponsiveAppBar from "./common";
+import { ResponsiveAppBar } from "./common";
 import {ItemProvider} from "../context";
 import React from "react";
 import { Outlet } from "react-router-dom";

@@ -4,6 +4,7 @@ import ItemsList from "../components/ItemsList";
 import ItemDetails from "../components/ItemDetails";
 import ItemForm from "../components/ItemForm";
 import MainPage from "../components/MainPage";
+import {ItemCatalogueRoot} from "../components/items/ItemCatalogueRoot";
 
 const GenosStorExpressRouter = createBrowserRouter([
     {
@@ -13,6 +14,10 @@ const GenosStorExpressRouter = createBrowserRouter([
             {
                 index: true,
                 Component: MainPage,
+            },
+            {
+                path: '/items',
+                Component: ItemCatalogueRoot,
             },
             {
                 path: '/items/:type/',
