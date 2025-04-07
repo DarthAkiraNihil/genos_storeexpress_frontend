@@ -1,15 +1,14 @@
-
 import React, {useContext, useEffect, useState} from 'react';
 import { ItemContext } from 'context/ItemContext';
 import {Link, useNavigate, useParams} from "react-router-dom";
 import { ItemType } from 'models/items/ItemType';
-import {Item} from "../models/items";
+import {Item} from "../../models/items";
 
 interface ItemListProps {
     type: ItemType;
 }
 
-const ItemsList: React.FC = ( ) => {
+export const ItemList: React.FC = ( ) => {
 
     const [items, setItems] = useState<Item[]>([]);
 
@@ -44,10 +43,13 @@ const ItemsList: React.FC = ( ) => {
     
     return (
         <div>
-            <h1>Список товаров</h1>
-            <button onClick={() => navigate("/items/add")}>Add a new item</button>
-            <button onClick={() => navigate("/items/cpu")}>TEST TEST</button>
-            <button onClick={() => navigate("/items/display")}>TEST TEST</button>
+            <h1>
+                Список товаров
+            </h1>
+
+            <button onClick={() => navigate("add")}>Add a new item</button>
+            <button onClick={() => navigate("cpu")}>TEST TEST</button>
+            <button onClick={() => navigate("display")}>TEST TEST</button>
             {
                 items.map((item) => {
                     console.log(item);
@@ -66,7 +68,3 @@ const ItemsList: React.FC = ( ) => {
         </div>
     );
 };
-
-
-// Экспортируем компонент ProjectList по умолчанию
-export default ItemsList;

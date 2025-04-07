@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { ItemContext } from "../context/ItemContext"
-import ItemCharacteristicsNameMapper from "../services/ItemCharacteristicsNameMapperService"
-import { DetailedItem } from "../models/items/DetailedItem"
-import { ItemType } from "../models/items/ItemType"
-import ItemsApi from "../services/api/ItemsApiService"
+import { ItemContext } from "context/ItemContext"
+import ItemCharacteristicsNameMapper from "../../services/ItemCharacteristicsNameMapperService"
+import { DetailedItem } from "models/items/DetailedItem"
+import { ItemType } from "models/items/ItemType"
+import ItemsApi from "../../services/api/ItemsApiService"
 
 interface EditedItem {
     id: number;
@@ -18,7 +18,7 @@ interface EditedItem {
 };
 
 
-const ItemDetails: React.FC = () => {
+export const ItemDetails: React.FC = () => {
     const { id } = useParams<{ id: string }>()
     const context = useContext(ItemContext)
     const navigate = useNavigate()
@@ -171,5 +171,3 @@ const ItemDetails: React.FC = () => {
         </div>
     )
     }
-
-export default ItemDetails;

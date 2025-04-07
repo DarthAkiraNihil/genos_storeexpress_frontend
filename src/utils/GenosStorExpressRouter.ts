@@ -1,10 +1,10 @@
 import {createBrowserRouter} from "react-router";
 import GenosStorExpressLayout from "../components";
-import ItemsList from "../components/ItemsList";
-import ItemDetails from "../components/ItemDetails";
-import ItemForm from "../components/ItemForm";
+import { ItemList } from "../components/items/ItemList";
+import { ItemDetails } from "../components/items/ItemDetails";
+import { ItemForm } from "components/items";
 import MainPage from "../components/MainPage";
-import {ItemCatalogueRoot} from "../components/items/ItemCatalogueRoot";
+import {ItemCatalogue} from "../components/items/ItemCatalogue";
 
 const GenosStorExpressRouter = createBrowserRouter([
     {
@@ -17,11 +17,11 @@ const GenosStorExpressRouter = createBrowserRouter([
             },
             {
                 path: '/items',
-                Component: ItemCatalogueRoot,
+                Component: ItemCatalogue,
             },
             {
                 path: '/items/:type/',
-                Component: ItemsList,
+                Component: ItemList,
             },
             {
                 path: '/items/:id',

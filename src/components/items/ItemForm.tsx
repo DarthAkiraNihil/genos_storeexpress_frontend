@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import { ItemType } from "../models/items/ItemType";
-import { ItemContext } from "../context/ItemContext";
+import { ItemType } from "../../models/items/ItemType";
+import { ItemContext } from "../../context/ItemContext";
 
 
 interface NewItem {
@@ -14,7 +14,7 @@ interface NewItem {
 };
 
 
-const ItemForm: React.FC = () => {
+export const ItemForm: React.FC = () => {
 
     const context = useContext(ItemContext)
     const navigate = useNavigate()
@@ -126,6 +126,3 @@ const ItemForm: React.FC = () => {
         </form>
     )
     }
-
-
-export default ItemForm
