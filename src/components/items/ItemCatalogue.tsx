@@ -22,7 +22,9 @@ export const ItemCatalogue: React.FC = () => {
                         <Grid size={4}>
                             <Link to={`${type}`}>
                                 <Button variant="outlined" style={{maxWidth: '50%', maxHeight: '100%', minWidth: '50%', minHeight: '100%'}}>
-                                    <ImageBase64 source={value} alt={ItemTypeNames.get(type)!} />
+                                    <p>
+                                        <ImageBase64 source={value} alt={ItemTypeNames.get(type)!} />
+                                    </p>
                                     <p>
                                         { ItemTypeNamesPrural.get(type) }
                                     </p>

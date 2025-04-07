@@ -24,7 +24,7 @@ const GenosStorExpressRouter = createBrowserRouter([
                 Component: ItemList,
             },
             {
-                path: '/items/:id',
+                path: '/items/:type/:id',
                 Component: ItemDetails,
             },
             {

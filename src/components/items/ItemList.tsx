@@ -1,12 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react';
 import { ItemContext } from 'context/ItemContext';
-import {Link, useNavigate, useParams} from "react-router-dom";
-import { ItemType } from 'models/items/ItemType';
-import {Item} from "../../models/items";
+import {useNavigate, useParams} from "react-router-dom";
 
-interface ItemListProps {
-    type: ItemType;
-}
+import { Item, ItemType } from "models/items";
+import { ItemListCard } from "./ItemListCard";
+
+import 'styles/items/ItemList.css'
 
 export const ItemList: React.FC = ( ) => {
 
@@ -15,15 +14,12 @@ export const ItemList: React.FC = ( ) => {
     const { type } = useParams<{ type: ItemType }>();
 
     const context = useContext(ItemContext);
-    const navigate = useNavigate();
-
-    console.log("Reload");
 
     useEffect(() => {
         context?.getList(type!).then((response) => {
             setItems(response);
         })
-    }, [type]);
+    }, [context, type]);
 
     if (!context) {
         return <div>No context is available!</div>
@@ -33,34 +29,24 @@ export const ItemList: React.FC = ( ) => {
         return <div>No item type is specified</div>
     }
 
-    const handleDelete = (itemType: ItemType, id: number) => {
-        const isConfirmed = window.confirm("Вы уверены, что хотите удалить этот товар?")
-        if (isConfirmed) {
-            context.deleteItem(id, itemType);
-        }
-    }
-
-    
     return (
-        <div>
+        <div className="list">
             <h1>
                 Список товаров
             </h1>
 
-            <button onClick={() => navigate("add")}>Add a new item</button>
-            <button onClick={() => navigate("cpu")}>TEST TEST</button>
-            <button onClick={() => navigate("display")}>TEST TEST</button>
             {
                 items.map((item) => {
                     console.log(item);
                     return (
-                        <div key={item.id}>
-                            <h3>{item.name}</h3>
-                            <h2>{item.model}</h2>
-                            <p>{item.price} руб.</p>
-                            <Link to={`/items/${item.id}`}>Подробнее</Link>
-                            <button onClick={() => handleDelete(item.item_type, item.id)}>Удалить</button>
-                            {/* Удаление проекта */}
+                        <div key={item.id} className="card">
+                            < ItemListCard
+                                id={item.id}
+                                name={item.name}
+                                model={item.model}
+                                price={item.price}
+                                imageUrl={context.getImageUrl(item.id)}
+                            />
                         </div>
                     )
                 }

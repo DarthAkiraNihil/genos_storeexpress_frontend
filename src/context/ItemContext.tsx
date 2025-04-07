@@ -8,7 +8,7 @@ interface ItemContextProps {
 
     getList(type: ItemType): Promise<Item[]>;
     getDetailedItem(id: number, type: ItemType): Promise<DetailedItem>;
-    getImageUrl(id: number): Promise<string>;
+    getImageUrl(id: number): string;
 
     createItem(itemData: DetailedItem): Promise<any>;
     updateItem(id: number, itemData: DetailedItem): void;
@@ -35,7 +35,7 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         return await ItemsApi.getDetails(type, id);
     }
 
-    const getImageUrl = async (id: number): Promise<string> => {
+    const getImageUrl =  (id: number): string => {
         return ItemsApi.getImageUrl(id);
     }
 

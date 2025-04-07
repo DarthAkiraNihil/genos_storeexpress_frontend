@@ -13,7 +13,7 @@ class ItemsApiService extends AbstractApiService {
         return this.get(`/${itemType}/${id}`);
     }
 
-    public async getImageUrl(id: number): Promise<string> {
+    public getImageUrl(id: number): string {
         return `${window.location.origin}${this.baseUrl}/${id}/image`;
     }
 

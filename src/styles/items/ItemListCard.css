@@ -1,0 +1,43 @@
+﻿.itemListCard {
+    min-width: 100%;
+}
+
+.cardContent {
+    display: table;
+}
+
+.cardContent div {
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.buttonMoreInfo {
+    vertical-align: middle;
+    float: left;
+}
+
+.itemShortDescription {
+    padding: 16px;
+    min-width: 75%;
+}
+
+div.itemImage {
+    width: 160px;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    border-radius: 40px;
+    border-color: #282c34;
+    border-style: solid;
+    border-width: 4px;
+}
+
+div.itemImage img {
+    flex-shrink: 0;
+    max-width: 70%;
+    max-height: 90%;
+}
