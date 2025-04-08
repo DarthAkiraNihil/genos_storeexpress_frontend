@@ -6,7 +6,7 @@
     display: table;
 }
 
-.cardContent div {
+.cardContentItem {
     display: table-cell;
     vertical-align: middle;
     height: 100%;

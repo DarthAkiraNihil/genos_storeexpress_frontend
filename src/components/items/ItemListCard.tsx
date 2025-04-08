@@ -26,11 +26,11 @@ export const ItemListCard: React.FC<ItemListCardProps> = ( { id, name, model, pr
 
             <CardContent className="cardContent">
 
-                <div className="itemImage">
+                <div className="itemImage cardContentItem">
                     <img src={imageUrl} alt={name}/>
                 </div>
 
-                <div className="itemShortDescription">
+                <div className="itemShortDescription cardContentItem">
 
                     <Typography variant="h5" component="div">
                         { name }
@@ -46,7 +46,7 @@ export const ItemListCard: React.FC<ItemListCardProps> = ( { id, name, model, pr
 
                 </div>
 
-                <div className="buttonMoreInfo">
+                <div className="buttonMoreInfo cardContentItem">
                     <Link to={`${id}`}>
                         <Button variant="contained" color="primary">
                             Подробнее

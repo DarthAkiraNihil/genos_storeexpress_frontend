@@ -7,5 +7,6 @@ export interface Item {
     description: string;
     price: number;
     item_type : ItemType;
+    is_in_cart: boolean;
     overall_rating: number;
 }

@@ -1,13 +1,13 @@
 import React, {createContext, ReactNode, useEffect, useState} from "react";
 import {DetailedItem, Item, ItemType} from "models/items";
-import ItemsApi from "services/api";
+import { ItemsApi } from "services/api";
 
 
 interface ItemContextProps {
     items: Item[];
 
     getList(type: ItemType): Promise<Item[]>;
-    getDetailedItem(id: number, type: ItemType): Promise<DetailedItem>;
+    getDetails(id: number, type: ItemType): Promise<DetailedItem>;
     getImageUrl(id: number): string;
 
     createItem(itemData: DetailedItem): Promise<any>;
@@ -31,7 +31,7 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         return await ItemsApi.getList(type);
     }
 
-    const getDetailedItem = async (id: number, type: ItemType): Promise<DetailedItem> => {
+    const getDetails = async (id: number, type: ItemType): Promise<DetailedItem> => {
         return await ItemsApi.getDetails(type, id);
     }
 
@@ -74,7 +74,7 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             {
                 items,
                 getList,
-                getDetailedItem,
+                getDetails,
                 getImageUrl,
                 createItem,
                 updateItem,

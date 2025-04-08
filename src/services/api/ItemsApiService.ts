@@ -31,6 +31,4 @@ class ItemsApiService extends AbstractApiService {
     
 }
 
-const ItemsApi = new ItemsApiService("/api/items");
-
-export default ItemsApi;
+export const ItemsApi = new ItemsApiService("/api/items");

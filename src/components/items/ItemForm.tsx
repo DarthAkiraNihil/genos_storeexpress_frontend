@@ -44,6 +44,7 @@ export const ItemForm: React.FC = () => {
 
             context.createItem({
                 ...newItem,
+                is_in_cart: false,
                 characteristics: JSON.parse(newItem.characteristics),
                 overall_rating: 0,
                 id: 0

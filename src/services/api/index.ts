@@ -1,2 +1,3 @@
 ﻿export { AbstractApiService } from './AbstractApiService';
-export { default } from './ItemsApiService';
+export { ItemsApi } from './ItemsApiService';
+export {CartsApi} from './CartsApiService';
