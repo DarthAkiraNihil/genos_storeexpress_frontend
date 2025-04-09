@@ -32,7 +32,7 @@ export const ItemList: React.FC = ( ) => {
     return (
         <div className="list">
             <h1>
-                Список товаров
+                Найдено {items.length} товаров типа {type}
             </h1>
 
             {
@@ -46,6 +46,8 @@ export const ItemList: React.FC = ( ) => {
                                 model={item.model}
                                 price={item.price}
                                 imageUrl={context.getImageUrl(item.id)}
+                                rating={item.overall_rating}
+                                reviewsCount={item.reviews_count}
                             />
                         </div>
                     )

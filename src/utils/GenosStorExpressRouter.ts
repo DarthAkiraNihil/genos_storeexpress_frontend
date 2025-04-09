@@ -1,7 +1,7 @@
 import {createBrowserRouter} from "react-router";
 import GenosStorExpressLayout from "../components";
 import { ItemList } from "../components/items/ItemList";
-import { ItemDetails } from "../components/items/ItemDetails";
+import { ItemDetails } from "../components/items/details/ItemDetails";
 import { ItemForm } from "components/items";
 import MainPage from "../components/MainPage";
 import {ItemCatalogue} from "../components/items/ItemCatalogue";

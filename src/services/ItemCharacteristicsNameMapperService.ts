@@ -240,6 +240,4 @@ class ItemCharacteristicsNameMapperService {
 
 }
 
-const ItemCharacteristicsNameMapper = new ItemCharacteristicsNameMapperService();
-
-export default ItemCharacteristicsNameMapper;
+export const ItemCharacteristicsNameMapper = new ItemCharacteristicsNameMapperService();

@@ -9,4 +9,5 @@ export interface Item {
     item_type : ItemType;
     is_in_cart: boolean;
     overall_rating: number;
+    reviews_count: number;
 }

@@ -1,0 +1,1 @@
+export { ItemCharacteristicsNameMapper } from './ItemCharacteristicsNameMapperService'

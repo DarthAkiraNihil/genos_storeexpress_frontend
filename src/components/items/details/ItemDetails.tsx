@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useContext } from "react"
 import {Link, useParams} from "react-router-dom"
-import { ItemContext } from "context/ItemContext"
+import { ItemContext } from "../../../context/ItemContext"
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box';
-import { DetailedItem } from "models/items/DetailedItem"
-import { ItemType } from "models/items/ItemType"
+import { DetailedItem } from "../../../models/items/DetailedItem"
+import { ItemType } from "../../../models/items/ItemType"
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-import 'styles/items/ItemDetails.css'
-import ItemCharacteristicsNameMapper from "../../services/ItemCharacteristicsNameMapperService";
-import {CartContext} from "../../context";
+import '../../../styles/items/ItemDetails.css'
+import {CartContext} from "../../../context";
+import {ItemCharacteristics} from "./ItemCharacteristics";
 
 export const ItemDetails: React.FC = () => {
     const { id } = useParams<{ id: string }>()
@@ -97,25 +97,7 @@ export const ItemDetails: React.FC = () => {
                 </Box>
             </Grid>
             <Grid size={12}>
-                <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
-                    <Grid container spacing={2}>
-                        {
-                            Array.from(ItemCharacteristicsNameMapper.mapCharacteristics(item.item_type, item.characteristics)).map(
-                                ([k, v]) => (
-                                    <>
-                                        <Grid size={3}>
-                                            {k}:
-                                        </Grid>
-                                        <Grid size={3}>
-                                            {v}
-                                        </Grid>
-                                    </>
-                                )
-                            )
-                        }
-                    </Grid>
-
-                </Box>
+                < ItemCharacteristics itemType={item.item_type} characteristics={item.characteristics} />
             </Grid>
         </Grid>
     )

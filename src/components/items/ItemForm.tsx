@@ -47,6 +47,7 @@ export const ItemForm: React.FC = () => {
                 is_in_cart: false,
                 characteristics: JSON.parse(newItem.characteristics),
                 overall_rating: 0,
+                reviews_count: 0,
                 id: 0
             });
 
