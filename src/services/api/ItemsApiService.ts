@@ -1,6 +1,4 @@
-import { Item } from "models/items/Item";
-import { ItemType } from "models/items/ItemType";
-import { DetailedItem } from "models/items/DetailedItem";
+import { ItemType, DetailedItem, Item, Review } from "models/items";
 import { AbstractApiService } from "./AbstractApiService";
 
 class ItemsApiService extends AbstractApiService {
@@ -27,6 +25,10 @@ class ItemsApiService extends AbstractApiService {
 
     public async deleteItem(itemType: ItemType, id: number): Promise<any> {
         return this.delete(`/${itemType}/${id}`);
+    }
+
+    public async getReviews(id: number): Promise<Review[]> {
+        return this.get(`/${id}/reviews`);
     }
     
 }

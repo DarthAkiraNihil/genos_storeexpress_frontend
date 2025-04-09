@@ -1,4 +1,4 @@
-﻿import {ItemType} from "models/items";
+import {ItemType} from "models/items";
 
 export const ItemTypeNames: Map<ItemType, string> = new Map<ItemType, string> ([
     [ItemType.Motherboard, "Материнская плата"],

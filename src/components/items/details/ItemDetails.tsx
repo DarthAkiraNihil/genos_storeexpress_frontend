@@ -1,16 +1,13 @@
-import React, { useEffect, useState, useContext } from "react"
-import {Link, useParams} from "react-router-dom"
-import { ItemContext } from "../../../context/ItemContext"
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box';
-import { DetailedItem } from "../../../models/items/DetailedItem"
-import { ItemType } from "../../../models/items/ItemType"
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-
-import '../../../styles/items/ItemDetails.css'
-import {CartContext} from "../../../context";
+import React, { useEffect, useState, useContext } from "react";
+import { DetailedItem, ItemType, Review } from "models/items";
 import {ItemCharacteristics} from "./ItemCharacteristics";
+import {ItemDetailsCard} from "./ItemDetailsCard";
+import { ItemContext } from "context/ItemContext";
+import {useParams} from "react-router-dom";
+import {ItemReviews} from "./ItemReviews";
+import Grid from '@mui/material/Grid';
+import 'styles/items/ItemDetails.css';
+import {CartContext} from "context";
 
 export const ItemDetails: React.FC = () => {
     const { id } = useParams<{ id: string }>()
@@ -21,13 +18,21 @@ export const ItemDetails: React.FC = () => {
 
     const [item, setItem] = useState<DetailedItem | null>(null)
     const [inCart, setInCart] = useState<boolean>(false)
+    const [reviews, setReviews] = useState<Review[]>([])
 
     useEffect(() => {
         itemContext?.getDetails(parseInt(id!, 10), type!).then((response) => {
             setItem(response);
             setInCart(response.is_in_cart);
         })
+
     }, [id, type, itemContext]);
+
+    useEffect(() => {
+        itemContext?.getReviews(parseInt(id!, 10)).then((response) => {
+            setReviews(response);
+        })
+    }, [id, itemContext]);
 
     if (!itemContext || !cartContext) {
         return <div>No context is available!</div>;
@@ -44,8 +49,11 @@ export const ItemDetails: React.FC = () => {
     }
 
     const handleRemoveFromCart = () => {
-        cartContext.removeFromCart(item.id).then(() => {
-            setInCart(false);
+        cartContext.removeFromCart(item.id).then((response: any) => {
+            console.log(response);
+            if (response) {
+                setInCart(false);
+            }
         });
     }
 
@@ -53,51 +61,20 @@ export const ItemDetails: React.FC = () => {
     return (
         <Grid container spacing={2} className="itemDetailsRoot">
             <Grid size={12}>
-                <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
-                    <Grid container spacing={8}>
-                        <Grid size={3}>
-                            <div className="itemDetailsImage">
-                                <img src={itemContext.getImageUrl(item.id)} alt={item.name} />
-                            </div>
-                        </Grid>
-                        <Grid size={7}>
-                            <div>
-
-                                <Typography variant="h5" component="div">
-                                    { item.name }
-                                </Typography>
-
-                                <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>
-                                    { item.model }
-                                </Typography>
-
-                                <Typography variant="h5">
-                                    { item.price } руб.
-                                </Typography>
-
-                            </div>
-                        </Grid>
-                        <Grid size={2}>
-                            <div className="buttonMoreInfo">
-                                {
-                                    inCart ? (
-                                        <Button variant="contained" color="primary" onClick={handleRemoveFromCart}>
-                                            В корзине
-                                        </Button>
-                                    ) : (
-                                        <Button variant="contained" color="primary" onClick={handleAddToCart}>
-                                            В корзину
-                                        </Button>
-                                    )
-                                }
-                            </div>
-                        </Grid>
-                    </Grid>
-
-                </Box>
+                <ItemDetailsCard
+                    imageUrl={itemContext.getImageUrl(item.id)}
+                    name={item.name}
+                    model={item.model}
+                    price={item.price}
+                    inCart={inCart}
+                    handleRemoveFromCart={handleRemoveFromCart}
+                    handleAddToCart={handleAddToCart} />
             </Grid>
-            <Grid size={12}>
+            <Grid size={6}>
                 < ItemCharacteristics itemType={item.item_type} characteristics={item.characteristics} />
+            </Grid>
+            <Grid size={6}>
+                < ItemReviews reviews={reviews} rating={item.overall_rating}/>
             </Grid>
         </Grid>
     )

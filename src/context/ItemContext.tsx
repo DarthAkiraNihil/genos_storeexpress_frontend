@@ -1,5 +1,5 @@
 import React, {createContext, ReactNode, useEffect, useState} from "react";
-import {DetailedItem, Item, ItemType} from "models/items";
+import {DetailedItem, Item, ItemType, Review} from "models/items";
 import { ItemsApi } from "services/api";
 
 
@@ -14,6 +14,8 @@ interface ItemContextProps {
     updateItem(id: number, itemData: DetailedItem): void;
     deleteItem(id: number, itemType: ItemType): void;
 
+    getReviews(id: number): Promise<Review[]>;
+
 }
 
 export const ItemContext = createContext<ItemContextProps | undefined>(undefined)
@@ -27,7 +29,6 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }, []);
 
     const getList =  async (type: ItemType): Promise<Item[]> => {
-        console.log("loading list");
         return await ItemsApi.getList(type);
     }
 
@@ -69,6 +70,10 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         )
     }
 
+    const getReviews = async (id: number): Promise<Review[]> => {
+        return await ItemsApi.getReviews(id);
+    }
+
     return (
         <ItemContext.Provider value={
             {
@@ -78,7 +83,8 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 getImageUrl,
                 createItem,
                 updateItem,
-                deleteItem
+                deleteItem,
+                getReviews,
             }
         }>{children}</ItemContext.Provider>
     );
