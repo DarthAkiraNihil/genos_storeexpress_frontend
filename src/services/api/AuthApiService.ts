@@ -4,25 +4,29 @@ import { UserData, SignInData } from "models/auth";
 class AuthApiService extends AbstractApiService {
     private tokenKey = "jwtToken"
 
-    async signIn(credentials: SignInData): Promise<UserData> {
-        return await this.post("login", credentials);
+    public async signIn(credentials: SignInData): Promise<UserData> {
+        return await this.post("sign_in", credentials);
     }
 
-    storeToken(token: string): void {
+    public async signOut(): Promise<void> {
+        return await this.post("sign_out", {});
+    }
+
+    public storeToken(token: string): void {
         localStorage.setItem(this.tokenKey, token)
     }
 
-    getToken(): string | null {
+    public getToken(): string | null {
         return localStorage.getItem(this.tokenKey)
     }
 
-    removeToken(): void {
+    public removeToken(): void {
         localStorage.removeItem(this.tokenKey)
     }
 
-    isAuthenticated(): boolean {
+    public isAuthenticated(): boolean {
         return !!this.getToken()
     }
 }
 
-export const AuthApi = new AuthApiService("/api/cart/account/")
+export const AuthApi = new AuthApiService("/api/account/")

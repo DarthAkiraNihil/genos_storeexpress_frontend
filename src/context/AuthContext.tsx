@@ -38,9 +38,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const signOut = () => {
 
-        AuthApi.removeToken()
-        localStorage.removeItem("user")
-        setUser(null)
+        AuthApi.signOut().then(() => {
+            AuthApi.removeToken()
+            localStorage.removeItem("user")
+            setUser(null)
+        });
 
     }
 

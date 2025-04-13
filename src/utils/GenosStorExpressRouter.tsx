@@ -6,11 +6,16 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import {createBrowserRouter} from "react-router";
 import { ItemForm } from "components/items";
 import MainPage from "components/MainPage";
-import {Authorization} from "../components/auth/Authorization";
+import {SignIn} from "components/auth/SignIn";
+import { ErrorBoundary } from 'react-error-boundary'
+import React from "react";
 
 const GenosStorExpressRouter = createBrowserRouter([
     {
         path: '/',
+        errorElement: <p>
+            I'm ded
+        </p> ,
         Component: GenosStorExpressLayout,
         children: [
             {
@@ -19,7 +24,7 @@ const GenosStorExpressRouter = createBrowserRouter([
             },
             {
                 path: '/sign_in',
-                element: <Authorization />
+                element: <SignIn />
             },
             {
                 path: '/items',
