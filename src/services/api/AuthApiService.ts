@@ -21,6 +21,7 @@ class AuthApiService extends AbstractApiService {
     }
 
     public removeToken(): void {
+        console.log("removing token");
         localStorage.removeItem(this.tokenKey)
     }
 

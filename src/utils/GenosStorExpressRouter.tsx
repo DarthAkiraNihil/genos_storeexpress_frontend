@@ -6,8 +6,8 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import {createBrowserRouter} from "react-router";
 import { ItemForm } from "components/items";
 import MainPage from "components/MainPage";
+import { CartPage } from "components/cart/CartPage";
 import {SignIn} from "components/auth/SignIn";
-import { ErrorBoundary } from 'react-error-boundary'
 import React from "react";
 
 const GenosStorExpressRouter = createBrowserRouter([
@@ -45,6 +45,13 @@ const GenosStorExpressRouter = createBrowserRouter([
                 element:
                     <ProtectedRoute allowCustomers>
                         <ItemDetails />
+                    </ProtectedRoute>
+            },
+            {
+                path: '/cart',
+                element:
+                    <ProtectedRoute allowCustomers>
+                        <CartPage />
                     </ProtectedRoute>
             },
             {

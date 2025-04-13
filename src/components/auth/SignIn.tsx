@@ -1,4 +1,4 @@
-﻿import { SignInForm } from 'components/auth/SignInForm'
+import { SignInForm } from 'components/auth/SignInForm'
 import Grid from '@mui/material/Grid'
 import React from 'react'
 

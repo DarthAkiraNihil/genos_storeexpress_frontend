@@ -16,14 +16,17 @@ export const ProtectedRoute: React.FC<{
 
     const { user, role } = useAuth()
 
+    console.log(user);
     if (!user) {
         console.log(`Called child po ${children}`);
         // alert("USER ANONYMOUS! ACCESS DENIED!")
         return <Navigate to="/sign_in" replace />
     } else if (allowAdmin && role !== UserRole.administrator) {
+        console.log(`allow admin but is not admin`);
         // alert("ADMIN ONLY! ACCESS DENIED!")
         return <Navigate to="/sign_in" replace />
     } else if (allowCustomers && role === UserRole.administrator) {
+        console.log(`allow cusotmer but is not admin`);
         // alert("CUSTOMER ONLY! ACCESS DENIED!")
         return <Navigate to="/sign_in" replace />
     }
