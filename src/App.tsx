@@ -1,16 +1,19 @@
-import "@fontsource/jetbrains-mono";
-import './App.css';
-import React from "react"
 import { ThemeProvider } from '@mui/material/styles'
-import MainTheme from "./themes/MainTheme";
 import GenosStorExpressRouter from "./utils";
 import {RouterProvider} from "react-router";
+import MainTheme from "./themes/MainTheme";
+import { AuthProvider } from 'context';
+import "@fontsource/jetbrains-mono";
+import React from "react";
+import './App.css';
 
 
 const App: React.FC = () => {
     return (
         <ThemeProvider theme={MainTheme}>
-            <RouterProvider router={GenosStorExpressRouter} />
+            <AuthProvider>
+                <RouterProvider router={GenosStorExpressRouter} />
+            </AuthProvider>
         </ThemeProvider>
     )
 }
