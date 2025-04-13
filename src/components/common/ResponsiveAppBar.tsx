@@ -1,17 +1,20 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
+import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
+import CardMedia from "@mui/material/CardMedia";
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
+import AppBar from '@mui/material/AppBar';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import Card from "@mui/material/Card";
+import { AppConstants } from "const";
+import Box from '@mui/material/Box';
+import * as React from 'react';
 
 const pages = ['Каталог товаров'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -36,15 +39,27 @@ export function ResponsiveAppBar() {
     };
 
     return (
-        <AppBar position="static">
+        <AppBar position="sticky">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+                    <Card sx={{ display: 'flex', backgroundColor: 'transparent', marginRight: '8px' }} elevation={0}>
+                        <CardMedia
+                            component="img"
+                            image={"/img/Logo.png"}
+                            alt={"logo"}
+                            sx={{
+                                width:'32px',
+                                height: '48px',
+                                display: { xs: 'none', md: 'flex' },
+                                flexDirection: 'column',
+                            }}
+                        />
+                    </Card>
                     <Typography
                         variant="h6"
                         noWrap
                         component="a"
-                        href="#app-bar-with-responsive-menu"
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -55,7 +70,7 @@ export function ResponsiveAppBar() {
                             textDecoration: 'none',
                         }}
                     >
-                        GENOS STOREXPRESS
+                        {AppConstants.appNameNormalized}
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -109,7 +124,7 @@ export function ResponsiveAppBar() {
                             textDecoration: 'none',
                         }}
                     >
-                        LOGO
+                        {AppConstants.appNameNormalized}
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
