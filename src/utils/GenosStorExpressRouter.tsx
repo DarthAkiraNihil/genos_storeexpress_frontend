@@ -1,13 +1,13 @@
-import { ItemDetails } from "components/items/details/ItemDetails";
-import {ItemCatalogue} from "components/items/ItemCatalogue";
-import { ItemList } from "components/items/ItemList";
+import { ItemDetailsPage } from "pages/item/ItemDetailsPage";
+import {ItemCataloguePage} from "pages/item/ItemCataloguePage";
+import { ItemListPage } from "pages/item/ItemListPage";
 import GenosStorExpressLayout from "../components";
 import { ProtectedRoute } from "./ProtectedRoute";
 import {createBrowserRouter} from "react-router";
 import { ItemForm } from "components/items";
-import MainPage from "components/MainPage";
-import { CartPage } from "components/cart/CartPage";
-import {SignIn} from "components/auth/SignIn";
+import MainPage from "pages/MainPage";
+import { CartPage } from "pages/cart/CartPage";
+import {SignInPage} from "pages/auth/SignInPage";
 import React from "react";
 
 const GenosStorExpressRouter = createBrowserRouter([
@@ -24,27 +24,27 @@ const GenosStorExpressRouter = createBrowserRouter([
             },
             {
                 path: '/sign_in',
-                element: <SignIn />
+                element: <SignInPage />
             },
             {
                 path: '/items',
                 element:
                     <ProtectedRoute allowCustomers>
-                        <ItemCatalogue />
+                        <ItemCataloguePage />
                     </ProtectedRoute>,
             },
             {
                 path: '/items/:type/',
                 element:
                     <ProtectedRoute allowCustomers>
-                        <ItemList />
+                        <ItemListPage />
                     </ProtectedRoute>
             },
             {
                 path: '/items/:type/:id',
                 element:
                     <ProtectedRoute allowCustomers>
-                        <ItemDetails />
+                        <ItemDetailsPage />
                     </ProtectedRoute>
             },
             {

@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
-import 'styles/MainPage.css';
-import 'styles/Common.css';
+import '../styles/MainPage.css';
+import '../styles/Common.css';
 import React from 'react';
 import {Grid} from "@mui/system";
 

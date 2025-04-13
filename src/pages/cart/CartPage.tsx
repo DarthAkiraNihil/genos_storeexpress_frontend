@@ -1,9 +1,9 @@
 ﻿import React, {useContext, useEffect, useState} from 'react';
-import { CartContext, ItemContext } from 'context'
-import { CartItemCard } from "./CartItemCard"
-import {Cart} from "models/cart";
+import { CartContext, ItemContext } from '../../context'
+import { CartItemCard } from "components/cart/CartItemCard"
+import {Cart} from "../../models/cart";
 
-import 'styles/items/ItemList.css'
+import '../../styles/items/ItemList.css'
 
 export const CartPage: React.FC = ( ) => {
 

@@ -4,14 +4,12 @@ import { Link } from "react-router-dom";
 import { Grid } from "@mui/system";
 import 'styles/Common.css'
 import 'styles/items/ItemCatalogue.css'
-import { ItemTypeIcons, ItemTypeNamesPrural, ItemTypeNames } from "const";
-import { ImageBase64 } from "../common";
+import { ItemTypeIcons, ItemTypeNamesPrural, ItemTypeNames } from "../../const";
+import { ImageBase64 } from "components/common";
 import Button from "@mui/material/Button";
 
 
-
-
-export const ItemCatalogue: React.FC = () => {
+export const ItemCataloguePage: React.FC = () => {
 
     return (
         <div className="center itemCatalogueRoot">

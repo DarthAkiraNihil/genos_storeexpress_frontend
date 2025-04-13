@@ -2,7 +2,7 @@ import { SignInForm } from 'components/auth/SignInForm'
 import Grid from '@mui/material/Grid'
 import React from 'react'
 
-export const SignIn: React.FC = () => {
+export const SignInPage: React.FC = () => {
     return  (
         <Grid
             container

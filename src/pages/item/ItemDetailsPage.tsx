@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useContext } from "react";
-import { DetailedItem, ItemType, Review } from "models/items";
-import {ItemCharacteristics} from "./ItemCharacteristics";
-import {ItemDetailsCard} from "./ItemDetailsCard";
+import { DetailedItem, ItemType, Review } from "../../models/items";
+import {ItemCharacteristics} from "components/items/details/ItemCharacteristics";
+import {ItemDetailsCard} from "components/items/details/ItemDetailsCard";
 import { ItemContext } from "context/ItemContext";
 import {useParams} from "react-router-dom";
-import {ItemReviews} from "./ItemReviews";
+import {ItemReviews} from "../../components/items/details/ItemReviews";
 import Grid from '@mui/material/Grid';
-import 'styles/items/ItemDetails.css';
-import {CartContext} from "context";
+import '../../styles/items/ItemDetails.css';
+import {CartContext} from "../../context";
 
-export const ItemDetails: React.FC = () => {
+export const ItemDetailsPage: React.FC = () => {
     const { id } = useParams<{ id: string }>()
     const { type } = useParams<{ type: ItemType }>();
 

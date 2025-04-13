@@ -1,13 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react';
 import { ItemContext } from 'context/ItemContext';
-import {useNavigate, useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-import { Item, ItemType } from "models/items";
-import { ItemListCard } from "./ItemListCard";
+import { Item, ItemType } from "../../models/items";
+import { ItemListCard } from "components/items/ItemListCard";
 
 import 'styles/items/ItemList.css'
 
-export const ItemList: React.FC = ( ) => {
+export const ItemListPage: React.FC = ( ) => {
 
     const [items, setItems] = useState<Item[]>([]);
 

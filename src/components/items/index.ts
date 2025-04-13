@@ -1,6 +1,6 @@
-export { ItemCatalogue } from './ItemCatalogue';
+export { ItemCataloguePage } from '../../pages/item/ItemCataloguePage';
 
-export { ItemList } from './ItemList';
+export { ItemListPage } from '../../pages/item/ItemListPage';
 export { ItemListCard } from './ItemListCard';
 
 export { ItemForm } from './ItemForm';
