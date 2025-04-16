@@ -14,7 +14,7 @@ const GenosStorExpressRouter = createBrowserRouter([
     {
         path: '/',
         errorElement: <p>
-            I'm ded
+            Something went wrong
         </p> ,
         Component: GenosStorExpressLayout,
         children: [

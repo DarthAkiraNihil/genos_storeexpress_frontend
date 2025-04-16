@@ -8,6 +8,7 @@ interface AuthContextProps {
     signOut: () => void
 
     role: UserRole | null
+    token: string | null
 }
 
 const AuthContext = createContext<AuthContextProps | null>(null)
@@ -48,8 +49,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const role = UserRole[user?.role as keyof typeof UserRole];
 
+    const token = AuthApi.getToken()
+
     return (
-        <AuthContext.Provider value={{ user, signIn, signOut, role }}>
+        <AuthContext.Provider value={{ user, signIn, signOut, role, token }}>
             {children}
         </AuthContext.Provider>
     )

@@ -1,9 +1,9 @@
 ﻿import React, {useContext, useEffect, useState} from 'react';
-import { CartContext, ItemContext } from '../../context'
+import { CartContext, ItemContext } from 'context'
 import { CartItemCard } from "components/cart/CartItemCard"
-import {Cart} from "../../models/cart";
+import { Cart, CartItem } from "models/cart";
 
-import '../../styles/items/ItemList.css'
+import 'styles/items/ItemList.css'
 
 export const CartPage: React.FC = ( ) => {
 
@@ -73,7 +73,15 @@ export const CartPage: React.FC = ( ) => {
                             </div>
                         )
                     }
-                )}
+                )
+            }
+
+            <h2>
+                Итого: {
+                    cart.items.reduce((sum: number, current: CartItem) => sum + current.quantity * current.item.price, 0)
+                } руб.
+            </h2>
+
         </div>
     );
 };

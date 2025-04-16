@@ -15,7 +15,7 @@ const App: React.FC = () => {
             <AuthProvider>
                 <ErrorBoundary fallback={
                     <p>
-                        I'm ded
+                        Something went wrong
                     </p>
                 }>
                     <RouterProvider router={GenosStorExpressRouter} />
