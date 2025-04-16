@@ -4,10 +4,14 @@ import { CartItemCard } from "components/cart/CartItemCard"
 import { Cart, CartItem } from "models/cart";
 
 import 'styles/items/ItemList.css'
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const CartPage: React.FC = ( ) => {
 
     const [cart, setCart] = useState<Cart>();
+    const [creatingOrder, setCreatingOrder] = useState<boolean>(false);
 
     const cartContext = useContext(CartContext);
     const itemContext = useContext(ItemContext);
@@ -22,7 +26,7 @@ export const CartPage: React.FC = ( ) => {
         return <div>No context is available!</div>
     }
 
-    if (!cart) {
+    if (!cart || cart.items.length === 0) {
         return (
             <h1>
                 Корзина пуста
@@ -30,11 +34,35 @@ export const CartPage: React.FC = ( ) => {
         )
     }
 
+    const handleCreateOrder = () => {
+        console.log("handleCreateOrder");
+    }
+
     return (
         <div className="list">
-            <h1>
-                Корзина
-            </h1>
+            <Grid
+                container
+                direction="row"
+                sx={{
+                    justifyContent: "flex-end",
+                    alignItems: "center",
+                }}>
+                <Grid size="grow">
+                    <h1>
+                        Корзина
+                    </h1>
+                </Grid>
+                <Grid size={2}>
+                    <Button variant="contained"
+                        onClick={handleCreateOrder} disabled={creatingOrder}
+                        endIcon={creatingOrder ? <CircularProgress size={20} /> : null}
+                        fullWidth
+                    >
+                        Оформить заказ
+                    </Button>
+                </Grid>
+            </Grid>
+
 
             {
                 cart.items.map((cartItem) => {
