@@ -15,16 +15,16 @@ class ItemsApiService extends AbstractApiService {
         return `${window.location.origin}${this.baseUrl}/${id}/image`;
     }
 
-    public async createItem(itemData: DetailedItem): Promise<DetailedItem> {
-        return this.post('', itemData);
+    public async createItem(itemData: DetailedItem, token: string): Promise<DetailedItem> {
+        return this.post('', itemData, token);
     }
 
-    public async updateItem(id: number, updatedItemData: DetailedItem): Promise<any> {
-        return this.put(`${id}`, updatedItemData);
+    public async updateItem(id: number, updatedItemData: DetailedItem, token: string): Promise<any> {
+        return this.put(`${id}`, updatedItemData, token);
     }
 
-    public async deleteItem(itemType: ItemType, id: number): Promise<any> {
-        return this.delete(`/${itemType}/${id}`);
+    public async deleteItem(itemType: ItemType, id: number, token: string): Promise<any> {
+        return this.delete(`/${itemType}/${id}`, token);
     }
 
     public async getReviews(id: number): Promise<Review[]> {

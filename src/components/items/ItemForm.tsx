@@ -49,7 +49,7 @@ export const ItemForm: React.FC = () => {
                 overall_rating: 0,
                 reviews_count: 0,
                 id: 0
-            });
+            }, "");
 
 
             setNewItem({

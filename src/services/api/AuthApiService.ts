@@ -9,7 +9,7 @@ class AuthApiService extends AbstractApiService {
     }
 
     public async signOut(): Promise<void> {
-        return await this.post("sign_out", {});
+        return await this.post("sign_out", {}, this.tokenKey);
     }
 
     public storeToken(token: string): void {
@@ -21,7 +21,6 @@ class AuthApiService extends AbstractApiService {
     }
 
     public removeToken(): void {
-        console.log("removing token");
         localStorage.removeItem(this.tokenKey)
     }
 

@@ -7,9 +7,10 @@ import {useParams} from "react-router-dom";
 import {ItemReviews} from "../../components/items/details/ItemReviews";
 import Grid from '@mui/material/Grid';
 import '../../styles/items/ItemDetails.css';
-import {CartContext} from "../../context";
+import {CartContext, useAuth} from "../../context";
 
 export const ItemDetailsPage: React.FC = () => {
+    const { token } = useAuth();
     const { id } = useParams<{ id: string }>()
     const { type } = useParams<{ type: ItemType }>();
 
@@ -43,13 +44,13 @@ export const ItemDetailsPage: React.FC = () => {
     }
 
     const handleAddToCart = () => {
-        cartContext.addToCart(item.id).then(() => {
+        cartContext.addToCart(item.id, token!).then(() => {
             setInCart(true);
         });
     }
 
     const handleRemoveFromCart = () => {
-        cartContext.removeFromCart(item.id).then((response: any) => {
+        cartContext.removeFromCart(item.id, token!).then((response: any) => {
             console.log(response);
             if (response) {
                 setInCart(false);

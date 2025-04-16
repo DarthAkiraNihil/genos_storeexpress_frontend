@@ -5,13 +5,13 @@ import {Cart} from "models/cart";
 
 interface CartContextProps {
 
-    addToCart(itemId: number): Promise<void>;
-    removeFromCart(id: number): Promise<void>;
+    addToCart(itemId: number, token: string): Promise<void>;
+    removeFromCart(id: number, token: string): Promise<void>;
 
-    incrementItemQuantity(id: number): Promise<void>;
-    decrementItemQuantity(id: number): Promise<void>;
+    incrementItemQuantity(id: number, token: string): Promise<void>;
+    decrementItemQuantity(id: number, token: string): Promise<void>;
 
-    getCart(): Promise<Cart>;
+    getCart(token: string): Promise<Cart>;
 
 }
 
@@ -20,24 +20,24 @@ export const CartContext = createContext<CartContextProps | undefined>(undefined
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
-    const addToCart = async (itemId: number): Promise<void> => {
-        return await CartsApi.addToCart(itemId);
+    const addToCart = async (itemId: number, token: string): Promise<void> => {
+        return await CartsApi.addToCart(itemId, token);
     }
 
-    const removeFromCart = async (itemId: number): Promise<void> => {
-        return await CartsApi.removeFromCart(itemId);
+    const removeFromCart = async (itemId: number, token: string): Promise<void> => {
+        return await CartsApi.removeFromCart(itemId, token);
     }
 
-    const incrementItemQuantity = async (itemId: number): Promise<void> => {
-        return await CartsApi.incrementItemQuantity(itemId);
+    const incrementItemQuantity = async (itemId: number, token: string): Promise<void> => {
+        return await CartsApi.incrementItemQuantity(itemId, token);
     }
 
-    const decrementItemQuantity = async (itemId: number): Promise<void> => {
-        return await CartsApi.decrementItemQuantity(itemId);
+    const decrementItemQuantity = async (itemId: number, token: string): Promise<void> => {
+        return await CartsApi.decrementItemQuantity(itemId, token);
     }
 
-    const getCart = async (): Promise<Cart> => {
-        return await CartsApi.getCart();
+    const getCart = async (token: string): Promise<Cart> => {
+        return await CartsApi.getCart(token);
     }
 
     return (

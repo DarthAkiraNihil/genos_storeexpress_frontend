@@ -10,9 +10,9 @@ interface ItemContextProps {
     getDetails(id: number, type: ItemType): Promise<DetailedItem>;
     getImageUrl(id: number): string;
 
-    createItem(itemData: DetailedItem): Promise<any>;
-    updateItem(id: number, itemData: DetailedItem): void;
-    deleteItem(id: number, itemType: ItemType): void;
+    createItem(itemData: DetailedItem, token: string): Promise<any>;
+    updateItem(id: number, itemData: DetailedItem, token: string): void;
+    deleteItem(id: number, itemType: ItemType, token: string): void;
 
     getReviews(id: number): Promise<Review[]>;
 
@@ -40,8 +40,8 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         return ItemsApi.getImageUrl(id);
     }
 
-    const createItem = async (itemData: DetailedItem): Promise<any> => {
-        ItemsApi.createItem(itemData).then(
+    const createItem = async (itemData: DetailedItem, token: string): Promise<any> => {
+        ItemsApi.createItem(itemData, token).then(
             (item) => {
                 setItems([...items, item])
             }
@@ -51,8 +51,8 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         })
     }
 
-    const updateItem = async (id: number, itemData: DetailedItem): Promise<any> => {
-        ItemsApi.updateItem(id, itemData).then(
+    const updateItem = async (id: number, itemData: DetailedItem, token: string): Promise<any> => {
+        ItemsApi.updateItem(id, itemData, token).then(
             (response) => {
                 setItems((previous) => previous.map(
                     (item) => (item.id === id ? { ...item, ...response }: item)
@@ -62,8 +62,8 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     }
 
-    const deleteItem = async (id: number, itemType: ItemType): Promise<any> => {
-        ItemsApi.deleteItem(itemType, id).then(
+    const deleteItem = async (id: number, itemType: ItemType, token: string): Promise<any> => {
+        ItemsApi.deleteItem(itemType, id, token).then(
             () => {
                 setItems(items.filter((item) => item.id !== id));
             }

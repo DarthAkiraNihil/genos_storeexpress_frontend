@@ -34,39 +34,70 @@ export abstract class AbstractApiService {
         );
     }
 
-    protected async get(path: string): Promise<any> {
+    private getHeaders(token: string): Headers {
+        const requestHeaders: HeadersInit = new Headers();
+        requestHeaders.set('Content-Type', 'application/json');
+        if (token) {
+            requestHeaders.set('Authorization', `Bearer ${token}`)
+        }
+        return requestHeaders;
+    }
+
+    protected async get(path: string, token: string = ""): Promise<any> {
+
+        if (token) {
+            return await this.handleError(
+                fetch(`${this.baseUrl}/${path}`, {
+                    'headers': {
+                        'Authorization': `Bearer ${token}`
+                    },
+                })
+            )
+        }
 
         return await this.handleError(
             fetch(`${this.baseUrl}/${path}`)
         )
     }
 
-    protected async post(path: string, data: any): Promise<any> {
+    protected async post(path: string, data: any, token: string = ""): Promise<any> {
         return await this.handleError(
             fetch(`${this.baseUrl}/${path}`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: this.getHeaders(token),
                 body: JSON.stringify(data),
             })
         )
     }
 
-    protected async put(path: string, data: any): Promise<any> {
+    protected async put(path: string, data: any, token: string = ""): Promise<any> {
         return await this.handleError(
             fetch(`${this.baseUrl}/${path}`, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
+                headers: this.getHeaders(token),
                 body: JSON.stringify(data),
             })
         )
     }
 
-    protected async delete(path: string): Promise<any> {
+    protected async delete(path: string, token: string = ""): Promise<any> {
+        if (token) {
+            return await this.handleError(
+                fetch(`${this.baseUrl}/${path}`, {
+                    method: "DELETE",
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                })
+            )
+        }
+
         return await this.handleError(
             fetch(`${this.baseUrl}/${path}`, {
                 method: "DELETE",
             })
         )
+
     }
 
 }

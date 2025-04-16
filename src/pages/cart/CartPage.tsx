@@ -1,5 +1,5 @@
 ﻿import React, {useContext, useEffect, useState} from 'react';
-import { CartContext, ItemContext } from 'context'
+import {CartContext, ItemContext, useAuth} from 'context'
 import { CartItemCard } from "components/cart/CartItemCard"
 import { Cart, CartItem } from "models/cart";
 
@@ -10,6 +10,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 export const CartPage: React.FC = ( ) => {
 
+    const { token } = useAuth();
     const [cart, setCart] = useState<Cart>();
     const [creatingOrder, setCreatingOrder] = useState<boolean>(false);
 
@@ -17,10 +18,10 @@ export const CartPage: React.FC = ( ) => {
     const itemContext = useContext(ItemContext);
 
     useEffect(() => {
-        cartContext?.getCart().then((response) => {
+        cartContext?.getCart(token!).then((response) => {
             setCart(response);
         })
-    }, [cartContext]);
+    }, [token, cartContext]);
 
     if (!cartContext || !itemContext) {
         return <div>No context is available!</div>
@@ -78,7 +79,7 @@ export const CartPage: React.FC = ( ) => {
                                     imageUrl={itemContext.getImageUrl(cartItem.item.id)}
 
                                     onIncrement={() => {
-                                        cartContext?.incrementItemQuantity(cartItem.item.id);
+                                        cartContext?.incrementItemQuantity(cartItem.item.id, token!);
                                         setCart({items:
                                             cart.items.map(
                                                 (ci) => (ci.item.id === cartItem.item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem)
@@ -86,7 +87,7 @@ export const CartPage: React.FC = ( ) => {
                                         });
                                     }}
                                     onDecrement={() => {
-                                        cartContext?.decrementItemQuantity(cartItem.item.id);
+                                        cartContext?.decrementItemQuantity(cartItem.item.id, token!);
                                         if (cartItem.quantity === 1) {
                                             setCart({items: cart.items.filter((ci) => ci.item.id !== cartItem.item.id)});
                                         } else {
