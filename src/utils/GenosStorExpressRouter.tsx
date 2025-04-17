@@ -8,7 +8,7 @@ import { ItemForm } from "components/items";
 import MainPage from "pages/MainPage";
 import { CartPage } from "pages/cart/CartPage";
 import {SignInPage} from "pages/auth/SignInPage";
-import { OrderPage } from "pages/order";
+import { OrderDetailsPage, OrderListPage } from "pages/order";
 import React from "react";
 import { CartProvider, ItemProvider, OrderProvider } from "context";
 
@@ -76,12 +76,21 @@ const GenosStorExpressRouter = createBrowserRouter([
                     </ProtectedRoute>
             },
             {
+                path: '/order',
+                element:
+                    <ProtectedRoute allowCustomers>
+                        <OrderProvider>
+                            <OrderListPage />
+                        </OrderProvider>
+                    </ProtectedRoute>
+            },
+            {
                 path: '/order/:id',
                 element:
                     <ProtectedRoute allowCustomers>
                         <OrderProvider>
                             <ItemProvider>
-                                <OrderPage />
+                                <OrderDetailsPage />
                             </ItemProvider>
                         </OrderProvider>
                     </ProtectedRoute>

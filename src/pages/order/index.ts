@@ -1,1 +1,2 @@
-﻿export { OrderPage } from './OrderPage';
+﻿export { OrderDetailsPage } from './OrderDetailsPage';
+export { OrderListPage } from './OrderListPage';
