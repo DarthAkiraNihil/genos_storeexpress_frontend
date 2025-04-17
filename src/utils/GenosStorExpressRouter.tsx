@@ -9,6 +9,7 @@ import MainPage from "pages/MainPage";
 import { CartPage } from "pages/cart/CartPage";
 import {SignInPage} from "pages/auth/SignInPage";
 import React from "react";
+import { CartProvider, ItemProvider, OrderProvider } from "context";
 
 const GenosStorExpressRouter = createBrowserRouter([
     {
@@ -37,21 +38,33 @@ const GenosStorExpressRouter = createBrowserRouter([
                 path: '/items/:type/',
                 element:
                     <ProtectedRoute allowCustomers>
-                        <ItemListPage />
+                        <ItemProvider>
+                            <ItemListPage />
+                        </ItemProvider>
                     </ProtectedRoute>
             },
             {
                 path: '/items/:type/:id',
                 element:
                     <ProtectedRoute allowCustomers>
-                        <ItemDetailsPage />
+                        <CartProvider>
+                            <ItemProvider>
+                                <ItemDetailsPage />
+                            </ItemProvider>
+                        </CartProvider>
                     </ProtectedRoute>
             },
             {
                 path: '/cart',
                 element:
                     <ProtectedRoute allowCustomers>
-                        <CartPage />
+                        <OrderProvider>
+                            <CartProvider>
+                                <ItemProvider>
+                                    <CartPage />
+                                </ItemProvider>
+                            </CartProvider>
+                        </OrderProvider>
                     </ProtectedRoute>
             },
             {

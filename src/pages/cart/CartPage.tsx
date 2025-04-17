@@ -1,9 +1,9 @@
 ﻿import React, {useContext, useEffect, useState} from 'react';
-import {CartContext, ItemContext, useAuth} from 'context'
+import {CartContext, ItemContext, OrderContext, useAuth} from 'context'
 import { CartItemCard } from "components/cart/CartItemCard"
 import { Cart, CartItem } from "models/cart";
 
-import 'styles/items/ItemList.css'
+import 'styles/items/ItemList.css';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
@@ -16,6 +16,7 @@ export const CartPage: React.FC = ( ) => {
 
     const cartContext = useContext(CartContext);
     const itemContext = useContext(ItemContext);
+    const orderContext = useContext(OrderContext);
 
     useEffect(() => {
         cartContext?.getCart(token!).then((response) => {
@@ -23,20 +24,32 @@ export const CartPage: React.FC = ( ) => {
         })
     }, [token, cartContext]);
 
-    if (!cartContext || !itemContext) {
-        return <div>No context is available!</div>
+    if (!cartContext || !itemContext || !orderContext) {
+        return <div>
+            No context is available!
+        </div>
     }
 
     if (!cart || cart.items.length === 0) {
         return (
-            <h1>
+            <h1 className="list">
                 Корзина пуста
             </h1>
         )
     }
 
-    const handleCreateOrder = () => {
+    const handleCreateOrder = async () => {
         console.log("handleCreateOrder");
+        setCreatingOrder(true);
+        try {
+            orderContext.createOrder(token!).then((response) => {
+                console.log("createOrder", response);
+            });
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setCreatingOrder(false);
+        }
     }
 
     return (

@@ -7,12 +7,8 @@ import {CartProvider} from "context/CartContext";
 const GenosStorExpressLayout: React.FC = () => {
     return (
         <div className="root">
-            <CartProvider>
-                <ItemProvider>
-                    <ResponsiveAppBar />
-                    <Outlet />
-                </ItemProvider>
-            </CartProvider>
+            <ResponsiveAppBar />
+            <Outlet />
         </div>
     )
 }
