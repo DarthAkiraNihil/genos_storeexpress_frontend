@@ -83,7 +83,6 @@ export const CartPage: React.FC = ( ) => {
                         return (
                             <div key={cartItem.item.id} className="card">
                                 < CartItemCard
-                                    id={cartItem.item.id}
                                     name={cartItem.item.name}
                                     model={cartItem.item.model}
                                     price={cartItem.item.price}

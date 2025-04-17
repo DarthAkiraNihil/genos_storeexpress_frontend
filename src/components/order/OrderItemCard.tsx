@@ -2,26 +2,22 @@
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CardMedia from '@mui/material/CardMedia';
 
 
-interface CartItemCardProps {
+interface OrderItemCardProps {
     name: string;
     model: string;
-    price: number;
     quantity: number;
+    boughtFor: number;
 
     imageUrl: string;
-
-    onIncrement: () => void;
-    onDecrement: () => void;
 }
 
 
-export const CartItemCard: React.FC<CartItemCardProps> = ({
-        name, model, price, quantity, imageUrl, onIncrement, onDecrement
+export const OrderItemCard: React.FC<OrderItemCardProps> = ({
+        name, model, quantity, boughtFor, imageUrl
     })=> {
     return (
         <Card sx={{ display: 'flex', padding: '20px' }}>
@@ -52,7 +48,7 @@ export const CartItemCard: React.FC<CartItemCardProps> = ({
                     <Box sx={{ display: 'flex' }}>
 
                         <Typography variant="h6">
-                            Цена единицы: { price } руб.
+                            Цена покупки единицы: { boughtFor } руб.
                         </Typography>
 
                         <Typography variant="h6">
@@ -60,16 +56,8 @@ export const CartItemCard: React.FC<CartItemCardProps> = ({
                         </Typography>
 
                         <Typography variant="h6">
-                            Итоговая цена: { price * quantity } руб.
+                            Итоговая цена: { boughtFor * quantity } руб.
                         </Typography>
-
-                        <Button variant="contained" color="primary" onClick={onDecrement}>
-                            -
-                        </Button>
-
-                        <Button variant="contained" color="primary" onClick={onIncrement}>
-                            +
-                        </Button>
                     </Box>
 
                 </CardContent>
