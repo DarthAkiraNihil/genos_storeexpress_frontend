@@ -1,10 +1,11 @@
 import { ItemType, DetailedItem, Item, Review } from "models/items";
 import { AbstractApiService } from "./AbstractApiService";
+import {PaginatedList} from "../../models";
 
 class ItemsApiService extends AbstractApiService {
 
-    public async getList(itemType: ItemType): Promise<Item[]> {
-        return this.get(`/${itemType}/`);
+    public async getList(itemType: ItemType, pageNumber: number, pageSize: number): Promise<PaginatedList<Item>> {
+        return this.get(`/${itemType}/?pageNumber=${pageNumber}&pageSize=${pageSize}`);
     }
 
     public async getDetails(itemType: ItemType, id: number): Promise<DetailedItem> {

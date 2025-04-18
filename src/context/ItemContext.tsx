@@ -1,12 +1,13 @@
 import React, {createContext, ReactNode, useEffect, useState} from "react";
 import {DetailedItem, Item, ItemType, Review} from "models/items";
 import { ItemsApi } from "services/api";
+import {PaginatedList} from "../models";
 
 
 interface ItemContextProps {
     items: Item[];
 
-    getList(type: ItemType): Promise<Item[]>;
+    getList(type: ItemType, pageNumber: number, pageSize: number): Promise<PaginatedList<Item>>;
     getDetails(id: number, type: ItemType): Promise<DetailedItem>;
     getImageUrl(id: number): string;
 
@@ -28,8 +29,8 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         console.log("Loaded provider");
     }, []);
 
-    const getList =  async (type: ItemType): Promise<Item[]> => {
-        return await ItemsApi.getList(type);
+    const getList =  async (type: ItemType, pageNumber: number, pageSize: number): Promise<PaginatedList<Item>> => {
+        return await ItemsApi.getList(type, pageNumber, pageSize);
     }
 
     const getDetails = async (id: number, type: ItemType): Promise<DetailedItem> => {
