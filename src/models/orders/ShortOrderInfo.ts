@@ -3,4 +3,6 @@
 export interface ShortOrderInfo {
     order_id: number;
     status: OrderStatus;
+    created_at: Date;
+    count: number;
 }

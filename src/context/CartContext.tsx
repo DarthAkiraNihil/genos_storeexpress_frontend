@@ -1,6 +1,7 @@
 import React, { createContext, ReactNode } from "react";
 import {CartsApi} from "services/api";
-import {Cart} from "models/cart";
+import {Cart, CartItem} from "models/cart";
+import {PaginatedList} from "../models";
 
 
 interface CartContextProps {
@@ -11,7 +12,7 @@ interface CartContextProps {
     incrementItemQuantity(id: number, token: string): Promise<void>;
     decrementItemQuantity(id: number, token: string): Promise<void>;
 
-    getCart(token: string): Promise<Cart>;
+    getCart(token: string, pageNumber: number, pageSize: number): Promise<PaginatedList<CartItem>>;
 
 }
 
@@ -36,8 +37,8 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         return await CartsApi.decrementItemQuantity(itemId, token);
     }
 
-    const getCart = async (token: string): Promise<Cart> => {
-        return await CartsApi.getCart(token);
+    const getCart = async (token: string, pageNumber: number, pageSize: number): Promise<PaginatedList<CartItem>> => {
+        return await CartsApi.getCart(token, pageNumber, pageSize);
     }
 
     return (

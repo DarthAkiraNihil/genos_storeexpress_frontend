@@ -9,13 +9,12 @@ import { ItemListCard } from "components/items/ItemListCard";
 import 'styles/items/ItemList.css'
 import {PaginatedList} from "../../models";
 import Stack from "@mui/material/Stack";
-import {textAlign} from "@mui/system";
 import Box from '@mui/material/Box';
 
 export const ItemListPage: React.FC = ( ) => {
 
     const [items, setItems] = useState<PaginatedList<Item>>();
-    const [params, setParams] = useSearchParams();
+    const [params] = useSearchParams();
 
     const { type } = useParams<{ type: ItemType }>();
 

@@ -1,5 +1,6 @@
 import { AbstractApiService } from "./AbstractApiService";
-import { Cart } from "models/cart";
+import {Cart, CartItem} from "models/cart";
+import {PaginatedList} from "../../models";
 
 class CartsApiService extends AbstractApiService {
 
@@ -19,8 +20,8 @@ class CartsApiService extends AbstractApiService {
         return this.post(`/dec/${itemId}/`, {}, token);
     }
 
-    public async getCart(token: string): Promise<Cart> {
-        return this.get('', token);
+    public async getCart(token: string, pageNumber: number, pageSize: number): Promise<PaginatedList<CartItem>> {
+        return this.get(`/?pageNumber=${pageNumber}&pageSize=${pageSize}`, token);
     }
 
 }
