@@ -1,4 +1,4 @@
-import { ItemType, DetailedItem, Item, Review } from "models/items";
+import {ItemType, DetailedItem, Item, Review, FilterDescription} from "models/items";
 import { AbstractApiService } from "./AbstractApiService";
 import {PaginatedList} from "../../models";
 
@@ -30,6 +30,10 @@ class ItemsApiService extends AbstractApiService {
 
     public async getReviews(id: number): Promise<Review[]> {
         return this.get(`/${id}/reviews`);
+    }
+
+    public async getFilterData(itemType: ItemType): Promise<FilterDescription[]> {
+        return this.get(`/${itemType}/filter_data`);
     }
     
 }

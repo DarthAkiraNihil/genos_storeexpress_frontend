@@ -1,5 +1,5 @@
 import React, {createContext, ReactNode, useEffect, useState} from "react";
-import {DetailedItem, Item, ItemType, Review} from "models/items";
+import {DetailedItem, FilterDescription, Item, ItemType, Review} from "models/items";
 import { ItemsApi } from "services/api";
 import {PaginatedList} from "../models";
 
@@ -16,7 +16,7 @@ interface ItemContextProps {
     deleteItem(id: number, itemType: ItemType, token: string): void;
 
     getReviews(id: number): Promise<Review[]>;
-
+    getFilterData(itemType: ItemType): Promise<FilterDescription[]>
 }
 
 export const ItemContext = createContext<ItemContextProps | undefined>(undefined)
@@ -75,6 +75,10 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         return await ItemsApi.getReviews(id);
     }
 
+    const getFilterData = async (itemType: ItemType): Promise<FilterDescription[]> => {
+        return await ItemsApi.getFilterData(itemType);
+    }
+
     return (
         <ItemContext.Provider value={
             {
@@ -86,6 +90,7 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 updateItem,
                 deleteItem,
                 getReviews,
+                getFilterData,
             }
         }>{children}</ItemContext.Provider>
     );

@@ -18,10 +18,10 @@ export const ItemCharacteristics: React.FC<ItemCharacteristicsProps> = ( {itemTy
                     Array.from(ItemCharacteristicsNameMapper.mapCharacteristics(itemType, characteristics)).map(
                         ([k, v]) => (
                             <>
-                                <Grid size={3}>
+                                <Grid size={3} key={k}>
                                     {k}:
                                 </Grid>
-                                <Grid size={3}>
+                                <Grid size={3} key={`${k}-value`}>
                                     {v}
                                 </Grid>
                             </>
