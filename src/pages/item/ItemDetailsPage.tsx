@@ -19,7 +19,6 @@ export const ItemDetailsPage: React.FC = () => {
 
     const [item, setItem] = useState<DetailedItem | null>(null)
     const [inCart, setInCart] = useState<boolean>(false)
-    const [reviews, setReviews] = useState<Review[]>([])
 
     useEffect(() => {
         itemContext?.getDetails(parseInt(id!, 10), type!).then((response) => {
@@ -28,12 +27,6 @@ export const ItemDetailsPage: React.FC = () => {
         })
 
     }, [id, type, itemContext]);
-
-    useEffect(() => {
-        itemContext?.getReviews(parseInt(id!, 10)).then((response) => {
-            setReviews(response);
-        })
-    }, [id, itemContext]);
 
     if (!itemContext || !cartContext) {
         return <div>No context is available!</div>;
@@ -75,7 +68,7 @@ export const ItemDetailsPage: React.FC = () => {
                 < ItemCharacteristics itemType={item.item_type} characteristics={item.characteristics} />
             </Grid>
             <Grid size={6}>
-                < ItemReviews reviews={reviews} rating={item.overall_rating}/>
+                < ItemReviews itemId={item.id} leftReview={item.left_review} rating={item.overall_rating}/>
             </Grid>
         </Grid>
     )

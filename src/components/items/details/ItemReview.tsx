@@ -7,12 +7,16 @@ import React from 'react';
 interface ItemReviewProps {
     rating: number;
     comment: string;
+    author: string;
 }
 
-export const ItemReview: React.FC<ItemReviewProps> = ( { rating, comment }) => {
+export const ItemReview: React.FC<ItemReviewProps> = ( { rating, comment, author }) => {
     return (
-        <Card sx={{ minWidth: 275 }}>
+        <Card sx={{minWidth: '100%'}}>
             <CardContent>
+                <Typography variant="h6">
+                    { author }
+                </Typography>
                 <Rating value={rating} readOnly sx={{
                     display: 'flex'
                 }}/>

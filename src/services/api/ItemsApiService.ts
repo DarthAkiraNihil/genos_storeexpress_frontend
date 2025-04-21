@@ -33,8 +33,12 @@ class ItemsApiService extends AbstractApiService {
         return this.delete(`/${itemType}/${id}`, token);
     }
 
-    public async getReviews(id: number): Promise<Review[]> {
-        return this.get(`/${id}/reviews`);
+    public async getReviews(id: number, pageNumber: number, pageSize: number): Promise<PaginatedList<Review>> {
+        return this.get(`/${id}/reviews/?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+    }
+
+    public async leaveReview(id: number, review: Review, token: string): Promise<any> {
+        return this.post(`/${id}/leave_review`, review, token);
     }
 
     public async getFilterData(itemType: ItemType): Promise<FilterDescription[]> {

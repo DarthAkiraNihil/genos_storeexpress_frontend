@@ -16,7 +16,8 @@ interface ItemContextProps {
     updateItem(id: number, itemData: DetailedItem, token: string): void;
     deleteItem(id: number, itemType: ItemType, token: string): void;
 
-    getReviews(id: number): Promise<Review[]>;
+    getReviews(id: number, pageNumber: number, pageSize: number): Promise<PaginatedList<Review>>;
+    leaveReview(id: number, review: Review, token: string): Promise<any>;
     getFilterData(itemType: ItemType): Promise<FilterDescription[]>
 }
 
@@ -72,8 +73,12 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         )
     }
 
-    const getReviews = async (id: number): Promise<Review[]> => {
-        return await ItemsApi.getReviews(id);
+    const getReviews = async (id: number, pageNumber: number, pageSize: number): Promise<PaginatedList<Review>> => {
+        return await ItemsApi.getReviews(id, pageNumber, pageSize);
+    }
+
+    const leaveReview = async (id: number, review: Review, token: string): Promise<any> => {
+        return await ItemsApi.leaveReview(id, review, token);
     }
 
     const getFilterData = async (itemType: ItemType): Promise<FilterDescription[]> => {
@@ -91,6 +96,7 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 updateItem,
                 deleteItem,
                 getReviews,
+                leaveReview,
                 getFilterData,
             }
         }>{children}</ItemContext.Provider>
