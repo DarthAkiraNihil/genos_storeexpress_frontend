@@ -2,8 +2,8 @@ import {Characteristics} from "models/items/DetailedItem";
 import { ItemCharacteristicsNameMapper } from "services";
 import Grid from "@mui/material/Grid";
 import {ItemType} from "models/items";
-import Box from "@mui/material/Box";
 import React from "react";
+import Card from "@mui/material/Card";
 
 interface ItemCharacteristicsProps {
     itemType: ItemType,
@@ -12,7 +12,7 @@ interface ItemCharacteristicsProps {
 
 export const ItemCharacteristics: React.FC<ItemCharacteristicsProps> = ( {itemType, characteristics} ) => {
     return (
-        <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
+        <Card sx={{ display: 'flex', padding: '20px', alignItems: "center" }} >
             <Grid container spacing={2}>
                 {
                     Array.from(ItemCharacteristicsNameMapper.mapCharacteristics(itemType, characteristics)).map(
@@ -29,6 +29,6 @@ export const ItemCharacteristics: React.FC<ItemCharacteristicsProps> = ( {itemTy
                     )
                 }
             </Grid>
-        </Box>
+        </Card>
     )
 }

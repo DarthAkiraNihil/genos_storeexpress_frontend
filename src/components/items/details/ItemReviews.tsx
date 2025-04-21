@@ -129,7 +129,7 @@ export const ItemReviews: React.FC<ItemReviewsProps> = ( { itemId, leftReview, r
                                             Отзывы (всего: {reviews.count}):
                                         </Typography>
                                         <FixedSizeList
-                                            height={600}
+                                            height={300}
                                             width={'100%'}
                                             itemSize={128}
                                             itemCount={reviews.items.length}
