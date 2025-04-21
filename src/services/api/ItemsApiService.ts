@@ -1,6 +1,7 @@
-import {ItemType, DetailedItem, Item, Review, FilterDescription} from "models/items";
+import {ItemType, DetailedItem, Item, Review} from "models/items";
 import { AbstractApiService } from "./AbstractApiService";
-import {PaginatedList} from "../../models";
+import {PaginatedList} from "models";
+import {FilterDescription} from 'models/filter';
 
 class ItemsApiService extends AbstractApiService {
 

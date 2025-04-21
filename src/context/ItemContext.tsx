@@ -1,7 +1,8 @@
 import React, {createContext, ReactNode, useEffect, useState} from "react";
-import {DetailedItem, FilterDescription, Item, ItemType, Review} from "models/items";
+import {DetailedItem, Item, ItemType, Review} from "models/items";
 import { ItemsApi } from "services/api";
-import {PaginatedList} from "../models";
+import {PaginatedList} from "models";
+import {FilterDescription} from 'models/filter';
 
 
 interface ItemContextProps {

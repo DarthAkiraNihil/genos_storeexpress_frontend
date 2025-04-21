@@ -10,6 +10,7 @@ import 'styles/items/ItemList.css'
 import {PaginatedList} from "../../models";
 import Stack from "@mui/material/Stack";
 import Box from '@mui/material/Box';
+import { ItemFilters } from "components/items";
 
 export const ItemListPage: React.FC = ( ) => {
 
@@ -59,6 +60,10 @@ export const ItemListPage: React.FC = ( ) => {
                 <h1>
                     Найдено {items.count} товаров типа {type}
                 </h1>
+            </Box>
+
+            <Box display="flex" justifyContent="center">
+                <ItemFilters  type={type} />
             </Box>
 
             <Box display="flex" justifyContent="center">
