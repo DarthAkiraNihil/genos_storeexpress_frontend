@@ -2,5 +2,5 @@
 import {RangeFilter} from "./RangeFilter";
 
 export interface ItemFilter {
-    [key: string]: RangeFilter | ChoiceFilter | boolean;
+    [key: string]: RangeFilter | ChoiceFilter | boolean | string;
 }

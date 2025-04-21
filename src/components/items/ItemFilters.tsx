@@ -14,18 +14,25 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionActions from '@mui/material/AccordionActions';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+
+import 'styles/Common.css'
 
 
 interface ItemFiltersProps {
     type: ItemType;
+
+    applyFiltersCallback: (filter: ItemFilter) => void;
+    resetFiltersCallback: () => void;
 }
 
 
-export const ItemFilters: React.FC<ItemFiltersProps> = ( { type })=> {
+export const ItemFilters: React.FC<ItemFiltersProps> = ( { type, applyFiltersCallback, resetFiltersCallback })=> {
 
     const context = useContext(ItemContext);
     const [filters, setFilters] = React.useState<FilterDescription[]>([]);
     const [builtFilter, setBuiltFilter] = React.useState<ItemFilter>();
+    const [itemName, setItemName] = React.useState<string>();
 
     const onHavingFilterChange = (key: string, value: boolean) => {
         setBuiltFilter({...builtFilter, [key]: value});
@@ -81,6 +88,18 @@ export const ItemFilters: React.FC<ItemFiltersProps> = ( { type })=> {
                         justifyContent: "flex-end",
                         alignItems: "center",
                     }}>
+                    <Grid size={12}>
+                        <TextField
+                            fullWidth
+                            label="Поиск"
+                            placeholder={"Введите название товара"}
+                            value={itemName}
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                setItemName(event.target.value);
+                                setBuiltFilter({...builtFilter, ["name"]: event.target.value});
+                            }}
+                        />
+                    </Grid>
                     {
                         filters.map((filter) => {
                             switch (filter.type) {
@@ -88,7 +107,7 @@ export const ItemFilters: React.FC<ItemFiltersProps> = ( { type })=> {
                                     return (
                                         <Grid size={6}>
                                             <ChoiceFilterComponent
-                                                key={filter.name}
+                                                propertyKey={filter.name}
                                                 name={filter.verbose_name}
                                                 choices={filter.choices!}
                                                 onChange={onChoiceFilterChange} />
@@ -99,7 +118,7 @@ export const ItemFilters: React.FC<ItemFiltersProps> = ( { type })=> {
                                     return (
                                         <Grid size={6}>
                                             <RangeFilterComponent
-                                                key={filter.name}
+                                                propertyKey={filter.name}
                                                 name={filter.verbose_name}
                                                 onChange={onRangeFilterChange} />
                                         </Grid>
@@ -109,7 +128,7 @@ export const ItemFilters: React.FC<ItemFiltersProps> = ( { type })=> {
                                     return (
                                         <Grid size={6}>
                                             <HavingFilterComponent
-                                                key={filter.name}
+                                                propertyKey={filter.name}
                                                 name={filter.verbose_name}
                                                 onChange={onHavingFilterChange} />
                                         </Grid>
@@ -123,8 +142,23 @@ export const ItemFilters: React.FC<ItemFiltersProps> = ( { type })=> {
                 </Grid>
             </AccordionDetails>
             <AccordionActions>
-                <Button>Cancel</Button>
-                <Button>Agree</Button>
+                <Button
+                    onClick={() => {
+                        setBuiltFilter({});
+                        resetFiltersCallback();
+                    }}
+                >
+                    Сбросить фильтры
+                </Button>
+                <Button onClick={() => {
+                    if (!builtFilter) {
+                        console.warn("something went wrong 'cause filter is undefined");
+                        return;
+                    }
+                    applyFiltersCallback(builtFilter);
+                }}>
+                    Применить фильтры
+                </Button>
             </AccordionActions>
         </Accordion>
     );

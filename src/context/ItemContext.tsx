@@ -2,13 +2,13 @@ import React, {createContext, ReactNode, useEffect, useState} from "react";
 import {DetailedItem, Item, ItemType, Review} from "models/items";
 import { ItemsApi } from "services/api";
 import {PaginatedList} from "models";
-import {FilterDescription} from 'models/filter';
+import {FilterDescription, ItemFilter} from 'models/filter';
 
 
 interface ItemContextProps {
     items: Item[];
 
-    getList(type: ItemType, pageNumber: number, pageSize: number): Promise<PaginatedList<Item>>;
+    getList(type: ItemType, pageNumber: number, pageSize: number, filters: ItemFilter | undefined): Promise<PaginatedList<Item>>;
     getDetails(id: number, type: ItemType): Promise<DetailedItem>;
     getImageUrl(id: number): string;
 
@@ -30,8 +30,8 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         console.log("Loaded provider");
     }, []);
 
-    const getList =  async (type: ItemType, pageNumber: number, pageSize: number): Promise<PaginatedList<Item>> => {
-        return await ItemsApi.getList(type, pageNumber, pageSize);
+    const getList =  async (type: ItemType, pageNumber: number, pageSize: number, filters: ItemFilter | undefined): Promise<PaginatedList<Item>> => {
+        return await ItemsApi.getList(type, pageNumber, pageSize, filters);
     }
 
     const getDetails = async (id: number, type: ItemType): Promise<DetailedItem> => {

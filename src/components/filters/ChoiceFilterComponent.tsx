@@ -7,7 +7,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Box from "@mui/material/Box";
 
 interface ChoiceFilterProps {
-    key: string;
+    propertyKey: string;
     name: string;
     choices: string[];
     onChange: (key: string, value: string[]) => void;
@@ -16,7 +16,7 @@ interface ChoiceFilterProps {
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-export const ChoiceFilterComponent: React.FC<ChoiceFilterProps> = ({key, name, choices, onChange}) => {
+export const ChoiceFilterComponent: React.FC<ChoiceFilterProps> = ({propertyKey, name, choices, onChange}) => {
 
     const handleChange = (
         event: SyntheticEvent<Element, Event>,
@@ -24,7 +24,7 @@ export const ChoiceFilterComponent: React.FC<ChoiceFilterProps> = ({key, name, c
         reason: AutocompleteChangeReason,
         details?: AutocompleteChangeDetails<string> | undefined): void => {
         console.log(value);
-        onChange(key, value);
+        onChange(propertyKey, value);
     }
 
     return (
@@ -53,7 +53,7 @@ export const ChoiceFilterComponent: React.FC<ChoiceFilterProps> = ({key, name, c
                 }}
                 style={{ width: 500 }}
                 renderInput={(params) => (
-                    <TextField {...params} label={name} placeholder={name} sx={{marginTop: '16px'}} />
+                    <TextField {...params} label={name} placeholder={name} sx={{marginTop: '16px'}} fullWidth />
                 )}
             />
         </Box>

@@ -4,17 +4,17 @@ import TextField from '@mui/material/TextField';
 import React from 'react';
 
 interface RangeFilterProps {
-    key: string;
+    propertyKey: string;
     name: string;
     onChange: (key: string, _from: number, _to: number) => void;
 }
 
-export const RangeFilterComponent: React.FC< RangeFilterProps > = ({key, name, onChange} ) => {
+export const RangeFilterComponent: React.FC< RangeFilterProps > = ({propertyKey, name, onChange} ) => {
     const [value, setValue] = React.useState<number[]>([0, 999999]);
 
     const handleChange = (event: Event, newValue: number[]) => {
         setValue(newValue);
-        onChange(key, newValue[0], newValue[1]);
+        onChange(propertyKey, newValue[0], newValue[1]);
     };
 
     return (

@@ -1,11 +1,15 @@
 import {ItemType, DetailedItem, Item, Review} from "models/items";
 import { AbstractApiService } from "./AbstractApiService";
 import {PaginatedList} from "models";
-import {FilterDescription} from 'models/filter';
+import {FilterDescription, ItemFilter} from 'models/filter';
 
 class ItemsApiService extends AbstractApiService {
 
-    public async getList(itemType: ItemType, pageNumber: number, pageSize: number): Promise<PaginatedList<Item>> {
+    public async getList(itemType: ItemType, pageNumber: number, pageSize: number, filters: ItemFilter | undefined): Promise<PaginatedList<Item>> {
+        if (filters) {
+            return this.get(`/${itemType}/?pageNumber=${pageNumber}&pageSize=${pageSize}&filters=${JSON.stringify(filters)}`);
+        }
+
         return this.get(`/${itemType}/?pageNumber=${pageNumber}&pageSize=${pageSize}`);
     }
 

@@ -6,3 +6,13 @@
     text-align: center;
     min-height: 100vh;
 }
+
+.regularPage {
+    background-image: linear-gradient(
+            rgba(0, 0, 0, 0.7),
+            rgba(0, 0, 0, 0.7)
+    ), url("../assets/img/common_bg.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
