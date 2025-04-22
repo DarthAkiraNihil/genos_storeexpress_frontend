@@ -25,12 +25,17 @@ export const ItemReviews: React.FC<ItemReviewsProps> = ( { itemId, leftReview, r
     const [reviews, setReviews] = useState<PaginatedList<Review>>();
     const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
-    const [currentReview, setCurrentReview] = useState<Review>({rating: 0.0, author: "", comment: ""});
+    const [loading, setLoading] = useState(true);
+
+    const [currentReview, setCurrentReview] = useState<Review | null>(leftReview);
 
     const context = useContext(ItemContext);
 
     useEffect(() => {
-        context?.getReviews(itemId, 0, 10).then((reviews) => setReviews(reviews));
+        context?.getReviews(itemId, 0, 10).then((reviews) => {
+            setReviews(reviews);
+            setLoading(false);
+        });
     }, [context, itemId]);
 
     if (!context) {
@@ -38,6 +43,19 @@ export const ItemReviews: React.FC<ItemReviewsProps> = ( { itemId, leftReview, r
             <div>
                 No context is available.
             </div>
+        )
+    }
+
+    if (loading) {
+        return (
+            <Card sx={{
+                display: 'flex',
+                padding: '20px',
+                alignItems: "center",
+                justifyContent: 'center'
+            }} >
+                <CircularProgress />
+            </Card>
         )
     }
 
@@ -89,12 +107,12 @@ export const ItemReviews: React.FC<ItemReviewsProps> = ( { itemId, leftReview, r
                 <Box display="flex">
 
                     {
-                        leftReview ? (
+                        currentReview ? (
                             <Stack spacing={2}>
                                 <Typography variant="h5" component="div">
                                     Ваш отзыв:
                                 </Typography>
-                                <ItemReview rating={leftReview.rating} comment={leftReview.comment} author={leftReview.author} />
+                                <ItemReview rating={currentReview.rating} comment={currentReview.comment} author={currentReview.author} />
                             </Stack>
                         ) : (
                             <>
@@ -105,7 +123,14 @@ export const ItemReviews: React.FC<ItemReviewsProps> = ( { itemId, leftReview, r
                                     Оставить отзыв
                                 </Button>
                                 <ReviewFormModal itemId={itemId} open={isReviewModalOpen} onClose={
-                                    () => setIsReviewModalOpen(false)
+                                    (review: Review | null) => {
+                                        setIsReviewModalOpen(false)
+                                        console.log(review);
+                                        if (review) {
+                                            setCurrentReview(review);
+                                            setReviews({...reviews, items: [review, ...reviews.items]});
+                                        }
+                                    }
                                 } />
                             </>
                         )

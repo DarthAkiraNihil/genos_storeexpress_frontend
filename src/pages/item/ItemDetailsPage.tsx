@@ -8,6 +8,8 @@ import {ItemReviews} from "components/items/details/ItemReviews";
 import Grid from '@mui/material/Grid';
 import 'styles/items/ItemDetails.css';
 import {CartContext, useAuth} from "context";
+import {Card} from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const ItemDetailsPage: React.FC = () => {
     const { token } = useAuth();
@@ -17,6 +19,8 @@ export const ItemDetailsPage: React.FC = () => {
     const itemContext = useContext(ItemContext)
     const cartContext = useContext(CartContext)
 
+    const [loading, setLoading] = useState<boolean>(true);
+
     const [item, setItem] = useState<DetailedItem | null>(null)
     const [inCart, setInCart] = useState<boolean>(false)
 
@@ -24,6 +28,7 @@ export const ItemDetailsPage: React.FC = () => {
         itemContext?.getDetails(parseInt(id!, 10), type!).then((response) => {
             setItem(response);
             setInCart(response.is_in_cart);
+            setLoading(false);
         })
 
     }, [id, type, itemContext]);
@@ -55,17 +60,29 @@ export const ItemDetailsPage: React.FC = () => {
     return (
         <Grid container spacing={2} className="itemDetailsRoot">
             <Grid size={12}>
-                <ItemDetailsCard
-                    imageUrl={itemContext.getImageUrl(item.id)}
-                    name={item.name}
-                    model={item.model}
-                    price={item.price}
-                    inCart={inCart}
-                    handleRemoveFromCart={handleRemoveFromCart}
-                    handleAddToCart={handleAddToCart} />
+                {
+                    loading ? (
+                        <CircularProgress />
+                    ) : (
+                        <ItemDetailsCard
+                            imageUrl={itemContext.getImageUrl(item.id)}
+                            name={item.name}
+                            model={item.model}
+                            price={item.price}
+                            inCart={inCart}
+                            handleRemoveFromCart={handleRemoveFromCart}
+                            handleAddToCart={handleAddToCart} />
+                    )
+                }
             </Grid>
             <Grid size={6}>
-                < ItemCharacteristics itemType={item.item_type} characteristics={item.characteristics} />
+                {
+                    loading ? (
+                        <CircularProgress />
+                    ) : (
+                        < ItemCharacteristics itemType={item.item_type} characteristics={item.characteristics} />
+                    )
+                }
             </Grid>
             <Grid size={6}>
                 < ItemReviews itemId={item.id} leftReview={item.left_review} rating={item.overall_rating}/>

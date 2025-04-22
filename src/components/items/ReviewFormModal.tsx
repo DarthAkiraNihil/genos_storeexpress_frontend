@@ -12,12 +12,12 @@ import {ItemContext, useAuth} from "../../context";
 interface ReviewFormProps {
     itemId: number;
     open: boolean;
-    onClose: () => void;
+    onClose: (review: Review | null) => void;
 }
 
 export const ReviewFormModal: React.FC<ReviewFormProps> = ({itemId, open, onClose}) => {
 
-    const { token } = useAuth();
+    const { token, user } = useAuth();
     const [currentReview, setCurrentReview] = useState<Review>({rating: 0.0, author: "", comment: ""});
     const [error, setError] = React.useState<string>('');
     const [loading, setLoading] = React.useState(false);
@@ -35,8 +35,13 @@ export const ReviewFormModal: React.FC<ReviewFormProps> = ({itemId, open, onClos
         } catch (err) {
             setError("Что-то пошло не так");
         } finally {
-            setLoading(false)
+            setLoading(false);
+            onClose({...currentReview, author: user!.username});
         }
+    }
+
+    const internalOnClose = () => {
+        onClose(null);
     }
 
     if (!context) {
@@ -50,7 +55,7 @@ export const ReviewFormModal: React.FC<ReviewFormProps> = ({itemId, open, onClos
     return (
         <Modal
             open={open}
-            onClose={onClose}
+            onClose={internalOnClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
