@@ -74,9 +74,6 @@ export const ReviewFormModal: React.FC<ReviewFormProps> = ({itemId, open, onClos
                 </Typography>
 
                 <form onSubmit={handleSubmit}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
-                    </Typography>
                     <Stack spacing={2}>
                         <Typography component="legend">Оценка</Typography>
                         <Rating
