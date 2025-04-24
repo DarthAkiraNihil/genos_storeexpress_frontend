@@ -45,7 +45,24 @@ export function ResponsiveAppBar() {
         navigate("")
     }
 
-    const pages = ['Каталог товаров']
+    const pages = [
+        {
+            link: '/items',
+            name: 'Каталог товаров',
+        },
+        {
+            link: '/cart',
+            name: 'Корзина',
+        },
+        {
+            link: '/cards',
+            name: 'Банковские карты',
+        },
+        {
+            link: '/order',
+            name: 'История заказов',
+        }
+    ]
     const settings = [{
         text: 'Выйти',
         handler: handleSignOut,
@@ -114,10 +131,12 @@ export function ResponsiveAppBar() {
                                 onClose={handleCloseNavMenu}
                                 sx={{ display: { xs: 'block', md: 'none' } }}
                             >
-                                {pages.map((page) => (
-                                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                        <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
-                                    </MenuItem>
+                                {pages.map((page, index) => (
+                                    <Link to={page.link}>
+                                        <MenuItem key={`app-bar-page-${index}`} onClick={handleCloseNavMenu}>
+                                            <Typography sx={{ textAlign: 'center' }}>{page.name}</Typography>
+                                        </MenuItem>
+                                    </Link>
                                 ))}
                             </Menu>
                         </Box>
@@ -125,14 +144,14 @@ export function ResponsiveAppBar() {
                         <div />
                     )}
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
-                            <Link to="/cart">
+                        {pages.map((page, index) => (
+                            <Link to={page.link}>
                                 <Button
-                                    key={page}
+                                    key={`app-bar-page-${index}`}
                                     onClick={handleCloseNavMenu}
                                     sx={{ my: 2, color: 'white', display: 'block' }}
                                 >
-                                    {page}
+                                    {page.name}
                                 </Button>
                             </Link>
                         ))}
