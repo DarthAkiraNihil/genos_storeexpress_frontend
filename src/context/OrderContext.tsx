@@ -19,6 +19,9 @@ interface OrderContextProps {
 
     payOrder(orderId: number, bankCardId: number, token: string): Promise<any>
 
+    receiveOrder(orderId: number, token: string): Promise<any>
+    cancelOrder(id: number, token: string): Promise<any>
+
 }
 
 export const OrderContext = createContext<OrderContextProps | undefined>(undefined)
@@ -58,6 +61,13 @@ export const OrderProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         return await OrderApi.payOrder(orderId, bankCardId, token);
     }
 
+    const receiveOrder = async (orderId: number, token: string): Promise<any> => {
+        return await OrderApi.receiveOrder(orderId, token);
+    }
+    const cancelOrder = async (id: number, token: string): Promise<any> => {
+        return await OrderApi.cancelOrder(id, token);
+    }
+
     return (
         <OrderContext.Provider value={{
             getOrderDetails,
@@ -71,6 +81,8 @@ export const OrderProvider: React.FC<{ children: ReactNode }> = ({ children }) =
             promoteOrder,
 
             payOrder,
+            receiveOrder,
+            cancelOrder,
         }}>
             {children}
         </OrderContext.Provider>

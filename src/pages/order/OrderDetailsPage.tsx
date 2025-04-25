@@ -98,7 +98,7 @@ export const OrderDetailsPage: React.FC = ( ) => {
                 return "Обрабатывается";
             }
             case OrderStatus.Delivering: {
-                return "Доставляется";
+                return "Доставляется. Нажмите после получения";
             }
             case OrderStatus.Received: {
                 return "Получен";
@@ -154,10 +154,15 @@ export const OrderDetailsPage: React.FC = ( ) => {
                 </Grid>
                 <Grid size={3}>
                     <Button variant="contained"
-                        // onClick={handleCreateOrder}
-                            disabled={order.status === OrderStatus.Cancelled}
-                        // endIcon={creatingOrder ? <CircularProgress size={20} /> : null}
-                            fullWidth
+                        disabled={order.status === OrderStatus.Cancelled || order.status === OrderStatus.Received}
+                        fullWidth
+                        onClick={() => {
+                            orderContext?.cancelOrder(order.id!, token!).then((response) => {
+                                if (response.status === 204) {
+                                    setOrder({...order, status: OrderStatus.Cancelled});
+                                }
+                            })
+                        }}
                     >
                         Отменить
                     </Button>
@@ -173,6 +178,12 @@ export const OrderDetailsPage: React.FC = ( ) => {
                                 } else {
                                     if (order?.status === OrderStatus.AwaitsPayment) {
                                         navigate('payment')
+                                    } else if (order?.status === OrderStatus.Delivering) {
+                                        orderContext?.receiveOrder(order.id!, token!).then((response) => {
+                                            if (response.status === 204) {
+                                                setOrder({...order, status: OrderStatus.Received});
+                                            }
+                                        })
                                     }
                                 }
                             }}

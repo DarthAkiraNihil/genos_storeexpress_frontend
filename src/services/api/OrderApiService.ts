@@ -40,6 +40,14 @@ class OrderApiService extends AbstractApiService {
         return await this.post(`/${orderId}/pay/${bankCardId}`, {}, token);
     }
 
+    public async receiveOrder(orderId: number, token: string): Promise<any> {
+        return await this.post(`/${orderId}/receive`, {}, token);
+    }
+
+    public async cancelOrder(id: number, token: string): Promise<any> {
+        return await this.post(`/${id}/cancel`, token);
+    }
+
 }
 
 export const OrderApi = new OrderApiService("/api/orders");
