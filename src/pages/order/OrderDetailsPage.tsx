@@ -3,7 +3,7 @@ import {ItemContext, OrderContext, useAuth} from 'context'
 import {Order, OrderItem, OrderStatus} from 'models/orders';
 import 'styles/items/ItemList.css';
 import Grid from '@mui/material/Grid';
-import {useParams, useSearchParams} from "react-router-dom";
+import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {OrderItemCard} from 'components/order';
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -13,6 +13,8 @@ import {PaginatedList} from "../../models";
 import {UserRole} from "../../models/auth";
 
 export const OrderDetailsPage: React.FC = ( ) => {
+
+    const navigate = useNavigate();
 
     const { token, user } = useAuth();
     const { id } = useParams<{ id: string }>();
@@ -168,6 +170,10 @@ export const OrderDetailsPage: React.FC = ( ) => {
                             onClick={() => {
                                 if (user!.role === UserRole.administrator) {
                                     orderContext?.promoteOrder(order.id, token!).then((response: Order) => {setOrder(response)});
+                                } else {
+                                    if (order?.status === OrderStatus.AwaitsPayment) {
+                                        navigate('payment')
+                                    }
                                 }
                             }}
                     >

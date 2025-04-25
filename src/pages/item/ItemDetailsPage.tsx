@@ -49,7 +49,6 @@ export const ItemDetailsPage: React.FC = () => {
 
     const handleRemoveFromCart = () => {
         cartContext.removeFromCart(item.id, token!).then((response: any) => {
-            console.log(response);
             if (response) {
                 setInCart(false);
             }

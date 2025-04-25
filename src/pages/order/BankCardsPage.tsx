@@ -55,7 +55,7 @@ export const BankCardsPage: React.FC = () => {
     return (
         <Stack className="list" spacing={8} sx={{marginTop: '32px'}}>
             <Box display="flex" justifyContent="center">
-                <Typography sx={{color: 'white'}} variant="h4">
+                <Typography variant="h4">
                     У вас всего в наличии { cards.count } банковских карт
                 </Typography>
             </Box>

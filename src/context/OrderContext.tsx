@@ -17,6 +17,7 @@ interface OrderContextProps {
     getDetailsOfAnyOrder(id: number, token: string): Promise<Order>
     promoteOrder(id: number, token: string): Promise<Order>;
 
+    payOrder(orderId: number, bankCardId: number, token: string): Promise<any>
 
 }
 
@@ -53,6 +54,10 @@ export const OrderProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         return await OrderApi.getDetailsOfAnyOrder(id, token)
     }
 
+    const payOrder = async (orderId: number, bankCardId: number, token: string): Promise<any> => {
+        return await OrderApi.payOrder(orderId, bankCardId, token);
+    }
+
     return (
         <OrderContext.Provider value={{
             getOrderDetails,
@@ -64,6 +69,8 @@ export const OrderProvider: React.FC<{ children: ReactNode }> = ({ children }) =
             getDetailsOfAnyOrder,
             getItemsOfAnyOrder,
             promoteOrder,
+
+            payOrder,
         }}>
             {children}
         </OrderContext.Provider>
