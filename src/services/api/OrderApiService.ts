@@ -20,6 +20,22 @@ class OrderApiService extends AbstractApiService {
         return await this.post("", token);
     }
 
+    public async getAllOrders(token: string, pageNumber: number, pageSize: number): Promise<PaginatedList<Order>> {
+        return await this.get(`/all?pageNumber=${pageNumber}&pageSize=${pageSize}`, token);
+    }
+
+    public async getDetailsOfAnyOrder(id: number, token: string): Promise<Order> {
+        return await this.get(`${id}/details_of_any`, token);
+    }
+
+    public async getItemsOfAnyOrder(id: number, token: string, pageNumber: number, pageSize: number): Promise<PaginatedList<OrderItem>> {
+        return await this.get(`${id}/items_of_any?pageNumber=${pageNumber}&pageSize=${pageSize}`, token);
+    }
+
+    public async promoteOrder(id: number, token: string): Promise<Order> {
+        return await this.post(`/${id}/promote`, {}, token);
+    }
+
 }
 
 export const OrderApi = new OrderApiService("/api/orders");

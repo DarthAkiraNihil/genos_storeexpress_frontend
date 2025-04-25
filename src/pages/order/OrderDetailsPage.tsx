@@ -10,10 +10,11 @@ import Box from "@mui/material/Box";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import {PaginatedList} from "../../models";
+import {UserRole} from "../../models/auth";
 
 export const OrderDetailsPage: React.FC = ( ) => {
 
-    const { token } = useAuth();
+    const { token, user } = useAuth();
     const { id } = useParams<{ id: string }>();
 
     const [params] = useSearchParams();
@@ -25,21 +26,59 @@ export const OrderDetailsPage: React.FC = ( ) => {
     const itemContext = useContext(ItemContext);
 
     useEffect(() => {
-        orderContext?.getOrderDetails(parseInt(id!, 10), token!).then((response: Order) => {
+
+        if (!orderContext) {
+            return;
+        }
+
+        const getDetails = user!.role === UserRole.administrator ? orderContext?.getDetailsOfAnyOrder : orderContext?.getOrderDetails;
+
+        getDetails(parseInt(id!, 10), token!).then((response: Order) => {
             setOrder(response);
         })
+
+        const getItems = user!.role === UserRole.administrator ? orderContext?.getItemsOfAnyOrder : orderContext?.getOrderItems;
+
         if (params.has('pageNumber')) {
-            orderContext?.getOrderItems(parseInt(id!, 10), token!, parseInt(params.get('pageNumber')!), 10).then((response) => {
+            getItems(parseInt(id!, 10), token!, parseInt(params.get('pageNumber')!), 10).then((response) => {
                 setItems(response);
             })
         } else {
-            orderContext?.getOrderItems(parseInt(id!, 10), token!, 0, 10).then((response) => {
+            getItems(parseInt(id!, 10), token!, 0, 10).then((response) => {
                 setItems(response);
             })
         }
-    }, [id, token, orderContext]);
+    }, [user, params, id, token, orderContext]);
 
     const textByStatus = (status: OrderStatus): string => {
+        if (user!.role === UserRole.administrator) {
+            switch (status) {
+                case OrderStatus.Created: {
+                    return "Подтвердить";
+                }
+                case OrderStatus.Confirmed: {
+                    return "Запросить оплату";
+                }
+                case OrderStatus.AwaitsPayment: {
+                    return "Ожидает оплаты"
+                }
+                case OrderStatus.Paid: {
+                    return "Начать обработку";
+                }
+                case OrderStatus.Processing: {
+                    return "Начать доставку";
+                }
+                case OrderStatus.Delivering: {
+                    return "Ожидает получения";
+                }
+                case OrderStatus.Received: {
+                    return "Получен";
+                }
+                case OrderStatus.Cancelled: {
+                    return "Отменён";
+                }
+            }
+        }
         switch (status) {
             case OrderStatus.Created: {
                 return "Заказ создан";
@@ -76,6 +115,9 @@ export const OrderDetailsPage: React.FC = ( ) => {
     }
 
     const canNextOrderAction = (status: OrderStatus): boolean => {
+        if (user!.role === UserRole.administrator) {
+            return !(status === OrderStatus.AwaitsPayment || status === OrderStatus.Delivering);
+        }
         return status === OrderStatus.AwaitsPayment || status === OrderStatus.Delivering;
     }
 
@@ -123,6 +165,11 @@ export const OrderDetailsPage: React.FC = ( ) => {
                         // onClick={handleCreateOrder}
                             disabled={!canNextOrderAction(order.status)}
                             fullWidth
+                            onClick={() => {
+                                if (user!.role === UserRole.administrator) {
+                                    orderContext?.promoteOrder(order.id, token!).then((response: Order) => {setOrder(response)});
+                                }
+                            }}
                     >
                         { textByStatus(order.status) }
                     </Button>

@@ -15,6 +15,7 @@ import { useAuth } from 'context'
 import { AppConstants } from "const";
 import Box from '@mui/material/Box';
 import * as React from 'react';
+import {UserRole} from "../../models/auth";
 
 export function ResponsiveAppBar() {
 
@@ -45,24 +46,30 @@ export function ResponsiveAppBar() {
         navigate("")
     }
 
-    const pages = [
-        {
-            link: '/items',
-            name: 'Каталог товаров',
-        },
-        {
-            link: '/cart',
-            name: 'Корзина',
-        },
-        {
-            link: '/cards',
-            name: 'Банковские карты',
-        },
-        {
-            link: '/order',
-            name: 'История заказов',
-        }
-    ]
+    const pages = user ? (user.role === UserRole.administrator ? [
+            {
+                link: '/order',
+                name: 'Управление активными заказами',
+            },
+        ] : [
+            {
+                link: '/items',
+                name: 'Каталог товаров',
+            },
+            {
+                link: '/cart',
+                name: 'Корзина',
+            },
+            {
+                link: '/cards',
+                name: 'Банковские карты',
+            },
+            {
+                link: '/order',
+                name: 'История заказов',
+            }
+    ]) : [];
+
     const settings = [{
         text: 'Выйти',
         handler: handleSignOut,

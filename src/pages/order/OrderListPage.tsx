@@ -9,10 +9,11 @@ import {PaginatedList} from "../../models";
 import Box from "@mui/material/Box";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import {UserRole} from "../../models/auth";
 
 export const OrderListPage: React.FC = ( ) => {
 
-    const { token } = useAuth();
+    const { token, user } = useAuth();
 
     const [orders, setOrders] = useState<PaginatedList<Order>>();
     const [params] = useSearchParams();
@@ -20,16 +21,23 @@ export const OrderListPage: React.FC = ( ) => {
     const context = useContext(OrderContext);
 
     useEffect(() => {
+
+        if (!context) {
+            return;
+        }
+
+        const getOrders = user!.role === UserRole.administrator ? context?.getAllOrders : context?.getOrders;
+
         if (params.has('pageNumber')) {
-            context?.getOrders(token!, parseInt(params.get('pageNumber')!), 10).then((response) => {
+            getOrders(token!, parseInt(params.get('pageNumber')!), 10).then((response) => {
                 setOrders(response);
             })
         } else {
-            context?.getOrders(token!, 0, 10).then((response) => {
+            getOrders(token!, 0, 10).then((response) => {
                 setOrders(response);
             })
         }
-    }, [params, context, token]);
+    }, [user, params, context, token]);
 
     const handleChangePage = (event: ChangeEvent<unknown>, page: number): void => {
         setOrders(undefined);
