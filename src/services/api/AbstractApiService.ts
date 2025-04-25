@@ -6,12 +6,29 @@ export abstract class AbstractApiService {
         this.baseUrl = baseUrl
     }
 
-    private async handleError(promise: Promise<any>): Promise<any> {
+    private async handleError(promise: Promise<any>, waitForFile: boolean = false): Promise<any> {
         return await promise.then(
             (response) => {
 
                 if (response.status === 204) {
                     return response;
+                }
+
+                if (waitForFile) {
+                    console.log("is file");
+                    return response.blob().then((blob: any) => {
+
+                        const header = response.headers.get('Content-Disposition');
+                        const parts = header!.split(';');
+                        const filename = parts[1].split('=')[1];
+
+                        const fileURL = window.URL.createObjectURL(blob);
+                        let alink = document.createElement("a");
+                        alink.href = fileURL;
+                        alink.download = filename
+                        alink.click();
+
+                    });
                 }
 
                 let json =  response.json()
@@ -43,7 +60,7 @@ export abstract class AbstractApiService {
         return requestHeaders;
     }
 
-    protected async get(path: string, token: string = ""): Promise<any> {
+    protected async get(path: string, token: string = "", waitForFile: boolean = false): Promise<any> {
 
         if (token) {
             return await this.handleError(
@@ -51,7 +68,7 @@ export abstract class AbstractApiService {
                     'headers': {
                         'Authorization': `Bearer ${token}`
                     },
-                })
+                }), waitForFile
             )
         }
 

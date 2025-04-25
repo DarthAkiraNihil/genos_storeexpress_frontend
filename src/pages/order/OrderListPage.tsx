@@ -1,5 +1,5 @@
 ﻿import React, {ChangeEvent, useContext, useEffect, useState} from 'react';
-import {OrderContext, useAuth} from "context";
+import {OrderContext, ReportContext, useAuth} from "context";
 
 import {Order} from 'models/orders';
 import { OrderCard } from 'components/order';
@@ -10,6 +10,8 @@ import Box from "@mui/material/Box";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import {UserRole} from "../../models/auth";
+import {Add} from "@mui/icons-material";
+import Button from "@mui/material/Button";
 
 export const OrderListPage: React.FC = ( ) => {
 
@@ -19,6 +21,7 @@ export const OrderListPage: React.FC = ( ) => {
     const [params] = useSearchParams();
 
     const context = useContext(OrderContext);
+    const reportContext = useContext(ReportContext);
 
     useEffect(() => {
 
@@ -46,7 +49,7 @@ export const OrderListPage: React.FC = ( ) => {
         })
     }
 
-    if (!context) {
+    if (!context || !reportContext) {
         return <div className="list">
             No context is available!
         </div>
@@ -65,6 +68,12 @@ export const OrderListPage: React.FC = ( ) => {
                     Всего {orders.items.length} заказов
                 </h1>
             </Box>
+
+            <Button variant="contained" color="secondary" fullWidth startIcon={<Add />} onClick={() => {
+                reportContext?.generateOrderHistory(token!);
+            }}>
+                Экспорт истории заказов
+            </Button>
 
             <Box display="flex" justifyContent="center">
                 {

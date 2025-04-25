@@ -1,5 +1,5 @@
 ﻿import React, {ChangeEvent, useContext, useEffect, useState} from 'react';
-import {ItemContext, OrderContext, useAuth} from 'context'
+import {ItemContext, OrderContext, ReportContext, useAuth} from 'context'
 import {Order, OrderItem, OrderStatus} from 'models/orders';
 import 'styles/items/ItemList.css';
 import Grid from '@mui/material/Grid';
@@ -11,6 +11,7 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import {PaginatedList} from "../../models";
 import {UserRole} from "../../models/auth";
+import {Add} from "@mui/icons-material";
 
 export const OrderDetailsPage: React.FC = ( ) => {
 
@@ -26,6 +27,7 @@ export const OrderDetailsPage: React.FC = ( ) => {
 
     const orderContext = useContext(OrderContext);
     const itemContext = useContext(ItemContext);
+    const reportContext = useContext(ReportContext);
 
     useEffect(() => {
 
@@ -123,7 +125,7 @@ export const OrderDetailsPage: React.FC = ( ) => {
         return status === OrderStatus.AwaitsPayment || status === OrderStatus.Delivering;
     }
 
-    if (!orderContext || !itemContext) {
+    if (!orderContext || !itemContext || !reportContext) {
         return <div>
             No context is available!
         </div>
@@ -151,6 +153,21 @@ export const OrderDetailsPage: React.FC = ( ) => {
                     <h1>
                         Заказ №{order.id}
                     </h1>
+                </Grid>
+                <Grid size={3}>
+                    <Button variant="contained" color="secondary" fullWidth startIcon={<Add />} onClick={() => {
+                        if (user?.role === UserRole.individualEntity) {
+                            reportContext?.generateReceipt(order.id, token!);
+                        } else if (user?.role === UserRole.legalEntity) {
+                            reportContext?.generateInvoice(order.id, token!);
+                        }
+                    }}>
+                        {
+                            user?.role === UserRole.individualEntity ? "Сгенерировать чек" : (
+                                user?.role === UserRole.legalEntity ? "Сгенерировать счёт-фактуру" : "Сгенерировать что-то (ты админ)"
+                            )
+                        }
+                    </Button>
                 </Grid>
                 <Grid size={3}>
                     <Button variant="contained"

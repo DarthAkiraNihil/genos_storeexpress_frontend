@@ -10,7 +10,7 @@ import { CartPage } from "pages/cart/CartPage";
 import {SignInPage} from "pages/auth/SignInPage";
 import {BankCardsPage, OrderDetailsPage, OrderListPage, PaymentPage} from "pages/order";
 import React from "react";
-import {BankCardProvider, CartProvider, ItemProvider, OrderProvider} from "context";
+import {BankCardProvider, CartProvider, ItemProvider, OrderProvider, ReportProvider} from "context";
 
 const GenosStorExpressRouter = createBrowserRouter([
     {
@@ -80,7 +80,9 @@ const GenosStorExpressRouter = createBrowserRouter([
                 element:
                     <ProtectedRoute allowCustomers>
                         <OrderProvider>
-                            <OrderListPage />
+                            <ReportProvider>
+                                <OrderListPage />
+                            </ReportProvider>
                         </OrderProvider>
                     </ProtectedRoute>
             },
@@ -90,7 +92,9 @@ const GenosStorExpressRouter = createBrowserRouter([
                     <ProtectedRoute allowCustomers>
                         <OrderProvider>
                             <ItemProvider>
-                                <OrderDetailsPage />
+                                <ReportProvider>
+                                    <OrderDetailsPage />
+                                </ReportProvider>
                             </ItemProvider>
                         </OrderProvider>
                     </ProtectedRoute>
