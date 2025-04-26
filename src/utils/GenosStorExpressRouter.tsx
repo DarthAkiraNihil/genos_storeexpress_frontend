@@ -11,6 +11,7 @@ import {SignInPage} from "pages/auth/SignInPage";
 import {BankCardsPage, OrderDetailsPage, OrderListPage, PaymentPage} from "pages/order";
 import React from "react";
 import {BankCardProvider, CartProvider, ItemProvider, OrderProvider, ReportProvider} from "context";
+import { SignUpPage } from "pages/auth";
 
 const GenosStorExpressRouter = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ const GenosStorExpressRouter = createBrowserRouter([
             {
                 path: '/sign_in',
                 element: <SignInPage />
+            },
+            {
+                path: '/sign_up',
+                element: <SignUpPage />
             },
             {
                 path: '/items',

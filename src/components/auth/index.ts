@@ -1,2 +1,3 @@
 export { SignInForm } from './SignInForm';
-export { SignInPage } from '../../pages/auth/SignInPage';
+export { SignUpIndividualForm } from './SignUpIndividualForm';
+export { SignUpLegalForm } from './SignUpLegalForm';

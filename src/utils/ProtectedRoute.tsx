@@ -18,13 +18,13 @@ export const ProtectedRoute: React.FC<{
 
     console.log(user);
     if (!user && !token) {
-        alert("USER ANONYMOUS! ACCESS DENIED!")
+        // alert("USER ANONYMOUS! ACCESS DENIED!")
         return <Navigate to="/sign_in" replace />
     } else if (allowAdmin && role !== UserRole.administrator) {
-        alert("ADMIN ONLY! ACCESS DENIED!")
+        // alert("ADMIN ONLY! ACCESS DENIED!")
         return <Navigate to="/sign_in" replace />
     } else if (allowCustomers && role === UserRole.administrator) {
-        alert("CUSTOMER ONLY! ACCESS DENIED!")
+        // alert("CUSTOMER ONLY! ACCESS DENIED!")
         return <Navigate to="/sign_in" replace />
     }
 

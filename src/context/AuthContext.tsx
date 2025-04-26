@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from "react"
-import { UserData, UserRole } from 'models/auth'
+import {SignUpData, UserData, UserRole } from 'models/auth'
 import { AuthApi } from 'services/api'
 
 interface AuthContextProps {
     user: UserData | null
     signIn: (userName: string, password: string) => Promise<void>
+    signUp: (data: SignUpData) => Promise<void>
     signOut: () => void
 
     role: UserRole | null
@@ -37,6 +38,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     }
 
+    const signUp = async (data: SignUpData): Promise<void> => {
+        try {
+            const response = await AuthApi.signUp(data)
+        } catch (error) {
+            console.error("Ошибка регистрации:", error)
+            throw error
+        }
+    }
+
     const signOut = () => {
 
         AuthApi.signOut().then(() => {
@@ -52,7 +62,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const token = AuthApi.getToken()
 
     return (
-        <AuthContext.Provider value={{ user, signIn, signOut, role, token }}>
+        <AuthContext.Provider value={{ user, signIn, signUp, signOut, role, token }}>
             {children}
         </AuthContext.Provider>
     )

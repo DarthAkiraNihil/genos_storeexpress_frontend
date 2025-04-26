@@ -1,3 +1,6 @@
 export type { SignInData } from './SignInData'
 export type { UserData } from './UserData'
 export { UserRole } from './UserRole'
+export type { SignUpIndividualData } from './SignUpIndividualData'
+export type { SignUpLegalData } from './SignUpLegalData'
+export type { SignUpData } from './SignUpData'

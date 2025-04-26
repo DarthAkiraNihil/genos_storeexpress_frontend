@@ -1,11 +1,15 @@
 import { AbstractApiService } from "./AbstractApiService";
-import { UserData, SignInData } from "models/auth";
+import { UserData, SignInData, SignUpData } from "models/auth";
 
 class AuthApiService extends AbstractApiService {
     private tokenKey = "jwtToken"
 
     public async signIn(credentials: SignInData): Promise<UserData> {
         return await this.post("sign_in", credentials);
+    }
+
+    public async signUp(credentials: SignUpData): Promise<any> {
+        return await this.post("sign_up", credentials);
     }
 
     public async signOut(): Promise<void> {
