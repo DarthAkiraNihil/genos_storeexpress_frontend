@@ -6,13 +6,16 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
 import React from 'react';
 import { SignUpData } from 'models/auth'
+import {useNavigate} from "react-router-dom";
 
 
 interface SignUpLegalFormProps {
-    signUp: (data: SignUpData) => Promise<void>,
+    signUp: (data: SignUpData) => Promise<any>,
 }
 
 export const SignUpLegalForm: React.FC<SignUpLegalFormProps> = ({ signUp }) => {
+
+    const navigate = useNavigate()
 
     const [email, setEmail] = React.useState<string>('');
     const [password, setPassword] = React.useState<string>('');
@@ -45,8 +48,13 @@ export const SignUpLegalForm: React.FC<SignUpLegalFormProps> = ({ signUp }) => {
                     physical_address: physicalAddress,
                     legal_address: legalAddress,
                 }
+            }).then((response) => {
+                console.log(response)
+                if (response.message === `Юридическое лицо ${email} было успешно создано. Ожидайте верификации`) {
+                    alert(response.message);
+                    navigate("/sign_in")
+                }
             });
-            //navigate("/");
         } catch (err) {
             setError("Регистрация не выполнена")
         } finally {

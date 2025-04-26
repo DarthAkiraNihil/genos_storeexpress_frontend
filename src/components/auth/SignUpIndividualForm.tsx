@@ -10,7 +10,7 @@ import { SignUpData } from 'models/auth'
 
 
 interface SignUpIndividualFormProps {
-    signUp: (data: SignUpData) => Promise<void>,
+    signUp: (data: SignUpData) => Promise<any>,
 }
 
 export const SignUpIndividualForm: React.FC<SignUpIndividualFormProps> = ({ signUp }) => {
@@ -43,8 +43,11 @@ export const SignUpIndividualForm: React.FC<SignUpIndividualFormProps> = ({ sign
                     name: name,
                     surname: surname,
                     phone_number: phone,
-                }});
-            //navigate("/")
+                }}).then((response) => {
+                if (response.status === 200) {
+                    navigate("/sign_in")
+                }
+            });
         } catch (err) {
             setError("Регистрация не выполнена")
         } finally {

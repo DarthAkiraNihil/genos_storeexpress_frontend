@@ -38,9 +38,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     }
 
-    const signUp = async (data: SignUpData): Promise<void> => {
+    const signUp = async (data: SignUpData): Promise<any> => {
         try {
-            const response = await AuthApi.signUp(data)
+            return await AuthApi.signUp(data)
         } catch (error) {
             console.error("Ошибка регистрации:", error)
             throw error
