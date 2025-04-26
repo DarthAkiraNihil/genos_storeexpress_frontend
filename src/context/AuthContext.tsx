@@ -19,6 +19,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [user, setUser] = useState<UserData | null>(null)
 
     useEffect(() => {
+        console.log("Mounting AuthProvider")
         const token = AuthApi.getToken()
         if (token) {
             const storedUser = localStorage.getItem("user")

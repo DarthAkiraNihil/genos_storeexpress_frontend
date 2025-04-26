@@ -1,7 +1,7 @@
 import {Navigate} from "react-router-dom"
-import {useAuth} from "context/AuthContext"
-import {UserRole} from "models/auth";
+import {UserData, UserRole} from "models/auth";
 import React from 'react';
+import { AuthApi } from "services/api/AuthApiService";
 
 
 export const ProtectedRoute: React.FC<{
@@ -14,7 +14,19 @@ export const ProtectedRoute: React.FC<{
     allowCustomers = false,
 }) => {
 
-    const { user, role, token } = useAuth()
+    const token = AuthApi.getToken();
+
+    let user: UserData | undefined = undefined;
+    if (localStorage.getItem("user") != null) {
+        const userData = JSON.parse(localStorage.getItem("user")!);
+
+        user = {
+            token: token!,
+            username: userData.username,
+            role: userData.role,
+        }
+
+    }
 
     console.log(user?.role);
     if (!user && !token) {
@@ -23,7 +35,7 @@ export const ProtectedRoute: React.FC<{
     } else if (allowAdmin && user?.role !== UserRole.administrator) {
         // alert("ADMIN ONLY! ACCESS DENIED!")
         return <Navigate to="/sign_in" replace />
-    } else if (allowCustomers && role === UserRole.administrator) {
+    } else if (allowCustomers && user?.role === UserRole.administrator) {
         // alert("CUSTOMER ONLY! ACCESS DENIED!")
         return <Navigate to="/sign_in" replace />
     }

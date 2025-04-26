@@ -4,16 +4,12 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Link } from 'react-router-dom';
-import CardMedia from '@mui/material/CardMedia';
-import Rating from '@mui/material/Rating';
 
 import 'styles/items/ItemListCard.css'
 import { LegalEntity } from 'models/user';
 import Grid from "@mui/material/Grid";
-import {Edit} from "@mui/icons-material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import {BankCardFormModal} from "../order";
+import {Cancel, Check} from "@mui/icons-material";
+import {ConfirmDialog} from "../common";
 
 
 interface LegalEntityCardProps {
@@ -25,6 +21,9 @@ interface LegalEntityCardProps {
 
 
 export const LegalEntityCard: React.FC<LegalEntityCardProps> = ( { legalEntity, verified, verify, revoke })=> {
+
+    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
+
     return (
         <Card sx={{ display: 'flex', padding: '20px' }}>
 
@@ -63,29 +62,54 @@ export const LegalEntityCard: React.FC<LegalEntityCardProps> = ( { legalEntity, 
 
                         {
                             verified ? (
-                                <Grid size={12}>
-                                    <Button variant="contained" color="error" fullWidth startIcon={<Edit />} onClick={() => {
-                                        revoke(legalEntity.id);
-                                    }}>
-                                        Отозвать подтверждение
-                                    </Button>
-                                </Grid>
+                                <>
+                                    <Grid size={12}>
+                                        <Button variant="contained" color="error" fullWidth startIcon={<Cancel />} onClick={() => {
+                                            setIsDeleteDialogOpen(true)
+                                        }}>
+                                            Отозвать подтверждение
+                                        </Button>
+                                    </Grid>
+                                    <ConfirmDialog
+                                        onConfirm={() => {
+                                            revoke(legalEntity.id)
+                                            setIsDeleteDialogOpen(false);
+                                        }}
+                                        onClose={() => {
+                                            setIsDeleteDialogOpen(false)
+                                        }}
+                                        open={isDeleteDialogOpen}
+                                        title={"Вы уверены?"}
+                                        confirmText={`Вы действительно хотите отозвать подтверждение для юридического лица ${legalEntity.email} (${legalEntity.id})?`} />
+                                </>
+
                             ) : (
                                 <>
                                     <Grid size={6}>
-                                        <Button variant="contained" color="primary" fullWidth startIcon={<Edit />} onClick={() => {
+                                        <Button variant="contained" color="primary" fullWidth startIcon={<Check />} onClick={() => {
                                             verify(legalEntity.id);
                                         }}>
                                             Подтвердить
                                         </Button>
                                     </Grid>
                                     <Grid size={6}>
-                                        <Button variant="contained" color="error" fullWidth startIcon={<Edit />} onClick={() => {
-                                            revoke(legalEntity.id);
+                                        <Button variant="contained" color="error" fullWidth startIcon={<Cancel />} onClick={() => {
+                                            setIsDeleteDialogOpen(true);
                                         }}>
                                             Отклонить
                                         </Button>
                                     </Grid>
+                                    <ConfirmDialog
+                                        onConfirm={() => {
+                                            revoke(legalEntity.id)
+                                            setIsDeleteDialogOpen(false);
+                                        }}
+                                        onClose={() => {
+                                            setIsDeleteDialogOpen(false)
+                                        }}
+                                        open={isDeleteDialogOpen}
+                                        title={"Вы уверены?"}
+                                        confirmText={`Вы действительно хотите отозвать подтверждение для юридического лица ${legalEntity.email} (${legalEntity.id})?`} />
                                 </>
                             )
                         }
