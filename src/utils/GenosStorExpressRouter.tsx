@@ -19,7 +19,7 @@ import {
     ReportProvider
 } from "context";
 import { SignUpPage } from "pages/auth";
-import {LegalEntityManagementPage} from "../pages/admin";
+import {LegalEntityManagementPage, SalesReportPage} from "../pages/admin";
 
 const GenosStorExpressRouter = createBrowserRouter([
     {
@@ -139,6 +139,15 @@ const GenosStorExpressRouter = createBrowserRouter([
                         <LegalEntityProvider>
                             <LegalEntityManagementPage />
                         </LegalEntityProvider>
+                    </ProtectedRoute>
+            },
+            {
+                path: '/sales_report',
+                element:
+                    <ProtectedRoute allowAdmin>
+                        <ReportProvider>
+                            <SalesReportPage />
+                        </ReportProvider>
                     </ProtectedRoute>
             },
         ],

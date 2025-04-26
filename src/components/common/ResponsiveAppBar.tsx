@@ -54,7 +54,11 @@ export function ResponsiveAppBar() {
             {
                 link: '/legal_entities',
                 name: 'Управление верификацией юридических лиц'
-            }
+            },
+            {
+                link: '/sales_report',
+                name: 'Отчёт по продажам'
+            },
         ] : [
             {
                 link: '/items',

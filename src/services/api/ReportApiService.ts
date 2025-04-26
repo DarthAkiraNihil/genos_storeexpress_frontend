@@ -14,6 +14,20 @@ class ReportApiService extends AbstractApiService {
         return this.get('/order_history', token, true);
     }
 
+    public async generateSalesReport(token: string, startDate: Date, endDate: Date): Promise<any> {
+        const s = startDate.toLocaleDateString('ru-RU', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+        })
+        const e = endDate.toLocaleDateString('ru-RU', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+        })
+        return this.get(`/sales_report?startDate=${s}&endDate=${e}`, token, true);
+    }
+
 }
 
 export const ReportApi = new ReportApiService("/api/reports");

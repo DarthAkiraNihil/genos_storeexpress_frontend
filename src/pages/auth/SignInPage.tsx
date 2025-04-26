@@ -18,7 +18,6 @@ export const SignInPage: React.FC = () => {
         >
             <Grid size={3}>
                 <SignInForm />
-
             </Grid>
             <Grid size={3} sx={{paddingTop: 4}}>
                 <Link to={"/sign_up"}>
