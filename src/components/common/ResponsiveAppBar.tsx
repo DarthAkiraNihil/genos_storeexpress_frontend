@@ -51,6 +51,10 @@ export function ResponsiveAppBar() {
                 link: '/order',
                 name: 'Управление активными заказами',
             },
+            {
+                link: '/legal_entities',
+                name: 'Управление верификацией юридических лиц'
+            }
         ] : [
             {
                 link: '/items',

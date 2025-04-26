@@ -10,8 +10,16 @@ import { CartPage } from "pages/cart/CartPage";
 import {SignInPage} from "pages/auth/SignInPage";
 import {BankCardsPage, OrderDetailsPage, OrderListPage, PaymentPage} from "pages/order";
 import React from "react";
-import {BankCardProvider, CartProvider, ItemProvider, OrderProvider, ReportProvider} from "context";
+import {
+    BankCardProvider,
+    CartProvider,
+    ItemProvider,
+    LegalEntityProvider,
+    OrderProvider,
+    ReportProvider
+} from "context";
 import { SignUpPage } from "pages/auth";
+import {LegalEntityManagementPage} from "../pages/admin";
 
 const GenosStorExpressRouter = createBrowserRouter([
     {
@@ -122,6 +130,15 @@ const GenosStorExpressRouter = createBrowserRouter([
                         <BankCardProvider>
                             <BankCardsPage />
                         </BankCardProvider>
+                    </ProtectedRoute>
+            },
+            {
+                path: '/legal_entities',
+                element:
+                    <ProtectedRoute allowAdmin>
+                        <LegalEntityProvider>
+                            <LegalEntityManagementPage />
+                        </LegalEntityProvider>
                     </ProtectedRoute>
             },
         ],

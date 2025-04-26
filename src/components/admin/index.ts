@@ -1,0 +1,1 @@
+﻿export { LegalEntityCard } from "./LegalEntityCard";

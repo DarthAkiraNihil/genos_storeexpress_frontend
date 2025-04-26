@@ -4,3 +4,4 @@ export * from './AuthContext'
 export * from './OrderContext';
 export * from './BankCardsContext';
 export * from './ReportContext';
+export * from './LegalEntityContext';

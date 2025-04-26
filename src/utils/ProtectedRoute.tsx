@@ -16,11 +16,11 @@ export const ProtectedRoute: React.FC<{
 
     const { user, role, token } = useAuth()
 
-    console.log(user);
+    console.log(user?.role);
     if (!user && !token) {
         // alert("USER ANONYMOUS! ACCESS DENIED!")
         return <Navigate to="/sign_in" replace />
-    } else if (allowAdmin && role !== UserRole.administrator) {
+    } else if (allowAdmin && user?.role !== UserRole.administrator) {
         // alert("ADMIN ONLY! ACCESS DENIED!")
         return <Navigate to="/sign_in" replace />
     } else if (allowCustomers && role === UserRole.administrator) {

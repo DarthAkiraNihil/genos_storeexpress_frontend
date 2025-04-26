@@ -1,0 +1,1 @@
+﻿export { LegalEntityManagementPage } from './LegalEntityManagementPage';
