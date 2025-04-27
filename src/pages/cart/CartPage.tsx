@@ -11,9 +11,11 @@ import Box from "@mui/material/Box";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import {PaginatedList} from "../../models";
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 export const CartPage: React.FC = ( ) => {
+
+    const navigate = useNavigate();
 
     const { token } = useAuth();
     const [cart, setCart] = useState<PaginatedList<CartItem>>();
@@ -57,6 +59,7 @@ export const CartPage: React.FC = ( ) => {
         try {
             orderContext.createOrder(token!).then((response) => {
                 console.log("createOrder", response);
+                navigate(`/order/${response.id}`);
             });
         } catch (error) {
             console.log(error);
