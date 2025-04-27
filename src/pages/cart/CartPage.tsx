@@ -1,14 +1,13 @@
 ﻿import React, {ChangeEvent, useContext, useEffect, useState} from 'react';
 import {CartContext, ItemContext, OrderContext, useAuth} from 'context'
 import { CartItemCard } from "components/cart/CartItemCard"
-import { Cart, CartItem } from "models/cart";
+import { CartItem } from "models/cart";
 
 import 'styles/items/ItemList.css';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import {ItemListCard} from "../../components/items";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import {PaginatedList} from "../../models";
@@ -108,6 +107,7 @@ export const CartPage: React.FC = ( ) => {
                                         model={cartItem.item.model}
                                         price={cartItem.item.price}
                                         quantity={cartItem.quantity}
+                                        discount={cartItem.item.active_discount}
 
                                         imageUrl={itemContext.getImageUrl(cartItem.item.id)}
 
@@ -153,7 +153,13 @@ export const CartPage: React.FC = ( ) => {
 
             <h2>
                 Итого: {
-                cart.items.reduce((sum: number, current: CartItem) => sum + current.quantity * current.item.price, 0)
+                cart.items.reduce((sum: number, current: CartItem) => {
+                    if (current.item.active_discount) {
+                        return sum + current.quantity * (1 - current.item.active_discount.value) * current.item.price;
+                    }
+
+                    return sum + current.quantity * current.item.price;
+                }, 0)
             } руб.
             </h2>
 
