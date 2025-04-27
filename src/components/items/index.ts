@@ -4,3 +4,5 @@ export { ItemFilters } from './ItemFilters';
 export { ItemForm } from './ItemForm';
 
 export { ReviewFormModal } from './ReviewFormModal';
+
+export { DiscountItemListCard } from './DiscountItemListCard';

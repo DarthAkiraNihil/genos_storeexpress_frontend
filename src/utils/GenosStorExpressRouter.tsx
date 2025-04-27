@@ -13,13 +13,14 @@ import React from "react";
 import {
     BankCardProvider,
     CartProvider,
+    DiscountProvider,
     ItemProvider,
     LegalEntityProvider,
     OrderProvider,
     ReportProvider
 } from "context";
 import { SignUpPage } from "pages/auth";
-import {LegalEntityManagementPage, SalesReportPage} from "../pages/admin";
+import {DiscountManagementPage, LegalEntityManagementPage, SalesReportPage} from "../pages/admin";
 
 const GenosStorExpressRouter = createBrowserRouter([
     {
@@ -148,6 +149,17 @@ const GenosStorExpressRouter = createBrowserRouter([
                         <ReportProvider>
                             <SalesReportPage />
                         </ReportProvider>
+                    </ProtectedRoute>
+            },
+            {
+                path: '/discounts',
+                element:
+                    <ProtectedRoute allowAdmin>
+                        <DiscountProvider>
+                            <ItemProvider>
+                                <DiscountManagementPage />
+                            </ItemProvider>
+                        </DiscountProvider>
                     </ProtectedRoute>
             },
         ],

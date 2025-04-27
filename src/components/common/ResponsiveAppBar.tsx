@@ -59,6 +59,10 @@ export function ResponsiveAppBar() {
                 link: '/sales_report',
                 name: 'Отчёт по продажам'
             },
+            {
+                link: '/discounts',
+                name: 'Управление скидками'
+            },
         ] : [
             {
                 link: '/items',

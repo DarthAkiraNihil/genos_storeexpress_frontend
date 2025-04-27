@@ -8,8 +8,6 @@ import { BankCard } from 'models/orders/BankCard';
 import Grid from '@mui/material/Grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Edit } from '@mui/icons-material';
-import {Review} from "../../models/items";
-import {ReviewFormModal} from "../items";
 import {BankCardFormModal} from "./BankCardFormModal";
 
 

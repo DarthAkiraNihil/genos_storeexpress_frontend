@@ -1,5 +1,5 @@
 import { AbstractApiService } from "./AbstractApiService";
-import {Cart, CartItem} from "models/cart";
+import {CartItem} from "models/cart";
 import {PaginatedList} from "../../models";
 
 class CartsApiService extends AbstractApiService {
