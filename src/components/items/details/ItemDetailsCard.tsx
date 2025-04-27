@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import React from "react";
+import {Discount} from "models/orders";
 
 interface ItemDetailsCardProps {
     imageUrl: string;
@@ -12,11 +13,12 @@ interface ItemDetailsCardProps {
     model: string;
     price: number;
     inCart: boolean;
+    discount: Discount | null;
     handleRemoveFromCart: () => void;
     handleAddToCart: () => void;
 }
 
-export const ItemDetailsCard: React.FC<ItemDetailsCardProps>  = ( { imageUrl, name, model, price, inCart, handleRemoveFromCart, handleAddToCart} ) => {
+export const ItemDetailsCard: React.FC<ItemDetailsCardProps>  = ( { imageUrl, name, model, price, inCart, handleRemoveFromCart, handleAddToCart, discount} ) => {
     return (
         <Card sx={{ display: 'flex', padding: '32px' }}>
             <CardMedia
@@ -42,9 +44,22 @@ export const ItemDetailsCard: React.FC<ItemDetailsCardProps>  = ( { imageUrl, na
                         { model }
                     </Typography>
 
-                    <Typography variant="h4">
-                        { price } руб.
-                    </Typography>
+                    {
+                        discount ? (
+                            <>
+                                <Typography variant="h5" sx={{textDecoration: 'line-through'}}>
+                                    { price }
+                                </Typography>
+                                <Typography variant="h5">
+                                    { price * (1 - discount.value )} руб.
+                                </Typography>
+                            </>
+                        ) : (
+                            <Typography variant="h5">
+                                { price } руб.
+                            </Typography>
+                        )
+                    }
 
                 </CardContent>
 

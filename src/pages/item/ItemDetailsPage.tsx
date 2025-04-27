@@ -8,7 +8,6 @@ import {ItemReviews} from "components/items/details/ItemReviews";
 import Grid from '@mui/material/Grid';
 import 'styles/items/ItemDetails.css';
 import {CartContext, useAuth} from "context";
-import {Card} from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
 export const ItemDetailsPage: React.FC = () => {
@@ -69,6 +68,7 @@ export const ItemDetailsPage: React.FC = () => {
                             model={item.model}
                             price={item.price}
                             inCart={inCart}
+                            discount={item.active_discount}
                             handleRemoveFromCart={handleRemoveFromCart}
                             handleAddToCart={handleAddToCart} />
                     )

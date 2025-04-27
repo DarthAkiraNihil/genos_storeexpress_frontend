@@ -137,6 +137,11 @@ export const ItemReviews: React.FC<ItemReviewsProps> = ( { itemId, leftReview, r
                     }
                 </Box>
 
+                <Box display="flex" justifyContent="center">
+                    <Pagination count={Math.floor(reviews.count / 10) + 1} shape="rounded" onChange={handleChangePage}
+                                sx={{justifyContent: "center", alignItems: "center"}} />
+                </Box>
+
                 <Box display="flex">
 
                     {
@@ -153,17 +158,14 @@ export const ItemReviews: React.FC<ItemReviewsProps> = ( { itemId, leftReview, r
                                         <Typography variant="h5" component="div">
                                             Отзывы (всего: {reviews.count}):
                                         </Typography>
-                                        <FixedSizeList
-                                            height={300}
-                                            width={'100%'}
-                                            itemSize={128}
-                                            itemCount={reviews.items.length}
-                                            overscanCount={5}
-                                        >
+                                        <Stack spacing={8}>
                                             {
-                                                renderRow
+                                                reviews.items.map((review) => (
+                                                    <ItemReview rating={review.rating} comment={review.comment}
+                                                                author={review.author}/>
+                                                ))
                                             }
-                                        </FixedSizeList>
+                                        </Stack>
                                     </>
                                 )
                             }

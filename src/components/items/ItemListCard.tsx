@@ -9,6 +9,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Rating from '@mui/material/Rating';
 
 import 'styles/items/ItemListCard.css'
+import {Discount} from "../../models/orders";
 
 
 interface ItemListCardProps {
@@ -19,10 +20,11 @@ interface ItemListCardProps {
     imageUrl: string;
     rating: number;
     reviewsCount: number;
+    discount: Discount | null;
 }
 
 
-export const ItemListCard: React.FC<ItemListCardProps> = ( { id, name, model, price, imageUrl, rating, reviewsCount })=> {
+export const ItemListCard: React.FC<ItemListCardProps> = ( { id, name, model, price, imageUrl, rating, reviewsCount, discount })=> {
     return (
         <Card sx={{ display: 'flex', padding: '20px' }}>
 
@@ -63,9 +65,22 @@ export const ItemListCard: React.FC<ItemListCardProps> = ( { id, name, model, pr
                         </Typography>
                     </Box>
 
-                    <Typography variant="h5">
-                        { price } руб.
-                    </Typography>
+                    {
+                        discount ? (
+                            <>
+                                <Typography variant="h5" sx={{textDecoration: 'line-through'}}>
+                                    { price }
+                                </Typography>
+                                <Typography variant="h5">
+                                    { price * (1 - discount.value )} руб.
+                                </Typography>
+                            </>
+                        ) : (
+                            <Typography variant="h5">
+                                { price } руб.
+                            </Typography>
+                        )
+                    }
 
                 </CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>

@@ -118,6 +118,7 @@ export const ItemListPage: React.FC = ( ) => {
                                                 imageUrl={context.getImageUrl(item.id)}
                                                 rating={item.overall_rating}
                                                 reviewsCount={item.reviews_count}
+                                                discount={item.active_discount}
                                             />
                                         </div>
                                     )

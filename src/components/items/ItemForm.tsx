@@ -46,6 +46,7 @@ export const ItemForm: React.FC = () => {
                 ...newItem,
                 is_in_cart: false,
                 left_review: null,
+                active_discount: null,
                 characteristics: JSON.parse(newItem.characteristics),
                 overall_rating: 0,
                 reviews_count: 0,

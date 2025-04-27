@@ -1,3 +1,4 @@
+import { Discount } from "models/orders";
 import { ItemType } from "./ItemType";
 import {Review} from "./Review";
 
@@ -12,4 +13,5 @@ export interface Item {
     left_review: Review | null;
     overall_rating: number;
     reviews_count: number;
+    active_discount: Discount | null;
 }
