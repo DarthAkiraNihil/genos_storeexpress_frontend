@@ -75,7 +75,7 @@ export const OrderListPage: React.FC = ( ) => {
                 Экспорт истории заказов
             </Button>
 
-            <Box display="flex" justifyContent="center">
+            <Stack className="list" spacing={8} >
                 {
                     orders.items.map((order) => {
                             return (
@@ -91,8 +91,8 @@ export const OrderListPage: React.FC = ( ) => {
                                 </div>
                             )
                         }
-                    )}
-            </Box>
+                )}
+            </Stack>
 
             <Box display="flex" justifyContent="center">
                 <Pagination count={Math.floor(orders.count / 10) + 1} shape="rounded" onChange={handleChangePage}

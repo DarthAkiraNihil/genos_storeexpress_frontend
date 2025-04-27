@@ -41,7 +41,7 @@ export const DiscountManagementPage: React.FC = ( ) => {
 
     const handleChangeSelect = (event: SelectChangeEvent) => {
         console.log(event.target.value);
-        setType(ItemType[event.target.value as keyof typeof ItemType]);
+        setType(event.target.value as ItemType);
     };
 
     if (!context) {
@@ -70,7 +70,7 @@ export const DiscountManagementPage: React.FC = ( ) => {
                     fullWidth
                 >
                     {
-                        Object.keys(ItemType).map((val) => (
+                        Object.values(ItemType).map((val) => (
                             <MenuItem value={val} key={val}> { val }</MenuItem>
                         ))
                     }

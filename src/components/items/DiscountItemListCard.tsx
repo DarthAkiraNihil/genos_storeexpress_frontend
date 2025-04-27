@@ -11,6 +11,7 @@ import {Discount} from "../../models/orders";
 import {DiscountFormModal} from "../admin";
 import {ConfirmDialog} from "../common";
 import {DiscountContext, useAuth} from 'context';
+import Stack from '@mui/material/Stack';
 
 
 interface DiscountItemListCardProps {
@@ -86,15 +87,18 @@ export const DiscountItemListCard: React.FC<DiscountItemListCardProps> = ( { ite
 
                 </CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-                    <Button variant="contained" color="primary" disabled={!!discount} onClick={() => setActivateModalOpen(true)}>
-                        Добавить и активировать скидку
-                    </Button>
-                    <Button variant="contained" color="primary" disabled={!discount} onClick={() => setEditModalOpen(true)}>
-                        Редактировать скидку
-                    </Button>
-                    <Button variant="contained" color="primary" disabled={!discount} onClick={() => setDeactivateModalOpen(true)}>
-                        Деактивировать скидку
-                    </Button>
+                    <Stack direction="row" spacing={2}>
+                        <Button variant="contained" color="primary" disabled={!!discount} onClick={() => setActivateModalOpen(true)}>
+                            Добавить и активировать скидку
+                        </Button>
+                        <Button variant="contained" color="primary" disabled={!discount} onClick={() => setEditModalOpen(true)}>
+                            Редактировать скидку
+                        </Button>
+                        <Button variant="contained" color="primary" disabled={!discount} onClick={() => setDeactivateModalOpen(true)}>
+                            Деактивировать скидку
+                        </Button>
+                    </Stack>
+
                     <DiscountFormModal itemId={itemId} discount={discount} open={activateModalOpen} edit={false} onClose={() => {
                         setActivateModalOpen(false);
                     }} />
