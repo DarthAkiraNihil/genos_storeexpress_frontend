@@ -1,14 +1,15 @@
 import { ResponsiveAppBar } from "./common";
-import {ItemProvider} from "../context";
 import React from "react";
 import { Outlet } from "react-router-dom";
-import {CartProvider} from "context/CartContext";
+import 'styles/Common.css';
+import {Footer} from "./Footer";
 
 const GenosStorExpressLayout: React.FC = () => {
     return (
-        <div className="root regularPage">
+        <div>
             <ResponsiveAppBar />
             <Outlet />
+            <Footer />
         </div>
     )
 }
