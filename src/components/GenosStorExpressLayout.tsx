@@ -1,6 +1,6 @@
 import { ResponsiveAppBar } from "./common";
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import 'styles/Common.css';
 import {Footer} from "./Footer";
 

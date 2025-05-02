@@ -3,7 +3,7 @@ import { DetailedItem, ItemType, Review } from "models/items";
 import {ItemCharacteristics} from "components/items/details/ItemCharacteristics";
 import {ItemDetailsCard} from "components/items/details/ItemDetailsCard";
 import { ItemContext } from "context/ItemContext";
-import {useParams} from "react-router-dom";
+import {useParams} from "react-router";
 import {ItemReviews} from "components/items/details/ItemReviews";
 import Grid from '@mui/material/Grid';
 import 'styles/items/ItemDetails.css';

@@ -4,7 +4,7 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
-import { useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router";
 import React from 'react';
 import { SignUpData } from 'models/auth'
 

@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useContext, useEffect, useState} from 'react';
 import { ItemContext } from 'context/ItemContext';
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router";
 import Pagination from '@mui/material/Pagination';
 
 import { Item, ItemType } from "models/items";

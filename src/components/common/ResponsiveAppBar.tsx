@@ -10,7 +10,7 @@ import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import Card from "@mui/material/Card";
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router';
 import { useAuth } from 'context'
 import { AppConstants } from "const";
 import Box from '@mui/material/Box';

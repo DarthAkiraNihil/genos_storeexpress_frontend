@@ -11,7 +11,7 @@ import Box from "@mui/material/Box";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import {PaginatedList} from "../../models";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router";
 
 export const CartPage: React.FC = ( ) => {
 

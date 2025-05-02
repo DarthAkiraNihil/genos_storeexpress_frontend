@@ -1,4 +1,4 @@
-import {Navigate} from "react-router-dom"
+import {Navigate} from "react-router"
 import {UserData, UserRole} from "models/auth";
 import React from 'react';
 import { AuthApi } from "services/api/AuthApiService";

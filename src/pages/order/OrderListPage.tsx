@@ -4,7 +4,7 @@ import {OrderContext, ReportContext, useAuth} from "context";
 import {Order} from 'models/orders';
 import { OrderCard } from 'components/order';
 import 'styles/items/ItemList.css'
-import {useSearchParams} from "react-router-dom";
+import {useSearchParams} from "react-router";
 import {PaginatedList} from "../../models";
 import Box from "@mui/material/Box";
 import Pagination from "@mui/material/Pagination";

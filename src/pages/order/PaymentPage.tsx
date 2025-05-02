@@ -1,6 +1,6 @@
 ﻿import React, {ChangeEvent, useContext, useEffect, useState} from 'react';
 import {PaginatedList} from "../../models";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router";
 import {BankCardsContext, OrderContext, useAuth} from "context";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";

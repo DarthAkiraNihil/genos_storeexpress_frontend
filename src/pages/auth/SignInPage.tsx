@@ -4,7 +4,7 @@ import React from 'react'
 import Button from "@mui/material/Button";
 import {ImageBase64} from "../../components/common";
 import {ItemTypeNames, ItemTypeNamesPrural} from "../../const";
-import {Link} from "react-router-dom";
+import {Link} from "react-router";
 
 export const SignInPage: React.FC = () => {
     return  (

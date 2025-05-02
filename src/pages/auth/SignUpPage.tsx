@@ -1,7 +1,7 @@
 ﻿import Grid from '@mui/material/Grid'
 import React from 'react'
 import Button from "@mui/material/Button";
-import {Link} from "react-router-dom";
+import {Link} from "react-router";
 import { useAuth } from 'context';
 import {SignUpIndividualForm, SignUpLegalForm} from "../../components/auth";
 

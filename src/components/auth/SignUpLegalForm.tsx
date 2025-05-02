@@ -6,7 +6,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
 import React from 'react';
 import { SignUpData } from 'models/auth'
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router";
 
 
 interface SignUpLegalFormProps {

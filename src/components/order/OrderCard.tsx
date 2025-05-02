@@ -4,7 +4,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { OrderStatus } from 'models/orders';
-import {Link} from "react-router-dom";
+import {Link} from "react-router";
 import Button from "@mui/material/Button";
 
 

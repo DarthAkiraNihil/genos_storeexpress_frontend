@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField'
 import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
 import { useAuth } from 'context';
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router";
 import React from 'react';
 
 export const SignInForm: React.FC = () => {
@@ -47,6 +47,9 @@ export const SignInForm: React.FC = () => {
                         label="Имя пользователя"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
+                        inputProps={{
+                            'aria-label': 'username'
+                        }}
                         required
                         fullWidth
                     />
@@ -56,6 +59,9 @@ export const SignInForm: React.FC = () => {
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        inputProps={{
+                            'aria-label': 'password'
+                        }}
                         required
                         fullWidth
                     />
