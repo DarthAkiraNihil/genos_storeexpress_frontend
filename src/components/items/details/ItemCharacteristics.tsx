@@ -12,16 +12,16 @@ interface ItemCharacteristicsProps {
 
 export const ItemCharacteristics: React.FC<ItemCharacteristicsProps> = ( {itemType, characteristics} ) => {
     return (
-        <Card sx={{ display: 'flex', padding: '20px', alignItems: "center" }} >
+        <Card sx={{ display: 'flex', padding: '20px', alignItems: "center" }} aria-label={"characteristics"}>
             <Grid container spacing={2}>
                 {
                     Array.from(ItemCharacteristicsNameMapper.mapCharacteristics(itemType, characteristics)).map(
                         ([k, v]) => (
                             <>
-                                <Grid size={3} key={k}>
+                                <Grid size={3} key={k} aria-label={`${k}-characteristic-key`}>
                                     {k}:
                                 </Grid>
-                                <Grid size={3} key={`${k}-value`}>
+                                <Grid size={3} key={`${k}-value`} aria-label={`${k}-characteristic-value`}>
                                     {v}
                                 </Grid>
                             </>

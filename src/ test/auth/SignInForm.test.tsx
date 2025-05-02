@@ -1,7 +1,4 @@
-﻿// msw
-import { http } from 'msw'
-import { setupServer } from 'msw/node'
-// см. ниже
+﻿// см. ниже
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 // см. ниже
 import '@testing-library/jest-dom'

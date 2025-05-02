@@ -20,7 +20,7 @@ interface ItemDetailsCardProps {
 
 export const ItemDetailsCard: React.FC<ItemDetailsCardProps>  = ( { imageUrl, name, model, price, inCart, handleRemoveFromCart, handleAddToCart, discount} ) => {
     return (
-        <Card sx={{ display: 'flex', padding: '32px' }}>
+        <Card sx={{ display: 'flex', padding: '32px' }} aria-label={"details_card"}>
             <CardMedia
                 component="img"
                 image={imageUrl}
@@ -36,26 +36,26 @@ export const ItemDetailsCard: React.FC<ItemDetailsCardProps>  = ( { imageUrl, na
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <CardContent sx={{ flex: '1 0 auto' }}>
 
-                    <Typography variant="h4" component="div">
+                    <Typography variant="h4" component="div" aria-label={"item_name"}>
                         { name }
                     </Typography>
 
-                    <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>
+                    <Typography sx={{ color: 'text.secondary', mb: 1.5 }} aria-label={"item_model"}>
                         { model }
                     </Typography>
 
                     {
                         discount ? (
                             <>
-                                <Typography variant="h5" sx={{textDecoration: 'line-through'}}>
+                                <Typography variant="h5" sx={{textDecoration: 'line-through'}} aria-label={"price_old"}>
                                     { price }
                                 </Typography>
-                                <Typography variant="h5">
+                                <Typography variant="h5" aria-label={"price_new"}>
                                     { price * (1 - discount.value )} руб.
                                 </Typography>
                             </>
                         ) : (
-                            <Typography variant="h5">
+                            <Typography variant="h5" aria-label={"price"}>
                                 { price } руб.
                             </Typography>
                         )
@@ -66,11 +66,11 @@ export const ItemDetailsCard: React.FC<ItemDetailsCardProps>  = ( { imageUrl, na
                 <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
                     {
                         inCart ? (
-                            <Button variant="contained" color="primary" onClick={handleRemoveFromCart} size={"large"}>
+                            <Button variant="contained" color="primary" onClick={handleRemoveFromCart} size={"large"} aria-label={"button_to_cart_from_cart"}>
                                 В корзине
                             </Button>
                         ) : (
-                            <Button variant="contained" color="primary" onClick={handleAddToCart} size={"large"}>
+                            <Button variant="contained" color="primary" onClick={handleAddToCart} size={"large"} aria-label={"button_to_cart_from_cart"}>
                                 В корзину
                             </Button>
                         )

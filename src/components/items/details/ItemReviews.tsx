@@ -92,7 +92,7 @@ export const ItemReviews: React.FC<ItemReviewsProps> = ( { itemId, leftReview, r
     }
 
     return (
-        <Card sx={{ display: 'flex', padding: '20px', alignItems: "center" }} >
+        <Card sx={{ display: 'flex', padding: '20px', alignItems: "center" }} aria-label={"reviews"}>
             <Stack spacing={8} sx={{minWidth: '100%'}}>
                 <Box display="flex">
                     <Typography variant="h5" component="div">
@@ -150,15 +150,15 @@ export const ItemReviews: React.FC<ItemReviewsProps> = ( { itemId, leftReview, r
                         >
                             {
                                 reviews.count === 0 ? (
-                                    <Typography variant="h5" component="div">
+                                    <Typography variant="h5" component="div" aria-label={"no_reviews"}>
                                         У данного товара пока нет отзывов
                                     </Typography>
                                 ) : (
                                     <>
-                                        <Typography variant="h5" component="div">
+                                        <Typography variant="h5" component="div" aria-label={"reviews_count"}>
                                             Отзывы (всего: {reviews.count}):
                                         </Typography>
-                                        <Stack spacing={8}>
+                                        <Stack spacing={8} aria-label={"reviews_stack"}>
                                             {
                                                 reviews.items.map((review) => (
                                                     <ItemReview rating={review.rating} comment={review.comment}

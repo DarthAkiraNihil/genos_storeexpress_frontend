@@ -33,11 +33,11 @@ export const ItemDetailsPage: React.FC = () => {
     }, [id, type, itemContext]);
 
     if (!itemContext || !cartContext) {
-        return <div>No context is available!</div>;
+        return <div aria-label={"no_context"}>No context is available!</div>;
     }
 
     if (!item || !type || !id) {
-        return <div>Item not found!</div>
+        return <div aria-label={"not_found"}>Item not found!</div>
     }
 
     const handleAddToCart = () => {
@@ -56,7 +56,7 @@ export const ItemDetailsPage: React.FC = () => {
 
 
     return (
-        <Grid container spacing={2} className="itemDetailsRoot">
+        <Grid container spacing={2} className="itemDetailsRoot" aria-label={"details"}>
             <Grid size={12}>
                 {
                     loading ? (
