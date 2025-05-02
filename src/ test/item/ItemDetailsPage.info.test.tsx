@@ -1,4 +1,4 @@
-﻿import {render, screen} from '@testing-library/react'
+﻿import {fireEvent, render, screen} from '@testing-library/react'
 import '@testing-library/jest-dom'
 import {AuthProvider, CartProvider, ItemProvider} from "context";
 import {Route, Routes, MemoryRouter } from "react-router";
@@ -8,7 +8,7 @@ import {ItemsApi} from "services/api";
 import {ItemType} from "models/items";
 
 
-describe('Тестирование детальной страницы товара. Информация', () => {
+describe('<ItemDetailsPage /> - Тестирование детальной страницы товара. Информация', () => {
     test("Товар отображается корректно. Отзывов нет. Скидки нет", async () => {
 
         const mockGetDetails = jest.spyOn(ItemsApi, 'getDetails');
@@ -803,6 +803,5 @@ describe('Тестирование детальной страницы това�
         expect(screen.getByLabelText("no_context").innerHTML).toContain("No context is available!")
 
     })
-
 
 });

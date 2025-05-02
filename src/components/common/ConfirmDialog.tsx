@@ -34,10 +34,10 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({onConfirm, open, on
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={onClose}>
+                    <Button onClick={onClose} aria-label="button_confirm_no">
                         Нет
                     </Button>
-                    <Button onClick={onConfirm} autoFocus>
+                    <Button onClick={onConfirm} autoFocus aria-label="button_confirm_yes">
                         Да
                     </Button>
                 </DialogActions>

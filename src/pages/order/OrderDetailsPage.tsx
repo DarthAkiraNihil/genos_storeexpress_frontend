@@ -12,6 +12,7 @@ import Stack from "@mui/material/Stack";
 import {PaginatedList} from "../../models";
 import {UserRole} from "../../models/auth";
 import {Add} from "@mui/icons-material";
+import {ConfirmDialog} from "../../components/common";
 
 export const OrderDetailsPage: React.FC = ( ) => {
 
@@ -24,6 +25,7 @@ export const OrderDetailsPage: React.FC = ( ) => {
 
     const [order, setOrder] = useState<Order>();
     const [items, setItems] = useState<PaginatedList<OrderItem>>();
+    const [isCancelOrderDialogOpen, setCancelOrderDialogOpen] = useState(false);
 
     const orderContext = useContext(OrderContext);
     const itemContext = useContext(ItemContext);
@@ -126,21 +128,21 @@ export const OrderDetailsPage: React.FC = ( ) => {
     }
 
     if (!orderContext || !itemContext || !reportContext) {
-        return <div>
+        return <div aria-label={"no_context"}>
             No context is available!
         </div>
     }
 
     if (!order || !items) {
         return (
-            <h1 className="list">
+            <h1 className="list" aria-label={"not_found"}>
                 Заказ не найден
             </h1>
         )
     }
 
     return (
-        <Stack className="list" spacing={8} >
+        <Stack className="list" spacing={8} aria-label={"order_details_page"}>
             <Grid
                 container
                 direction="row"
@@ -180,13 +182,30 @@ export const OrderDetailsPage: React.FC = ( ) => {
                                 }
                             })
                         }}
+                        aria-label={"button_cancel"}
                     >
                         Отменить
                     </Button>
+                    <ConfirmDialog
+                        onConfirm={() => {
+                            orderContext?.cancelOrder(order.id!, token!).then((response) => {
+                                if (response.status === 204) {
+                                    setOrder({...order, status: OrderStatus.Cancelled});
+                                }
+                            })
+                            setCancelOrderDialogOpen(false);
+                        }}
+                        onClose={() => {
+                            setCancelOrderDialogOpen(false)
+                        }}
+                        open={isCancelOrderDialogOpen}
+                        title={"Вы уверены?"}
+                        confirmText={"Вы действительно хотите отменить данный заказ?"} />
                 </Grid>
                 <Grid size={3}>
                     <Button variant="contained"
                         // onClick={handleCreateOrder}
+                            aria-label={"button_next"}
                             disabled={!canNextOrderAction(order.status)}
                             fullWidth
                             onClick={() => {
@@ -235,7 +254,7 @@ export const OrderDetailsPage: React.FC = ( ) => {
                             sx={{justifyContent: "center", alignItems: "center"}} />
             </Box>
 
-            <h2>
+            <h2 aria-label={"grand_total"}>
                 Итого: {
                 items.items.reduce((sum: number, current: OrderItem) => sum + current.quantity * current.bought_for, 0)
             } руб.

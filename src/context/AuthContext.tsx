@@ -16,10 +16,9 @@ const AuthContext = createContext<AuthContextProps | null>(null)
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
-    const [user, setUser] = useState<UserData | null>(null)
+    const [user, setUser] = useState<UserData | null>(localStorage.getItem('user') ? JSON.parse(localStorage.getItem("user")!) : null)
 
     useEffect(() => {
-        console.log("Mounting AuthProvider")
         const token = AuthApi.getToken()
         if (token) {
             const storedUser = localStorage.getItem("user")

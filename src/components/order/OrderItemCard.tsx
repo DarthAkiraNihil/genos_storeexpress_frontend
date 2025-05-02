@@ -20,7 +20,7 @@ export const OrderItemCard: React.FC<OrderItemCardProps> = ({
         name, model, quantity, boughtFor, imageUrl
     })=> {
     return (
-        <Card sx={{ display: 'flex', padding: '20px' }}>
+        <Card sx={{ display: 'flex', padding: '20px' }} aria-label={"order_item_card"}>
 
             <CardMedia
                 component="img"
@@ -37,25 +37,25 @@ export const OrderItemCard: React.FC<OrderItemCardProps> = ({
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <CardContent sx={{ flex: '1 0 auto' }}>
 
-                    <Typography variant="h5" component="div">
+                    <Typography variant="h5" component="div" aria-label={"item_name"}>
                         { name }
                     </Typography>
 
-                    <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>
+                    <Typography sx={{ color: 'text.secondary', mb: 1.5 }} aria-label={"item_model"}>
                         { model }
                     </Typography>
 
                     <Box sx={{ display: 'flex' }}>
 
-                        <Typography variant="h6">
+                        <Typography variant="h6" aria-label={"item_price"}>
                             Цена покупки единицы: { boughtFor } руб.
                         </Typography>
 
-                        <Typography variant="h6">
+                        <Typography variant="h6" aria-label={"item_quantity"}>
                             Количество: { quantity } шт.
                         </Typography>
 
-                        <Typography variant="h6">
+                        <Typography variant="h6" aria-label={"total"}>
                             Итоговая цена: { boughtFor * quantity } руб.
                         </Typography>
                     </Box>

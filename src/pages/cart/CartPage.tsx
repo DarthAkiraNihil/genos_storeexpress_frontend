@@ -40,14 +40,14 @@ export const CartPage: React.FC = ( ) => {
     }, [params, token, cartContext]);
 
     if (!cartContext || !itemContext || !orderContext) {
-        return <div>
+        return <div aria-label={"no_context"}>
             No context is available!
         </div>
     }
 
     if (!cart || cart.items.length === 0) {
         return (
-            <h1 className="list">
+            <h1 className="list" aria-label={"cart_is_empty"}>
                 Корзина пуста
             </h1>
         )
@@ -76,7 +76,7 @@ export const CartPage: React.FC = ( ) => {
     }
 
     return (
-        <Stack className="list" spacing={8} >
+        <Stack className="list" spacing={8} aria-label="cart_page">
             <Grid
                 container
                 direction="row"
@@ -94,6 +94,7 @@ export const CartPage: React.FC = ( ) => {
                             onClick={handleCreateOrder} disabled={creatingOrder}
                             endIcon={creatingOrder ? <CircularProgress size={20} /> : null}
                             fullWidth
+                            aria-label="create_order"
                     >
                         Оформить заказ
                     </Button>
@@ -154,7 +155,7 @@ export const CartPage: React.FC = ( ) => {
                             sx={{justifyContent: "center", alignItems: "center"}} />
             </Box>
 
-            <h2>
+            <h2 aria-label={"grand_total"}>
                 Итого: {
                 cart.items.reduce((sum: number, current: CartItem) => {
                     if (current.item.active_discount) {

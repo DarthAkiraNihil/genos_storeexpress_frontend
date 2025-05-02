@@ -29,7 +29,7 @@ export const CartItemCard: React.FC<CartItemCardProps> = ({
     const _price = discount ? (1 - discount.value) * price : price;
 
     return (
-        <Card sx={{ display: 'flex', padding: '20px' }}>
+        <Card sx={{ display: 'flex', padding: '20px' }} aria-label={"cart_item_card"}>
 
             <CardMedia
                 component="img"
@@ -46,11 +46,11 @@ export const CartItemCard: React.FC<CartItemCardProps> = ({
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <CardContent sx={{ flex: '1 0 auto' }}>
 
-                    <Typography variant="h5" component="div">
+                    <Typography variant="h5" component="div" aria-label={"item_name"}>
                         { name }
                     </Typography>
 
-                    <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>
+                    <Typography sx={{ color: 'text.secondary', mb: 1.5 }} aria-label={"item_model"}>
                         { model }
                     </Typography>
 
@@ -61,34 +61,34 @@ export const CartItemCard: React.FC<CartItemCardProps> = ({
                         {
                             discount ? (
                                 <>
-                                    <Typography variant="h5" sx={{textDecoration: 'line-through'}}>
+                                    <Typography variant="h5" sx={{textDecoration: 'line-through'}} aria-label={"old_item_price"}>
                                         { price }
                                     </Typography>
-                                    <Typography variant="h5">
+                                    <Typography variant="h5" aria-label={"new_item_price"}>
                                         { _price } руб.
                                     </Typography>
                                 </>
                             ) : (
-                                <Typography variant="h6">
+                                <Typography variant="h6" aria-label={"item_price"}>
                                     { _price } руб.
                                 </Typography>
                             )
                         }
 
 
-                        <Typography variant="h6">
+                        <Typography variant="h6" aria-label={"quantity"}>
                             Количество: { quantity } шт.
                         </Typography>
 
-                        <Typography variant="h6">
+                        <Typography variant="h6" aria-label={"total_price"}>
                             Итоговая цена: { _price * quantity } руб.
                         </Typography>
 
-                        <Button variant="contained" color="primary" onClick={onDecrement}>
+                        <Button variant="contained" color="primary" onClick={onDecrement} aria-label={"button_decrement"}>
                             -
                         </Button>
 
-                        <Button variant="contained" color="primary" onClick={onIncrement}>
+                        <Button variant="contained" color="primary" onClick={onIncrement} aria-label={"button_increment"}>
                             +
                         </Button>
                     </Box>
