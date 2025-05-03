@@ -21,6 +21,10 @@ class ItemsApiService extends AbstractApiService {
         return `${window.location.origin}${this.baseUrl}/${id}/image`;
     }
 
+    public async setImage(id: number, data: FormData, token: string): Promise<void> {
+        return this.post(`/${id}/set_image`, data, token);
+    }
+
     public async createItem(itemData: DetailedItem, token: string): Promise<DetailedItem> {
         return this.post('', itemData, token);
     }

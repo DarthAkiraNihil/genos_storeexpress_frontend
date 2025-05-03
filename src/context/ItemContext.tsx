@@ -10,7 +10,9 @@ interface ItemContextProps {
 
     getList(type: ItemType, pageNumber: number, pageSize: number, filters: ItemFilter | undefined): Promise<PaginatedList<Item>>;
     getDetails(id: number, type: ItemType): Promise<DetailedItem>;
+
     getImageUrl(id: number): string;
+    setImage(id: number, data: FormData, token: string): Promise<void>;
 
     createItem(itemData: DetailedItem, token: string): Promise<any>;
     updateItem(id: number, itemData: DetailedItem, token: string): Promise<void>;
@@ -41,6 +43,10 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const getImageUrl =  (id: number): string => {
         return ItemsApi.getImageUrl(id);
+    }
+
+    const setImage = async (id: number, data: FormData, token: string): Promise<void> => {
+        return ItemsApi.setImage(id, data, token);
     }
 
     const createItem = async (itemData: DetailedItem, token: string): Promise<any> => {
@@ -91,6 +97,7 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 getList,
                 getDetails,
                 getImageUrl,
+                setImage,
                 createItem,
                 updateItem,
                 deleteItem,

@@ -78,11 +78,20 @@ export abstract class AbstractApiService {
     }
 
     protected async post(path: string, data: any, token: string = ""): Promise<any> {
+        if (data instanceof FormData) {
+            return await this.handleError(
+                fetch(`${this.baseUrl}/${path}`, {
+                    method: "POST",
+                    headers: { ...this.getHeaders(token), contentType: "multipart/form-data" },
+                    body: data,
+                })
+            )
+        }
         return await this.handleError(
             fetch(`${this.baseUrl}/${path}`, {
                 method: "POST",
                 headers: this.getHeaders(token),
-                body: JSON.stringify(data),
+                body: (data instanceof FormData) ? data : JSON.stringify(data),
             })
         )
     }

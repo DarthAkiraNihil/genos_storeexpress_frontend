@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, ChangeEvent } from "react"
 import { useNavigate } from "react-router"
 import { ItemType } from "models/items/ItemType";
 import { ItemContext } from "context/ItemContext";
@@ -58,6 +58,7 @@ export const ItemForm: React.FC<ItemFormProps> = ( { item, edit, type }) => {
 
     const [currentItem, setCurrentItem] = useState<DetailedItem>(item ?? emptyItem);
     const [currentCharacteristics, setCurrentCharacteristics] = useState<string>(item !== null ? JSON.stringify(item.characteristics, null, 4) : "");
+    const [imageToSend, setImageToSend] = useState<FormData>();
 
     const handleOnEditorChange = (value: string, _: any) => {
         setCurrentCharacteristics(value);
@@ -82,15 +83,34 @@ export const ItemForm: React.FC<ItemFormProps> = ( { item, edit, type }) => {
             setLoading(true);
 
             if (edit) {
-                context.updateItem(currentItem.id, currentItem, token!).then(() => {
+                context.updateItem(currentItem.id, currentItem, token!)
+                    .then(() => {
+                        if (imageToSend) {
+                            context.setImage(currentItem.id, imageToSend, token!)
+                        }
+                    })
+                    .then(() => {
                     setLoading(false);
                 })
             } else {
-                context.createItem(currentItem, token!).then(() => {
+                context.createItem(currentItem, token!).then((response) => {
+                    if (imageToSend) {
+                        context.setImage(response.id, imageToSend, token!)
+                    }
+                }).then(() => {
                     setLoading(false);
                     setCurrentItem(emptyItem);
                 })
             }
+        }
+    }
+
+    const handleChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files) {
+            const file = event.target.files[0];
+            let formData = new FormData();
+            formData.append('file', file);
+            setImageToSend(formData);
         }
     }
 
@@ -131,12 +151,34 @@ export const ItemForm: React.FC<ItemFormProps> = ( { item, edit, type }) => {
                             required
                             fullWidth
                         />
+
+                        <Grid container spacing={4}>
+                            <Grid size={6}>
+                                <Button
+                                    variant="contained"
+                                    component="label"
+                                >
+                                    Выберите изображение
+                                    <input
+                                        type="file"
+                                        accept="image/png"
+                                        hidden
+                                        onChange={handleChangeFile}/>
+                                </Button>
+                            </Grid>
+                            <Grid size={6}>
+                                {
+                                    imageToSend ? `Выбранное изображение: ${(imageToSend.get("file")! as File).name}` : "Изображение не выбрано"
+                                }
+                            </Grid>
+                        </Grid>
+
                         <TextField
                             label="Цена"
                             type={"number"}
                             value={currentItem.price}
                             onChange={(e) => {
-                                setCurrentItem({ ...currentItem, price: parseInt(e.target.value || "", 10) })
+                                setCurrentItem({...currentItem, price: parseInt(e.target.value || "", 10)})
                             }}
                             required
                             fullWidth
@@ -148,7 +190,7 @@ export const ItemForm: React.FC<ItemFormProps> = ( { item, edit, type }) => {
                             rows={8}
                             value={currentItem.description}
                             onChange={(e) => {
-                                setCurrentItem({ ...currentItem, description: e.target.value })
+                                setCurrentItem({...currentItem, description: e.target.value})
                             }}
                             required
                             fullWidth
@@ -176,14 +218,14 @@ export const ItemForm: React.FC<ItemFormProps> = ( { item, edit, type }) => {
                             type="submit"
                             variant="contained"
                             disabled={loading}
-                            endIcon={loading ? <CircularProgress size={20} /> : null}
+                            endIcon={loading ? <CircularProgress size={20}/> : null}
                             fullWidth
                             sx={{
                                 paddingTop: '8px',
                                 paddingBottom: '8px'
                             }}
                         >
-                            {edit ? loading ? "Применение изменений..." : "Применить изменения" : loading ? "Активация..." : "Активировать скидку" }
+                            {edit ? loading ? "Применение изменений..." : "Применить изменения" : loading ? "Активация..." : "Активировать скидку"}
                         </Button>
                     </Stack>
                 </form>
