@@ -1,4 +1,4 @@
-﻿import React, {ChangeEvent, useContext, useEffect, useState} from 'react';
+import React, {ChangeEvent, useContext, useEffect, useState} from 'react';
 import {PaginatedList} from "../../models";
 import {useNavigate, useParams} from "react-router";
 import {BankCardsContext, OrderContext, useAuth} from "context";
@@ -8,13 +8,12 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import Pagination from "@mui/material/Pagination";
 import {BankCard} from "../../models/orders/BankCard";
-import {BankCardFormModal, BankCardInfoCard} from "../../components/order";
-import {Add} from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import {Order, OrderStatus} from 'models/orders';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Grid from '@mui/material/Grid';
+import CircularProgress from "@mui/material/CircularProgress";
 
 
 export const PaymentPage: React.FC = () => {
@@ -68,6 +67,14 @@ export const PaymentPage: React.FC = () => {
         return <h1>
             У вас нет банковских карт
         </h1>
+    }
+
+    if (loading) {
+        return (
+            <Stack className="list" spacing={8} sx={{marginTop: '32px'}}>
+                <CircularProgress size={20} />
+            </Stack>
+        )
     }
 
     return (

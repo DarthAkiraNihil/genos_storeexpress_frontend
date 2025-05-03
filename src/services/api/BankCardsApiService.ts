@@ -1,4 +1,4 @@
-﻿import { AbstractApiService } from "./AbstractApiService";
+import { AbstractApiService } from "./AbstractApiService";
 import {PaginatedList} from "models";
 import { BankCard } from "models/orders/BankCard";
 

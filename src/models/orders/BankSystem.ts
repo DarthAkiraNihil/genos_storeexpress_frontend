@@ -1,4 +1,4 @@
-﻿export enum BankSystem {
+export enum BankSystem {
     Visa = 'Visa',
     MasterCard = 'MasterCard',
     Mir = 'Mir',

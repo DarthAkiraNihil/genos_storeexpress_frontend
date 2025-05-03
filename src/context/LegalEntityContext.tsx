@@ -1,4 +1,4 @@
-﻿import React, { createContext, ReactNode } from "react";
+import React, { createContext, ReactNode } from "react";
 import {LegalEntityApi} from 'services/api';
 import {PaginatedList} from "../models";
 import {LegalEntity} from "../models/user";

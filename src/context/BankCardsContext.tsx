@@ -1,4 +1,4 @@
-﻿import React, { createContext, ReactNode } from "react";
+import React, { createContext, ReactNode } from "react";
 import {BankCardsApi} from "services/api";
 import {PaginatedList} from "../models";
 import {BankCard} from "../models/orders/BankCard";

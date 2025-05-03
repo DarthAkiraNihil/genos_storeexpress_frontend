@@ -1,4 +1,4 @@
-﻿import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import {Button, MenuItem, Modal, Select, SelectChangeEvent, Stack} from "@mui/material";
@@ -18,7 +18,7 @@ interface BankCardFormModalProps {
 
 export const BankCardFormModal: React.FC<BankCardFormModalProps> = ({card, onClose, open, edit}) => {
 
-    const { token, user } = useAuth();
+    const { token } = useAuth();
     const [currentCard, setCurrentCard] = useState<BankCard>(
         {number: 0, bank_system: BankSystem.Visa, valid_thru_year: 0, valid_thru_month: 0, cvc: 0, owner: "", id: 0}
     );

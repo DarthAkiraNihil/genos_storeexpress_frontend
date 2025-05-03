@@ -1,4 +1,4 @@
-﻿import React, {ChangeEvent, useContext, useEffect, useState} from 'react';
+import React, {ChangeEvent, useContext, useEffect, useState} from 'react';
 import {ItemContext} from 'context/ItemContext';
 import Pagination from '@mui/material/Pagination';
 
@@ -13,6 +13,7 @@ import Card from '@mui/material/Card';
 import Typography from "@mui/material/Typography";
 import Select, {SelectChangeEvent} from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const DiscountManagementPage: React.FC = ( ) => {
 
@@ -31,7 +32,7 @@ export const DiscountManagementPage: React.FC = ( ) => {
         }
     }, [context, type]);
 
-    const handleChangePage = (event: ChangeEvent<unknown>, page: number): void => {
+    const handleChangePage = (_: ChangeEvent<unknown>, page: number): void => {
         setLoading(true);
         context?.getList(type!, page, 10, {}).then((response) => {
             setItems(response);
@@ -52,6 +53,14 @@ export const DiscountManagementPage: React.FC = ( ) => {
         return <h1>
             Найдено 0 товаров типа {type}
         </h1>
+    }
+
+    if (loading) {
+        return (
+            <Stack className="list" spacing={8} sx={{marginTop: '32px'}}>
+                <CircularProgress size={20} />
+            </Stack>
+        )
     }
 
     return (

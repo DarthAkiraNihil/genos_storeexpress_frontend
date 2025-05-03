@@ -1,4 +1,4 @@
-﻿import React, {ChangeEvent, useContext, useEffect, useState} from 'react';
+import React, {ChangeEvent, useContext, useEffect, useState} from 'react';
 import {CartContext, ItemContext, OrderContext, useAuth} from 'context'
 import { CartItemCard } from "components/cart/CartItemCard"
 import { CartItem } from "models/cart";

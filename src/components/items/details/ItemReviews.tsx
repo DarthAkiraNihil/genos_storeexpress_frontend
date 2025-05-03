@@ -1,15 +1,13 @@
-﻿import { FixedSizeList, ListChildComponentProps } from 'react-window';
 import { Review } from 'models/items'
 import Box from "@mui/material/Box";
 import React, {ChangeEvent, useContext, useEffect, useState} from "react";
-import {Button, Card, ListItem, Modal, Stack} from "@mui/material";
+import {Button, Card, Stack} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import {ItemReview} from "./ItemReview";
 import {ItemContext} from "../../../context";
 import {PaginatedList} from "../../../models";
 import Pagination from "@mui/material/Pagination";
-import TextField from "@mui/material/TextField";
 import CircularProgress from "@mui/material/CircularProgress";
 import {ReviewFormModal} from "../ReviewFormModal";
 
@@ -67,28 +65,11 @@ export const ItemReviews: React.FC<ItemReviewsProps> = ( { itemId, leftReview, r
         )
     }
 
-    const handleChangePage = (event: ChangeEvent<unknown>, page: number): void => {
+    const handleChangePage = (_: ChangeEvent<unknown>, page: number): void => {
         setReviews(undefined);
         context?.getReviews(itemId, page, 10).then((response) => {
             setReviews(response);
         })
-    }
-
-    const renderRow = (props: ListChildComponentProps) => {
-        const {index, style} = props;
-
-        console.log(reviews);
-        console.log(index);
-
-        let review: Review = reviews.items[index];
-
-        console.log(review);
-
-        return (
-            <ListItem style={style} key={index} component="div" disablePadding>
-                <ItemReview rating={review.rating} comment={review.comment} author={review.author} />
-            </ListItem>
-        )
     }
 
     return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { DetailedItem, ItemType, Review } from "models/items";
+import { DetailedItem, ItemType } from "models/items";
 import {ItemCharacteristics} from "components/items/details/ItemCharacteristics";
 import {ItemDetailsCard} from "components/items/details/ItemDetailsCard";
 import { ItemContext } from "context/ItemContext";

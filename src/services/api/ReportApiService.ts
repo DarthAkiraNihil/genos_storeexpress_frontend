@@ -1,4 +1,4 @@
-﻿import { AbstractApiService } from "./AbstractApiService";
+import { AbstractApiService } from "./AbstractApiService";
 
 class ReportApiService extends AbstractApiService {
 

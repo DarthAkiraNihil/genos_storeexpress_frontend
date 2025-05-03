@@ -1,4 +1,4 @@
-﻿import {AbstractApiService} from "./AbstractApiService";
+import {AbstractApiService} from "./AbstractApiService";
 import {PaginatedList} from "models";
 import {LegalEntity} from "models/user";
 

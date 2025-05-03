@@ -1,7 +1,5 @@
-﻿import React, { createContext, ReactNode } from "react";
-import {CartsApi, DiscountApi} from "services/api";
-import {Cart, CartItem} from "models/cart";
-import {PaginatedList} from "../models";
+import React, { createContext, ReactNode } from "react";
+import {DiscountApi} from "services/api";
 import {Discount} from "../models/orders";
 
 

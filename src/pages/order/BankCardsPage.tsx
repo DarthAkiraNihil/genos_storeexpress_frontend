@@ -1,4 +1,4 @@
-﻿import React, {ChangeEvent, useContext, useEffect, useState} from 'react';
+import React, {ChangeEvent, useContext, useEffect, useState} from 'react';
 import {PaginatedList} from "../../models";
 import {useSearchParams} from "react-router";
 import {BankCardsContext, useAuth} from "context";
@@ -9,7 +9,7 @@ import Card from "@mui/material/Card";
 import Pagination from "@mui/material/Pagination";
 import {BankCard} from "../../models/orders/BankCard";
 import {BankCardFormModal, BankCardInfoCard} from "../../components/order";
-import {Add, Edit} from "@mui/icons-material";
+import {Add} from "@mui/icons-material";
 import Button from "@mui/material/Button";
 
 export const BankCardsPage: React.FC = () => {

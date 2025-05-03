@@ -1,4 +1,4 @@
-﻿import React, {ChangeEvent, useContext, useEffect, useState} from 'react';
+import React, {ChangeEvent, useContext, useEffect, useState} from 'react';
 import {ItemContext, OrderContext, ReportContext, useAuth} from 'context'
 import {Order, OrderItem, OrderStatus} from 'models/orders';
 import 'styles/items/ItemList.css';

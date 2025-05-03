@@ -1,6 +1,6 @@
 import React, { createContext, ReactNode } from "react";
 import {CartsApi} from "services/api";
-import {Cart, CartItem} from "models/cart";
+import { CartItem} from "models/cart";
 import {PaginatedList} from "../models";
 
 

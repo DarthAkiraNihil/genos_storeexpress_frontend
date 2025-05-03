@@ -96,7 +96,7 @@ export const ItemFilters: React.FC<ItemFiltersProps> = ( { type, applyFiltersCal
                             value={itemName}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 setItemName(event.target.value);
-                                setBuiltFilter({...builtFilter, ["name"]: event.target.value});
+                                setBuiltFilter({...builtFilter, "name": event.target.value});
                             }}
                         />
                     </Grid>

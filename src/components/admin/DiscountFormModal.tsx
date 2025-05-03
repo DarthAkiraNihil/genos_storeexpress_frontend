@@ -1,4 +1,4 @@
-﻿import React, {useContext, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import {Button, Modal, Stack} from "@mui/material";
@@ -7,8 +7,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import {DiscountContext, useAuth} from "../../context";
 import { Discount } from 'models/orders';
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
-import {PickerValue} from "@mui/x-date-pickers/internals";
-import {FieldChangeHandlerContext} from "@mui/x-date-pickers/modern/internals";
+import {FieldChangeHandlerContext, PickerValue} from "@mui/x-date-pickers/internals";
 import {DateValidationError, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import 'dayjs/locale/ru';

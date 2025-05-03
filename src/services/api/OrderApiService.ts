@@ -1,4 +1,4 @@
-﻿import { AbstractApiService } from "./AbstractApiService";
+import { AbstractApiService } from "./AbstractApiService";
 import {Order, OrderItem, ShortOrderInfo} from 'models/orders';
 import {PaginatedList} from "../../models";
 

@@ -1,4 +1,4 @@
-﻿import React, {ChangeEvent, useContext, useEffect, useState} from 'react';
+import React, {ChangeEvent, useContext, useEffect, useState} from 'react';
 import {OrderContext, ReportContext, useAuth} from "context";
 
 import {Order} from 'models/orders';

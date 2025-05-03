@@ -1,4 +1,4 @@
-﻿import { AbstractApiService } from "./AbstractApiService";
+import { AbstractApiService } from "./AbstractApiService";
 import { Discount } from "models/orders";
 
 class DiscountApiService extends AbstractApiService {

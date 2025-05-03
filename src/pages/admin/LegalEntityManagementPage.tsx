@@ -1,4 +1,4 @@
-﻿import React, {ChangeEvent, useContext, useEffect} from 'react';
+import React, {ChangeEvent, useContext, useEffect} from 'react';
 import {LegalEntityContext, useAuth} from "../../context";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
