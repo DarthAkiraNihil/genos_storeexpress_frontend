@@ -176,11 +176,7 @@ export const OrderDetailsPage: React.FC = ( ) => {
                         disabled={order.status === OrderStatus.Cancelled || order.status === OrderStatus.Received}
                         fullWidth
                         onClick={() => {
-                            orderContext?.cancelOrder(order.id!, token!).then((response) => {
-                                if (response.status === 204) {
-                                    setOrder({...order, status: OrderStatus.Cancelled});
-                                }
-                            })
+                            setCancelOrderDialogOpen(true);
                         }}
                         aria-label={"button_cancel"}
                     >
