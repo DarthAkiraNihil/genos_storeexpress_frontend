@@ -21,6 +21,7 @@
         "jest-fetch-mock": "^3.0.3",
         "msw": "^2.7.5",
         "react": "^19.0.0",
+        "react-ace": "^14.0.1",
         "react-dom": "^19.1.0",
         "react-error-boundary": "^5.0.0",
         "react-router-dom": "^7.4.1",

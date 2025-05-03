@@ -32,12 +32,14 @@ export const ProtectedRoute: React.FC<{
     if (!user && !token) {
         // alert("USER ANONYMOUS! ACCESS DENIED!")
         return <Navigate to="/sign_in" replace />
-    } else if (allowAdmin && user?.role !== UserRole.administrator) {
+    } else if (allowAdmin && !allowCustomers && user?.role !== UserRole.administrator) {
         // alert("ADMIN ONLY! ACCESS DENIED!")
         return <Navigate to="/sign_in" replace />
-    } else if (allowCustomers && user?.role === UserRole.administrator) {
+    } else if (allowCustomers && !allowAdmin && user?.role === UserRole.administrator) {
         // alert("CUSTOMER ONLY! ACCESS DENIED!")
         return <Navigate to="/sign_in" replace />
+    } else if (allowCustomers && allowAdmin) {
+        return children;
     }
 
     return children

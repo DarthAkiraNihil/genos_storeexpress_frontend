@@ -13,7 +13,7 @@ interface ItemContextProps {
     getImageUrl(id: number): string;
 
     createItem(itemData: DetailedItem, token: string): Promise<any>;
-    updateItem(id: number, itemData: DetailedItem, token: string): void;
+    updateItem(id: number, itemData: DetailedItem, token: string): Promise<void>;
     deleteItem(id: number, itemType: ItemType, token: string): void;
 
     getReviews(id: number, pageNumber: number, pageSize: number): Promise<PaginatedList<Review>>;
@@ -54,15 +54,14 @@ export const ItemProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         })
     }
 
-    const updateItem = async (id: number, itemData: DetailedItem, token: string): Promise<any> => {
-        ItemsApi.updateItem(id, itemData, token).then(
+    const updateItem = async (id: number, itemData: DetailedItem, token: string): Promise<void> => {
+        return await ItemsApi.updateItem(id, itemData, token).then(
             (response) => {
                 setItems((previous) => previous.map(
                     (item) => (item.id === id ? { ...item, ...response }: item)
                 ))
             }
         )
-
     }
 
     const deleteItem = async (id: number, itemType: ItemType, token: string): Promise<any> => {

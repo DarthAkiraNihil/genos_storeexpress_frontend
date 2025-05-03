@@ -8,7 +8,7 @@ export const Footer: FC = (): ReactElement => {
                 width: "100%",
                 height: "auto",
                 backgroundColor: "secondary.main",
-                paddingTop: "1rem",
+                paddingTop: "2rem",
                 paddingBottom: "1rem",
                 bottom: 0,
             }}

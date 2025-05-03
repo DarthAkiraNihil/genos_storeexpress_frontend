@@ -4,7 +4,6 @@ import { ItemListPage } from "pages/item/ItemListPage";
 import GenosStorExpressLayout from "../components";
 import { ProtectedRoute } from "./ProtectedRoute";
 import {createBrowserRouter} from "react-router";
-import { ItemForm } from "components/items";
 import MainPage from "pages/MainPage";
 import { CartPage } from "pages/cart/CartPage";
 import {SignInPage} from "pages/auth/SignInPage";
@@ -21,6 +20,7 @@ import {
 } from "context";
 import { SignUpPage } from "pages/auth";
 import {DiscountManagementPage, LegalEntityManagementPage, SalesReportPage} from "../pages/admin";
+import { EditItemPage, AddItemPage } from "pages/item";
 
 const GenosStorExpressRouter = createBrowserRouter([
     {
@@ -45,14 +45,14 @@ const GenosStorExpressRouter = createBrowserRouter([
             {
                 path: '/items',
                 element:
-                    <ProtectedRoute allowCustomers>
+                    <ProtectedRoute allowCustomers allowAdmin>
                         <ItemCataloguePage />
                     </ProtectedRoute>,
             },
             {
                 path: '/items/:type/',
                 element:
-                    <ProtectedRoute allowCustomers>
+                    <ProtectedRoute allowCustomers allowAdmin>
                         <ItemProvider>
                             <ItemListPage />
                         </ItemProvider>
@@ -61,12 +61,21 @@ const GenosStorExpressRouter = createBrowserRouter([
             {
                 path: '/items/:type/:id',
                 element:
-                    <ProtectedRoute allowCustomers>
+                    <ProtectedRoute allowCustomers allowAdmin>
                         <CartProvider>
                             <ItemProvider>
                                 <ItemDetailsPage />
                             </ItemProvider>
                         </CartProvider>
+                    </ProtectedRoute>
+            },
+            {
+                path: '/items/:type/:id/edit',
+                element:
+                    <ProtectedRoute allowAdmin>
+                        <ItemProvider>
+                            <EditItemPage />
+                        </ItemProvider>
                     </ProtectedRoute>
             },
             {
@@ -83,10 +92,10 @@ const GenosStorExpressRouter = createBrowserRouter([
                     </ProtectedRoute>
             },
             {
-                path: '/items/add',
+                path: '/items/:type/add',
                 element:
                     <ProtectedRoute allowAdmin>
-                        <ItemForm />
+                        <AddItemPage />
                     </ProtectedRoute>
             },
             {

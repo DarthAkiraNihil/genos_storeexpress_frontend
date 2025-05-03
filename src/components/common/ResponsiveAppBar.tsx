@@ -48,6 +48,10 @@ export function ResponsiveAppBar() {
 
     const pages = user ? (user.role === UserRole.administrator ? [
             {
+                link: '/items',
+                name: 'Каталог товаров',
+            },
+            {
                 link: '/order',
                 name: 'Управление активными заказами',
             },
