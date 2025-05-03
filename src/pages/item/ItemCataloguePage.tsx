@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import { Grid } from "@mui/system";
 import 'styles/Common.css'
 import 'styles/items/ItemCatalogue.css'
-import { ItemTypeIcons, ItemTypeNamesPrural, ItemTypeNames } from "../../const";
+import { ItemTypeIcons, ItemTypeNamesPlural, ItemTypeNames } from "../../const";
 import { ImageBase64 } from "components/common";
 import Button from "@mui/material/Button";
 
@@ -24,7 +24,7 @@ export const ItemCataloguePage: React.FC = () => {
                                         <ImageBase64 source={value} alt={ItemTypeNames.get(type)!} />
                                     </p>
                                     <p>
-                                        { ItemTypeNamesPrural.get(type) }
+                                        { ItemTypeNamesPlural.get(type) }
                                     </p>
                                 </Button>
                             </Link>

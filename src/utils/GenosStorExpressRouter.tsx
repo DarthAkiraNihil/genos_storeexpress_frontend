@@ -95,7 +95,9 @@ const GenosStorExpressRouter = createBrowserRouter([
                 path: '/items/:type/add',
                 element:
                     <ProtectedRoute allowAdmin>
-                        <AddItemPage />
+                        <ItemProvider>
+                            <AddItemPage />
+                        </ItemProvider>
                     </ProtectedRoute>
             },
             {

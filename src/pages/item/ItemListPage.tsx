@@ -14,8 +14,16 @@ import { ItemFilters } from "components/items";
 import { ItemFilter } from 'models/filter/ItemFilter'
 import Card from '@mui/material/Card';
 import Typography from "@mui/material/Typography";
+import {useAuth} from "context";
+import {UserRole} from "models/auth";
+import {ItemTypeNames} from "const";
+import {Add} from "@mui/icons-material";
+import Button from "@mui/material/Button";
+import { Link } from 'react-router';
 
 export const ItemListPage: React.FC = ( ) => {
+
+    const { token, user } = useAuth();
 
     const [items, setItems] = useState<PaginatedList<Item>>();
     const [filters, setFilters] = useState<ItemFilter | undefined>();
@@ -38,7 +46,7 @@ export const ItemListPage: React.FC = ( ) => {
         }
     }, [params, context, type, filters]);
 
-    const handleChangePage = (event: ChangeEvent<unknown>, page: number): void => {
+    const handleChangePage = (_: ChangeEvent<unknown>, page: number): void => {
         setItems(undefined);
         context?.getList(type!, page, 10, filters).then((response) => {
             setItems(response);
@@ -82,7 +90,7 @@ export const ItemListPage: React.FC = ( ) => {
 
     if (!items) {
         return <h1>
-            Найдено 0 товаров типа {type}
+            Найдено 0 товаров типа {ItemTypeNames.get(type)!}
         </h1>
     }
 
@@ -90,8 +98,16 @@ export const ItemListPage: React.FC = ( ) => {
         <Stack className="list" spacing={8} sx={{marginTop: '32px'}}>
             <Box display="flex" justifyContent="center">
                 <Typography variant="h4">
-                    Найдено {items.count} товаров типа {type}
+                    Найдено {items.count} товаров типа {ItemTypeNames.get(type)!}
                 </Typography>
+            </Box>
+
+            <Box display="flex" justifyContent="center">
+                <Link to={"add"}>
+                    <Button variant="contained" color="secondary" fullWidth startIcon={<Add />}>
+                        Создать
+                    </Button>
+                </Link>
             </Box>
 
             <Box display="flex" justifyContent="center">
@@ -119,6 +135,10 @@ export const ItemListPage: React.FC = ( ) => {
                                                 rating={item.overall_rating}
                                                 reviewsCount={item.reviews_count}
                                                 discount={item.active_discount}
+                                                onConfirmDelete={(id: number) => {
+                                                    return context?.deleteItem(id, item.item_type, token!)
+                                                }}
+                                                isAdministrator={ user!.role === UserRole.administrator}
                                             />
                                         </div>
                                     )

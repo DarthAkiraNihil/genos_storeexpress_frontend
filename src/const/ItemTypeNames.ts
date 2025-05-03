@@ -17,7 +17,7 @@ export const ItemTypeNames: Map<ItemType, string> = new Map<ItemType, string> ([
     [ItemType.PreparedAssembly, "Готовая сборка"],
 ])
 
-export const ItemTypeNamesPrural: Map<ItemType, string> = new Map<ItemType, string> ([
+export const ItemTypeNamesPlural: Map<ItemType, string> = new Map<ItemType, string> ([
     [ItemType.Motherboard, "Материнские платы"],
     [ItemType.CPU, "Центральные процессоры"],
     [ItemType.RAM, "Оперативные памяти"],

@@ -1,5 +1,5 @@
 ﻿import React, {useContext, useEffect, useState} from 'react';
-import {useNavigate, useParams} from "react-router";
+import {useParams} from "react-router";
 import {ItemContext, useAuth} from "context";
 import {DetailedItem, ItemType} from "models/items";
 import { ItemForm } from 'components/items';
@@ -14,8 +14,6 @@ export const EditItemPage: React.FC = () => {
     const context = useContext(ItemContext)
 
     const [item, setItem] = useState<DetailedItem | null>(null)
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         context?.getDetails(parseInt(id!, 10), type!).then((response) => {
@@ -36,7 +34,7 @@ export const EditItemPage: React.FC = () => {
     }
 
     return (
-        <ItemForm item={item} edit={true} type={type}/>
+        <ItemForm item={item} edit={true} type={type} backLink={`/items/${type}/`}/>
     )
 
 }

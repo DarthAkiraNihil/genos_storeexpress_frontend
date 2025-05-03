@@ -1,7 +1,7 @@
-﻿import React, {useContext, useEffect, useState} from 'react';
-import {useNavigate, useParams} from "react-router";
-import {ItemContext, useAuth} from "context";
-import {DetailedItem, ItemType} from "models/items";
+﻿import React, {useContext} from 'react';
+import {useParams} from "react-router";
+import {ItemContext} from "context";
+import {ItemType} from "models/items";
 import { ItemForm } from 'components/items';
 
 export const AddItemPage: React.FC = () => {
@@ -10,8 +10,6 @@ export const AddItemPage: React.FC = () => {
     const { type } = useParams<{ type: ItemType }>();
 
     const context = useContext(ItemContext)
-
-    const navigate = useNavigate();
 
     if (!context) {
         return <div>No context is available!</div>
@@ -22,6 +20,6 @@ export const AddItemPage: React.FC = () => {
     }
 
     return (
-        <ItemForm item={null} edit={false} type={type}/>
+        <ItemForm backLink={`/items/${type}/`} item={null} edit={false} type={type} />
     )
 }

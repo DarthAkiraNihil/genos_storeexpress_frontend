@@ -10,6 +10,10 @@ import Rating from '@mui/material/Rating';
 
 import 'styles/items/ItemListCard.css'
 import {Discount} from "../../models/orders";
+import Grid from "@mui/material/Grid";
+import {Edit} from "@mui/icons-material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import {ConfirmDialog} from "../common";
 
 
 interface ItemListCardProps {
@@ -21,10 +25,15 @@ interface ItemListCardProps {
     rating: number;
     reviewsCount: number;
     discount: Discount | null;
+    onConfirmDelete: (id: number) => Promise<void>;
+    isAdministrator: boolean;
 }
 
 
-export const ItemListCard: React.FC<ItemListCardProps> = ( { id, name, model, price, imageUrl, rating, reviewsCount, discount })=> {
+export const ItemListCard: React.FC<ItemListCardProps> = ( { id, name, model, price, imageUrl, rating, reviewsCount, discount, onConfirmDelete, isAdministrator })=> {
+
+    const [isDeleteConfirmModalOpen, setIsDeleteConfirmModalOpen] = React.useState(false);
+
     return (
         <Card sx={{ display: 'flex', padding: '20px' }}>
 
@@ -83,13 +92,46 @@ export const ItemListCard: React.FC<ItemListCardProps> = ( { id, name, model, pr
                     }
 
                 </CardContent>
-                <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-                    <Link to={`${id}`}>
-                        <Button variant="contained" color="primary">
-                            Подробнее
-                        </Button>
-                    </Link>
-                </Box>
+                <Grid container spacing={2}>
+                    {!isAdministrator ? (
+                        <Grid size={4}>
+                            <Link to={`${id}`}>
+                                <Button variant="contained" fullWidth color="primary">
+                                    Подробнее
+                                </Button>
+                            </Link>
+                        </Grid>
+                    ) : (
+                        <>
+                            <Grid size={4}>
+                                <Link to={`${id}/edit`}>
+                                    <Button variant="contained" color="primary" fullWidth startIcon={<Edit />}>
+                                        Редактировать
+                                    </Button>
+                                </Link>
+                            </Grid>
+                            <Grid size={4}>
+                                <Button variant="outlined" color="error" fullWidth startIcon={<DeleteIcon />} onClick={() => {
+                                    setIsDeleteConfirmModalOpen(true)}
+                                }>
+                                    Удалить
+                                </Button>
+                            </Grid>
+                        </>
+                        )
+                    }
+                </Grid>
+                <ConfirmDialog
+                    open={isDeleteConfirmModalOpen}
+                    onConfirm={() => {
+                        onConfirmDelete(id).then(() => setIsDeleteConfirmModalOpen(false));
+                    }}
+                    onClose={() => {
+                        setIsDeleteConfirmModalOpen(false);
+                    }}
+                    title={"Подтверждение удаления товара"}
+                    confirmText={`Вы уверены, что хотите удалить ${name}?`}
+                    />
             </Box>
 
         </Card>
