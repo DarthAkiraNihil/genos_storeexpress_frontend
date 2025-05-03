@@ -356,6 +356,9 @@ export const ItemForm: React.FC<ItemFormProps> = ( { item, edit, type, backLink 
                                                     </Typography>
                                                 )
                                             }
+                                            default: {
+                                                return <div />
+                                            }
                                         }
                                     })
                                 }

@@ -1,4 +1,4 @@
-﻿import { ItemType } from "models/items";
+import { ItemType } from "models/items";
 
 export enum ItemHintType {
     Number,

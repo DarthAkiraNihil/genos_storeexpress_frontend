@@ -1,9 +1,8 @@
-﻿import {fireEvent, render, screen} from '@testing-library/react'
+﻿import {render, screen} from '@testing-library/react'
 import '@testing-library/jest-dom'
 import {AuthProvider, CartProvider, ItemProvider, OrderProvider} from "context";
 import {MemoryRouter, Route, Routes} from "react-router";
 import React, {act} from "react";
-import {ItemDetailsPage} from "pages/item";
 import {CartsApi, ItemsApi} from "services/api";
 import {DetailedItem, ItemType} from "models/items";
 import {CartPage} from "../../pages/cart";
