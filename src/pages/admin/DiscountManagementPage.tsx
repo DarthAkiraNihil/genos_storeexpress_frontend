@@ -89,29 +89,27 @@ export const DiscountManagementPage: React.FC = ( ) => {
 
             <Card sx={{ display: 'flex', padding: '20px', justifyContent: "center", alignItems: "center" }} >
                 <Stack className="list" spacing={8} >
-                    <Box display="flex" justifyContent="center" alignItems="center">
-                        {
-                            items.items.length > 0 ? items.items.map((item) => {
-                                    console.log(item);
-                                    return (
-                                        <div key={item.id} className="card">
-                                            < DiscountItemListCard
-                                                itemId={item.id}
-                                                name={item.name}
-                                                model={item.model}
-                                                imageUrl={context.getImageUrl(item.id)}
-                                                discount={item.active_discount}
-                                            />
-                                        </div>
-                                    )
-                                }
-                            ) : (
-                                <h3>
-                                    Ничего не найдено :(
-                                </h3>
-                            )
-                        }
-                    </Box>
+                    {
+                        items.items.length > 0 ? items.items.map((item) => {
+                                console.log(item);
+                                return (
+                                    <div key={item.id} className="card">
+                                        < DiscountItemListCard
+                                            itemId={item.id}
+                                            name={item.name}
+                                            model={item.model}
+                                            imageUrl={context.getImageUrl(item.id)}
+                                            discount={item.active_discount}
+                                        />
+                                    </div>
+                                )
+                            }
+                        ) : (
+                            <h3>
+                                Ничего не найдено :(
+                            </h3>
+                        )
+                    }
 
                     <Box display="flex" justifyContent="center">
                         <Pagination count={Math.floor(items.count / 10) + 1} shape="rounded" onChange={handleChangePage}

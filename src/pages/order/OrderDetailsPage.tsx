@@ -225,25 +225,23 @@ export const OrderDetailsPage: React.FC = ( ) => {
                 </Grid>
             </Grid>
 
-            <Box display="flex" justifyContent="center">
-                {
-                    items.items.map((orderItem) => {
-                            return (
-                                <div key={orderItem.item.id} className="card">
-                                    <OrderItemCard
-                                        name={orderItem.item.name}
-                                        model={orderItem.item.model}
-                                        boughtFor={orderItem.bought_for}
-                                        quantity={orderItem.quantity}
+            {
+                items.items.map((orderItem) => {
+                        return (
+                            <div key={orderItem.item.id} className="card">
+                                <OrderItemCard
+                                    name={orderItem.item.name}
+                                    model={orderItem.item.model}
+                                    boughtFor={orderItem.bought_for}
+                                    quantity={orderItem.quantity}
 
-                                        imageUrl={itemContext.getImageUrl(orderItem.item.id)}
-                                    />
-                                </div>
-                            )
-                        }
-                    )
-                }
-            </Box>
+                                    imageUrl={itemContext.getImageUrl(orderItem.item.id)}
+                                />
+                            </div>
+                        )
+                    }
+                )
+            }
 
             <Box display="flex" justifyContent="center">
                 <Pagination count={Math.floor(items.count / 10) + 1} shape="rounded" onChange={handleChangePage}

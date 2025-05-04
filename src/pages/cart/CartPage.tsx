@@ -101,52 +101,50 @@ export const CartPage: React.FC = ( ) => {
                 </Grid>
             </Grid>
 
-            <Box display="flex" justifyContent="center">
-                {
-                    cart.items.map((cartItem) => {
-                            return (
-                                <div key={cartItem.item.id} className="card">
-                                    < CartItemCard
-                                        name={cartItem.item.name}
-                                        model={cartItem.item.model}
-                                        price={cartItem.item.price}
-                                        quantity={cartItem.quantity}
-                                        discount={cartItem.item.active_discount}
+            {
+                cart.items.map((cartItem) => {
+                        return (
+                            <div key={cartItem.item.id} className="card">
+                                < CartItemCard
+                                    name={cartItem.item.name}
+                                    model={cartItem.item.model}
+                                    price={cartItem.item.price}
+                                    quantity={cartItem.quantity}
+                                    discount={cartItem.item.active_discount}
 
-                                        imageUrl={itemContext.getImageUrl(cartItem.item.id)}
+                                    imageUrl={itemContext.getImageUrl(cartItem.item.id)}
 
-                                        onIncrement={() => {
-                                            cartContext?.incrementItemQuantity(cartItem.item.id, token!);
+                                    onIncrement={() => {
+                                        cartContext?.incrementItemQuantity(cartItem.item.id, token!);
+                                        setCart({
+                                            ...cart,
+                                            items: cart.items.map(
+                                                (ci) => (ci.item.id === cartItem.item.id ? { ...ci, quantity: ci.quantity + 1 } : ci)
+                                            )
+                                        });
+                                    }}
+                                    onDecrement={() => {
+                                        cartContext?.decrementItemQuantity(cartItem.item.id, token!);
+                                        if (cartItem.quantity === 1) {
+                                            setCart({
+                                                ...cart,
+                                                items: cart.items.filter((ci) => ci.item.id !== cartItem.item.id)
+                                            });
+                                        } else {
                                             setCart({
                                                 ...cart,
                                                 items: cart.items.map(
-                                                    (ci) => (ci.item.id === cartItem.item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem)
+                                                    (ci) => (ci.item.id === cartItem.item.id ? { ...ci, quantity: ci.quantity - 1 } : ci)
                                                 )
                                             });
-                                        }}
-                                        onDecrement={() => {
-                                            cartContext?.decrementItemQuantity(cartItem.item.id, token!);
-                                            if (cartItem.quantity === 1) {
-                                                setCart({
-                                                    ...cart,
-                                                    items: cart.items.filter((ci) => ci.item.id !== cartItem.item.id)
-                                                });
-                                            } else {
-                                                setCart({
-                                                    ...cart,
-                                                    items: cart.items.map(
-                                                        (ci) => (ci.item.id === cartItem.item.id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem)
-                                                    )
-                                                });
-                                            }
-                                        }}
-                                    />
-                                </div>
-                            )
-                        }
-                    )
-                }
-            </Box>
+                                        }
+                                    }}
+                                />
+                            </div>
+                        )
+                    }
+                )
+            }
 
 
 

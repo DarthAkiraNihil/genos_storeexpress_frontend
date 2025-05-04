@@ -103,7 +103,7 @@ const GenosStorExpressRouter = createBrowserRouter([
             {
                 path: '/order',
                 element:
-                    <ProtectedRoute allowCustomers>
+                    <ProtectedRoute allowCustomers allowAdmin>
                         <OrderProvider>
                             <ReportProvider>
                                 <OrderListPage />
@@ -114,7 +114,7 @@ const GenosStorExpressRouter = createBrowserRouter([
             {
                 path: '/order/:id',
                 element:
-                    <ProtectedRoute allowCustomers>
+                    <ProtectedRoute allowCustomers allowAdmin>
                         <OrderProvider>
                             <ItemProvider>
                                 <ReportProvider>

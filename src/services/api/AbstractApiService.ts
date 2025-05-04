@@ -1,11 +1,23 @@
-
+/**
+ * Класс абстрактного API
+ */
 export abstract class AbstractApiService {
     protected baseUrl: string
 
+    /**
+     * Стандартный конструктор
+     * @param baseUrl Базовая часть URL, с которого будут начинаться запросы
+     */
     constructor(baseUrl: string) {
         this.baseUrl = baseUrl
     }
 
+    /**
+     * Отлов ошибки в промисе
+     * @param promise промис
+     * @param waitForFile Если установлен, то при успешном ответе инициирует получение файла
+     * @private
+     */
     private async handleError(promise: Promise<any>, waitForFile: boolean = false): Promise<any> {
         return await promise.then(
             (response) => {
@@ -46,11 +58,16 @@ export abstract class AbstractApiService {
         )
         .catch(
             (error) => {
-                throw new Error(error);
+                console.error(error);
             }
         );
     }
 
+    /**
+     * Получение заголовков для запроса
+     * @param token Токен
+     * @private
+     */
     private getHeaders(token: string): Headers {
         const requestHeaders: HeadersInit = new Headers();
         requestHeaders.set('Content-Type', 'application/json');
@@ -60,6 +77,13 @@ export abstract class AbstractApiService {
         return requestHeaders;
     }
 
+    /**
+     * Отправка GET-запроса
+     * @param path Путь запроса (добавится в базовую часть)
+     * @param token Токен
+     * @param waitForFile Если установлен, то при успешном ответе инициирует получение файла
+     * @protected
+     */
     protected async get(path: string, token: string = "", waitForFile: boolean = false): Promise<any> {
 
         if (token) {
@@ -77,6 +101,13 @@ export abstract class AbstractApiService {
         )
     }
 
+    /**
+     * Отправка POST-запроса
+     * @param path Путь запроса (добавится в базовую часть)
+     * @param token Токен
+     * @param data Отправляемые данные
+     * @protected
+     */
     protected async post(path: string, data: any, token: string = ""): Promise<any> {
         if (data instanceof FormData) {
             return await this.handleError(
@@ -96,6 +127,13 @@ export abstract class AbstractApiService {
         )
     }
 
+    /**
+     * Отправка PUT-запроса
+     * @param path Путь запроса (добавится в базовую часть)
+     * @param token Токен
+     * @param data Отправляемые данные
+     * @protected
+     */
     protected async put(path: string, data: any, token: string = ""): Promise<any> {
         return await this.handleError(
             fetch(`${this.baseUrl}/${path}`, {
@@ -106,6 +144,12 @@ export abstract class AbstractApiService {
         )
     }
 
+    /**
+     * Отправка DELETE-запроса
+     * @param path Путь запроса (добавится в базовую часть)
+     * @param token Токен
+     * @protected
+     */
     protected async delete(path: string, token: string = ""): Promise<any> {
         if (token) {
             return await this.handleError(

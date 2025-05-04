@@ -5,6 +5,8 @@ export const ItemTypeNames: Map<ItemType, string> = new Map<ItemType, string> ([
     [ItemType.CPU, "Центральный процессор"],
     [ItemType.RAM, "Оперативная память"],
     [ItemType.GraphicsCard, "Видеокарта"],
+    [ItemType.CPUCooler, "Кулер для процессора"],
+    [ItemType.PowerSupply, "Блок питания"],
 
     [ItemType.HDD, "Жёсткий диск"],
     [ItemType.SataSSD, "Твердотельный накопитель Sata"],
@@ -22,6 +24,8 @@ export const ItemTypeNamesPlural: Map<ItemType, string> = new Map<ItemType, stri
     [ItemType.CPU, "Центральные процессоры"],
     [ItemType.RAM, "Оперативные памяти"],
     [ItemType.GraphicsCard, "Видеокарты"],
+    [ItemType.CPUCooler, "Кулеры для процессора"],
+    [ItemType.PowerSupply, "Блоки питания"],
 
     [ItemType.HDD, "Жёсткие диски"],
     [ItemType.SataSSD, "Твердотельные накопители Sata"],

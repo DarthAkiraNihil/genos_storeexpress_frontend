@@ -64,6 +64,7 @@ export const ItemDetailsPage: React.FC = () => {
                             imageUrl={itemContext.getImageUrl(item.id)}
                             name={item.name}
                             model={item.model}
+                            description={item.description}
                             price={item.price}
                             inCart={inCart}
                             discount={item.active_discount}

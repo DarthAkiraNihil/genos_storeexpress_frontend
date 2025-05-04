@@ -160,7 +160,7 @@ export const ItemForm: React.FC<ItemFormProps> = ( { item, edit, type, backLink 
                                     Выберите изображение
                                     <input
                                         type="file"
-                                        accept="image/png"
+                                        accept="image/*"
                                         hidden
                                         onChange={handleChangeFile}/>
                                 </Button>

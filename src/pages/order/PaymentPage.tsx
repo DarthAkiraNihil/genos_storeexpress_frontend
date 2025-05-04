@@ -175,7 +175,7 @@ export const PaymentPage: React.FC = () => {
                                 setLoading(true);
                                 orderContext?.payOrder(order!.id, selectedCard!.id, token!).then((response) => {
                                     if (response.status === 204) {
-                                        navigate("/");
+                                        navigate(`/order/${id}`);
                                     }
                                     setLoading(false);
                                 }).catch(() => {

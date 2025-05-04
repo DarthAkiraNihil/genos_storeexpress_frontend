@@ -102,13 +102,20 @@ export const ItemListPage: React.FC = ( ) => {
                 </Typography>
             </Box>
 
-            <Box display="flex" justifyContent="center">
-                <Link to={"add"}>
-                    <Button variant="contained" color="secondary" fullWidth startIcon={<Add />}>
-                        Создать
-                    </Button>
-                </Link>
-            </Box>
+            {
+                user!.role === UserRole.administrator ? (
+                    <Box display="flex" justifyContent="center">
+                        <Link to={"add"}>
+                            <Button variant="contained" color="secondary" fullWidth startIcon={<Add />}>
+                                Создать
+                            </Button>
+                        </Link>
+                    </Box>
+                ) : (
+                    <div />
+                )
+            }
+
 
             <Box display="flex" justifyContent="center">
                 <ItemFilters
@@ -120,36 +127,34 @@ export const ItemListPage: React.FC = ( ) => {
 
             <Card sx={{ display: 'flex', padding: '20px', justifyContent: "center", alignItems: "center" }} >
                 <Stack className="list" spacing={8} >
-                    <Box display="flex" justifyContent="center" alignItems="center">
-                        {
-                            items.items.length > 0 ? items.items.map((item) => {
-                                    console.log(item);
-                                    return (
-                                        <div key={item.id} className="card">
-                                            < ItemListCard
-                                                id={item.id}
-                                                name={item.name}
-                                                model={item.model}
-                                                price={item.price}
-                                                imageUrl={context.getImageUrl(item.id)}
-                                                rating={item.overall_rating}
-                                                reviewsCount={item.reviews_count}
-                                                discount={item.active_discount}
-                                                onConfirmDelete={(id: number) => {
-                                                    return context?.deleteItem(id, item.item_type, token!)
-                                                }}
-                                                isAdministrator={ user!.role === UserRole.administrator}
-                                            />
-                                        </div>
-                                    )
-                                }
-                            ) : (
-                                <h3>
-                                    Ничего не найдено :(
-                                </h3>
-                            )
-                        }
-                    </Box>
+                    {
+                        items.items.length > 0 ? items.items.map((item) => {
+                                console.log(item);
+                                return (
+                                    <div key={item.id} className="card">
+                                        < ItemListCard
+                                            id={item.id}
+                                            name={item.name}
+                                            model={item.model}
+                                            price={item.price}
+                                            imageUrl={context.getImageUrl(item.id)}
+                                            rating={item.overall_rating}
+                                            reviewsCount={item.reviews_count}
+                                            discount={item.active_discount}
+                                            onConfirmDelete={(id: number) => {
+                                                return context?.deleteItem(id, item.item_type, token!)
+                                            }}
+                                            isAdministrator={ user!.role === UserRole.administrator }
+                                        />
+                                    </div>
+                                )
+                            }
+                        ) : (
+                            <h3>
+                                Ничего не найдено :(
+                            </h3>
+                        )
+                    }
 
                     <Box display="flex" justifyContent="center">
                         <Pagination count={Math.floor(items.count / 10) + 1} shape="rounded" onChange={handleChangePage}

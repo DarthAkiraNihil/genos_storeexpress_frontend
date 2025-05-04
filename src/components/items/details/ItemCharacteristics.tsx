@@ -11,21 +11,28 @@ interface ItemCharacteristicsProps {
 }
 
 export const ItemCharacteristics: React.FC<ItemCharacteristicsProps> = ( {itemType, characteristics} ) => {
+
+    console.log(Array.from(ItemCharacteristicsNameMapper.mapCharacteristics(itemType, characteristics)))
+
     return (
         <Card sx={{ display: 'flex', padding: '20px', alignItems: "center" }} aria-label={"characteristics"}>
             <Grid container spacing={2}>
                 {
                     Array.from(ItemCharacteristicsNameMapper.mapCharacteristics(itemType, characteristics)).map(
-                        ([k, v]) => (
-                            <>
-                                <Grid size={3} key={k} aria-label={`${k}-characteristic-key`}>
-                                    {k}:
-                                </Grid>
-                                <Grid size={3} key={`${k}-value`} aria-label={`${k}-characteristic-value`}>
-                                    {v}
-                                </Grid>
-                            </>
-                        )
+                        (value) => {
+                            console.log(value)
+                            return (
+                                <>
+                                    <Grid size={3} key={value[0]} aria-label={`${value[0]}-characteristic-key`}>
+                                        {value[0]}:
+                                    </Grid>
+                                    <Grid size={3} key={`${value[0]}-value`}
+                                          aria-label={`${value[0]}-characteristic-value`}>
+                                        {value[1].toString()}
+                                    </Grid>
+                                </>
+                            )
+                        }
                     )
                 }
             </Grid>

@@ -4,6 +4,7 @@ import { ItemType } from "../models/items/ItemType";
 class ItemCharacteristicsNameMapperService {
 
     public mapCharacteristics(itemType: ItemType, characteristics: Characteristics): Map<string, any> {
+        console.log(itemType);
         switch (itemType) {
             case ItemType.ComputerCase: {
                 return this.mapComputerCase(characteristics);
@@ -58,6 +59,7 @@ class ItemCharacteristicsNameMapperService {
             }
 
             case ItemType.PreparedAssembly: {
+                console.log("getting chars");
                 return this.mapPreparedAssembly(characteristics);
             }
         }
@@ -87,7 +89,7 @@ class ItemCharacteristicsNameMapperService {
             ["Поддерживаемый объём ОЗУ", characteristics["supported_ram_size"]],
             ["Наличие интегрированной графики", characteristics["has_integrated_graphics"]],
             ["Поддерживаемые типы ОЗУ", characteristics["supported_ram_types"]],
-            ["Ядро", characteristics["core"]["model"]],
+            ["Ядро", characteristics["core"].name],
         ]);
     }
 
@@ -159,7 +161,7 @@ class ItemCharacteristicsNameMapperService {
             ["Версия PCI-e", characteristics["pcie_version"]],
             ["Поддерживаемые типы ОЗУ", characteristics["supported_ram_types"]],
             ["Видеопорты", characteristics["video_ports"]],
-            ["Поддерживаемые ядра процессоров", characteristics["supported_cpu_cores"]],
+            ["Поддерживаемые ядра процессоров", characteristics["supported_cpu_cores"].map((e: any) => e.name)],
             ["Чипсет", characteristics["motherboard_chipset"]["model"]],
             ["Аудиочипсет", characteristics["audio_chipset"]["model"]],
             ["Сетевой адаптер", characteristics["network_adapter"]["model"]],

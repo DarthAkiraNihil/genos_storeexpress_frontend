@@ -2,18 +2,44 @@ import React, { createContext, useContext, useState, useEffect } from "react"
 import {SignUpData, UserData, UserRole } from 'models/auth'
 import { AuthApi } from 'services/api'
 
+/**
+ * Пропсы контекста авторизации
+ */
 interface AuthContextProps {
     user: UserData | null
+    /**
+     * Метод входа в систему
+     * @param username Имя пользователя
+     * @param password Пароль
+     */
     signIn: (userName: string, password: string) => Promise<void>
+    /**
+     * Метод регистрации в система
+     * @param data Регистрационные данные
+     */
     signUp: (data: SignUpData) => Promise<void>
+    /**
+     * Метод выхода из системы
+     */
     signOut: () => void
 
+    /**
+     * Текущая роль пользователя
+     */
     role: UserRole | null
+    /**
+     * Токен пользователя
+     */
     token: string | null
 }
 
 const AuthContext = createContext<AuthContextProps | null>(null)
 
+/**
+ * Провайдер авторизационных методов
+ * @param children дети
+ * @constructor стандартный конструктор
+ */
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
     const [user, setUser] = useState<UserData | null>(localStorage.getItem('user') ? JSON.parse(localStorage.getItem("user")!) : null)
@@ -26,6 +52,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     }, [])
 
+    /**
+     * Метод входа в систему
+     * @param username Имя пользователя
+     * @param password Пароль
+     */
     const signIn = async (username: string, password: string) => {
         try {
             const response = await AuthApi.signIn({ username, password })
@@ -38,6 +69,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     }
 
+    /**
+     * Метод регистрации в система
+     * @param data Регистрационные данные
+     */
     const signUp = async (data: SignUpData): Promise<any> => {
         try {
             return await AuthApi.signUp(data)
@@ -47,6 +82,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     }
 
+    /**
+     * Метод выхода из системы
+     */
     const signOut = () => {
 
         AuthApi.signOut().then(() => {
@@ -68,6 +106,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     )
 }
 
+/**
+ * Хук для получения авторизационных данных. Нужен в том месте, где доступ имеют только авторизованные пользователи
+ */
 export const useAuth = () => {
 
     const context = useContext(AuthContext)

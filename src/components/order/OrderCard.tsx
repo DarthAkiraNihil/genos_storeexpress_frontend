@@ -35,12 +35,8 @@ export const OrderCard: React.FC<OrderCardProps> = ({
 
                     <Box sx={{ display: 'flex' }}>
 
-                        <Typography variant="h6">
+                        <Typography variant="h6" paddingRight={2}>
                             Статус: { status }
-                        </Typography>
-
-                        <Typography variant="h6">
-                            Итого: { total } руб.
                         </Typography>
 
                         <Link to={`${id}`}>

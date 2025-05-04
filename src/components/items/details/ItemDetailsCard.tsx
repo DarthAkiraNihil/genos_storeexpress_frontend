@@ -12,13 +12,14 @@ interface ItemDetailsCardProps {
     name: string;
     model: string;
     price: number;
+    description: string;
     inCart: boolean;
     discount: Discount | null;
     handleRemoveFromCart: () => void;
     handleAddToCart: () => void;
 }
 
-export const ItemDetailsCard: React.FC<ItemDetailsCardProps>  = ( { imageUrl, name, model, price, inCart, handleRemoveFromCart, handleAddToCart, discount} ) => {
+export const ItemDetailsCard: React.FC<ItemDetailsCardProps>  = ( { imageUrl, name, model, description, price, inCart, handleRemoveFromCart, handleAddToCart, discount} ) => {
     return (
         <Card sx={{ display: 'flex', padding: '32px' }} aria-label={"details_card"}>
             <CardMedia
@@ -42,6 +43,10 @@ export const ItemDetailsCard: React.FC<ItemDetailsCardProps>  = ( { imageUrl, na
 
                     <Typography sx={{ color: 'text.secondary', mb: 1.5 }} aria-label={"item_model"}>
                         { model }
+                    </Typography>
+
+                    <Typography sx={{ color: 'text.secondary', mb: 1.5 }} aria-label={"item_description"}>
+                        { description }
                     </Typography>
 
                     {
